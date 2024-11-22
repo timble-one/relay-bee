@@ -1,5 +1,5 @@
 export function RelayBeeTestComponent() {
     return (
-        <h3>RelayBeeTestComponent</h3>
+        <h3 className="text-green-700 text-2xl">RelayBeeTestComponent</h3>
     )
 }
