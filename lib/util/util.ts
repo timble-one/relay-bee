@@ -1,3 +1,6 @@
+import {useContext} from "react";
+import {EnvironmentContext} from "../EnvironmentContext";
+
 export type ExtractNodeFromEdges<
     T extends {
         readonly edges: readonly ({readonly node: unknown} | undefined | null)[] | undefined | null
@@ -19,6 +22,7 @@ export const nameToId = (name: string): string => name.toLowerCase()
     .replace('ü', 'ue')
 ;
 
-export const backendPath = (path: string): string =>
-    import.meta.env.VITE_HTTP_ENDPOINT + path
-;
+export const useBackendPath = (): (path: string) => string => {
+    const environment = useContext(EnvironmentContext)
+    return (path: string) => environment?.httpEndpoint + path
+}

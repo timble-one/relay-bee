@@ -3,7 +3,7 @@ import {OperationType} from "relay-runtime";
 import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
 import MediaUploader, {UploadMutation} from "../MediaUploader.tsx";
 import Dialog from "../../../Dialog.tsx";
-import {backendPath, nameToId} from "../../../../util/util.ts";
+import {nameToId, useBackendPath} from "../../../../util/util.ts";
 import Spinner from "../../../icon/Spinner.tsx";
 import {EndlessScrollContainer} from "../../../util/endless-scroll/EndlessScrollContainer.tsx";
 import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
@@ -38,11 +38,12 @@ export function MediaSelection<
     {title, value, query, refetchFragment, uploadMutation, onSelect, description, required = false}
     : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
 ) {
-    const [open, setOpen] = useState(false);
-    const inputId = nameToId(title);
-    const {addAlert} = useAlerts();
-    const {setSubmitListener} = useForm();
-    const {setBackOnEscape} = useContext(EscapeContext);
+    const [open, setOpen] = useState(false)
+    const inputId = nameToId(title)
+    const {addAlert} = useAlerts()
+    const {setSubmitListener} = useForm()
+    const {setBackOnEscape} = useContext(EscapeContext)
+    const backendPath = useBackendPath()
 
     useEffect(() => {
         const submitHandler = () => {
@@ -154,7 +155,8 @@ type PotentialMediaObjectProps = {
 }
 
 function PotentialMediaObject({mediaObject, onSelect}: PotentialMediaObjectProps) {
-    const contentUrl = mediaObject.contentUrl;
+    const contentUrl = mediaObject.contentUrl
+    const backendPath = useBackendPath()
     return (
         <li className="relative">
             <div

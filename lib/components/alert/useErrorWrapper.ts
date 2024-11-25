@@ -2,7 +2,7 @@ import {PayloadError} from "relay-runtime";
 import {useAlerts} from "./useAlerts.ts";
 
 export const useErrorWrapper = () => {
-    const {addAlert} = useAlerts();
+    const {addAlert} = useAlerts()
     return {
         wrapWithErrorAlerts:
             <T extends object,>({onSuccess}: { onSuccess?: (response: T) => void }) =>
@@ -10,15 +10,15 @@ export const useErrorWrapper = () => {
             {
                 if (errors) {
                     errors.forEach((error) => {
-                        addAlert(error.message, 'ERROR');
-                    });
+                        addAlert(error.message, 'ERROR')
+                    })
                 } else {
-                    onSuccess && onSuccess(response);
+                    onSuccess?.(response)
                 }
             },
         handleError: (error: Error) => {
-            console.error(error);
-            addAlert(error.message, 'ERROR');
+            console.error(error)
+            addAlert(error.message, 'ERROR')
         }
-    };
+    }
 }

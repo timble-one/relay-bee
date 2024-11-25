@@ -15,8 +15,8 @@ type Props<DATA, VALIDATION extends ZodTypeAny> = {
 export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends ZodTypeAny>(
     {data, validationSchema, update, create}: Props<DATA, VALIDATION>
 ) => {
-    const {addAlert} = useAlerts();
-    const {wrapWithErrorAlerts, handleError} = useErrorWrapper();
+    const {addAlert} = useAlerts()
+    const {wrapWithErrorAlerts, handleError} = useErrorWrapper()
 
     const commitProps = {
         onCompleted: wrapWithErrorAlerts({onSuccess: () => addAlert('Erfolgreich gespeichert!', 'SUCCESS')}),
@@ -44,11 +44,11 @@ export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends Zo
     const save = () => {
         const validData = validate(validationSchema, data)
         if (validData && hasId(validData)) {
-            update(validData);
+            update(validData)
         } else {
-            validData && create(validData);
+            if (validData) create(validData)
         }
     }
 
-    return {save, commitProps};
+    return {save, commitProps}
 }

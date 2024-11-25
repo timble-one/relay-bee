@@ -1,6 +1,6 @@
-import {login, LoginResult} from "../util/auth.ts";
 import {useState} from "react";
 import {Form} from "./input/form/Form.tsx";
+import {LoginResult, useAuth} from "../util/useAuth";
 
 type StateType = {
     email: string,
@@ -9,11 +9,12 @@ type StateType = {
 }
 
 export default function LoginForm({onSuccess}: {onSuccess: () => void}) {
-    const [state, setState] = useState<StateType>({email: '', password: ''});
+    const [state, setState] = useState<StateType>({email: '', password: ''})
+    const {login} = useAuth()
 
     const loginAction = () => {
         if (!(state.email && state.password)) {
-            setState({...state, message: 'Bitte Email und Passwort angeben.'});
+            setState({...state, message: 'Bitte Email und Passwort angeben.'})
         } else {
             login(state.email, state.password)
             .then(onSuccess)
@@ -23,9 +24,9 @@ export default function LoginForm({onSuccess}: {onSuccess: () => void}) {
                 else if (result === 'error') {
                     setState({...state, message: 'Es gab einen Fehler beim Anmelden.'});
                 }
-            });
+            })
         }
-    };
+    }
 
     return <>
         <Form className="space-y-4 md:space-y-6" onSubmit={loginAction}>

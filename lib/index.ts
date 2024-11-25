@@ -1,10 +1,9 @@
 export type {EntityDescription} from "./EntityDescription.tsx"
-
+export {useRelayEnvironmentCreator} from "./useRelayEnvironmentCreator"
 
 // -- util
 export type {ExtractNodeFromEdges} from "./util/util.ts"
-export {backendPath} from "./util/util.ts"
-export {logout, getCurrentUser} from "./util/auth.ts"
+export {useAuth} from "./util/useAuth.ts"
 export {createRouteConfig} from "./util/createRouteConfig.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 

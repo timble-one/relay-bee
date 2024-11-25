@@ -1,4 +1,4 @@
-import {FetchError} from "../../RelayEnvironment.ts";
+import {FetchError} from "../../useRelayEnvironmentCreator.ts";
 import LoginForm from "../LoginForm.tsx";
 import {useRouter} from "found";
 

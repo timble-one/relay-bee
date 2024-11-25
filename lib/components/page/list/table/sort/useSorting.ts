@@ -53,7 +53,7 @@ export function useSorting<T>(
         if (enableDefault && sortingCombination != defaultSortingCombination) {
             setEnableDefault(false)
         }
-    }, [sortingCombination])
+    }, [defaultSortingCombination, enableDefault, sortingCombination])
 
     const sortingQuery = Object.entries(sortingCombination).map(([c, o]) => ({[c]: o}));
     return {sortingCombination, sortingQuery, sort}

@@ -3,33 +3,36 @@ import {EntityDescription} from "../../../EntityDescription.tsx";
 import {Form} from "../../input/form/Form.tsx";
 import {TrashIcon} from "@heroicons/react/16/solid";
 import DeleteConfirmation from "../list/table/delete/DeleteConfirmation.tsx";
-import {useActDeleteMutation} from "../../../app/acts/useActDeleteMutation.ts";
 import useDeleter from "../../util/useDeleter.ts";
 import Breadcrumbs from "../../Breadcrumbs.tsx";
 import {Link, useRouter} from "found";
 import {EscapeContext} from "../../util/escape/EscapeContext.ts";
 import {useBackOnEscape} from "../../util/escape/useBackOnEscape.ts";
+import {TypedGQL, untypeGQL} from "../../../util/typeGQL";
+import {MutationParameters} from "relay-runtime";
+import {useMutation} from "react-relay";
 
-type Props = {
+type Props<DELETE_MUTATION> = {
     children: ReactNode,
     entityDescription: EntityDescription,
     objectName?: string,
     state: {id?: string},
-    onSubmit: () => void
+    onSubmit: () => void,
+    deleteMutation: TypedGQL<DELETE_MUTATION>
 }
 
-export function DetailPage(
-    {children, entityDescription, objectName, state, onSubmit}: Props
+export function DetailPage<DELETE_MUTATION extends MutationParameters & {variables: {id: string}}>(
+    {children, entityDescription, objectName, state, onSubmit, deleteMutation}: Props<DELETE_MUTATION>
 ) {
-    const [commitDelete] = useActDeleteMutation();
-    const {getDeleter} = useDeleter(entityDescription.title.singular, commitDelete);
-    const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
-    const {router} = useRouter();
-    const escapeContext = useBackOnEscape(`/${entityDescription.handle}`);
+    const [commitDelete] = useMutation<DELETE_MUTATION>(untypeGQL(deleteMutation))
+    const {getDeleter} = useDeleter(entityDescription.title.singular, commitDelete)
+    const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
+    const {router} = useRouter()
+    const escapeContext = useBackOnEscape(`/${entityDescription.handle}`)
 
     const deleteAct = () => {
-        getDeleter(state?.id, () => router.push(`/${entityDescription.handle}`))();
-    };
+        getDeleter(state?.id, () => router.push(`/${entityDescription.handle}`))()
+    }
 
     return (
         <div className="flex flex-col gap-8">
