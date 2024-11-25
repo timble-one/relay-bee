@@ -1,4 +1,5 @@
 # Todo
+ - ProjectErrors resolven, welche im WebStorm angezeigt werden
  - Im ScrollVisibilityTrigger.tsx wurden im useEffect alle Abhängigkeiten hinzugefügt
    - Führt das jetzt zu endlos loop?
      - Kurz mit einem console.debug checken
