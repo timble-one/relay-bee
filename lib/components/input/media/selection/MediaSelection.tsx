@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
-import {graphql} from "relay-runtime";
-import {useFragment, useLazyLoadQuery, usePaginationFragment} from "react-relay";
-import MediaUploader from "../MediaUploader.tsx";
+import {OperationType} from "relay-runtime";
+import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
+import MediaUploader, {UploadMutation} from "../MediaUploader.tsx";
 import Dialog from "../../../Dialog.tsx";
 import {backendPath, nameToId} from "../../../../util/util.ts";
 import Spinner from "../../../icon/Spinner.tsx";
@@ -10,31 +10,35 @@ import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibi
 import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
 import {EscapeContext} from "../../../util/escape/EscapeContext.ts";
-import {MediaSelection_mediaObject$key} from "./__generated__/MediaSelection_mediaObject.graphql.ts";
-import {MediaSelection_mediaObjects$key} from "./__generated__/MediaSelection_mediaObjects.graphql.ts";
-import {MediaSelectionQuery} from "./__generated__/MediaSelectionQuery.graphql.ts";
-import {MediaSelection_mediaObjectEdge$key} from "./__generated__/MediaSelection_mediaObjectEdge.graphql.ts";
 import TooltipIcon from "../../../icon/TooltipIcon.tsx";
+import {KeyType} from "react-relay/relay-hooks/helpers";
+import {TypedGql, untypeGql} from "../../../../util/typeGql";
 
-// I never had problems with this :)
-// eslint-disable-next-line react-refresh/only-export-components
-export const mediaSelectionObjectFragment = graphql `fragment MediaSelection_mediaObject on MediaObject {
-    # id can be useful for parent components
-    # eslint-disable-next-line relay/unused-fields
-    id contentUrl
-}`
+export type MediaObject = {id: string, contentUrl: string}
 
-type Props = {
+type MediaObjectsResult = {mediaObjects: {__id: string, edges: {node: MediaObject}[]}}
+type RefetchableFragment = KeyType & {' $data': MediaObjectsResult}
+
+type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     title: string,
-    value: MediaSelection_mediaObject$key | undefined | null,
-    onSelect: (mediaObject: MediaSelection_mediaObject$key) => void
+    value: MediaObject | undefined | null,
+    query: TypedGql<QUERY>,
+    refetchFragment: TypedGql<REFETCH_FRAGMENT>,
+    uploadMutation: TypedGql<UPLOAD_MUTATION>,
+    onSelect: (mediaObject: MediaObject) => void
     description?: string
     required?: boolean
 }
 
-export function MediaSelection({title, value: mediaData, onSelect, description, required = false}: Props) {
+export function MediaSelection<
+    QUERY extends OperationType & {response: REFETCH_FRAGMENT},
+    REFETCH_FRAGMENT extends RefetchableFragment,
+    UPLOAD_MUTATION extends UploadMutation
+>(
+    {title, value, query, refetchFragment, uploadMutation, onSelect, description, required = false}
+    : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
+) {
     const [open, setOpen] = useState(false);
-    const mediaObject = useFragment(mediaSelectionObjectFragment, mediaData);
     const inputId = nameToId(title);
     const {addAlert} = useAlerts();
     const {setSubmitListener} = useForm();
@@ -42,18 +46,18 @@ export function MediaSelection({title, value: mediaData, onSelect, description, 
 
     useEffect(() => {
         const submitHandler = () => {
-            if (required && !mediaObject) {
-                addAlert(`"${title}" ist ein Pflichtfeld`, 'WARNING');
-                return false;
+            if (required && !value) {
+                addAlert(`"${title}" ist ein Pflichtfeld`, 'WARNING')
+                return false
             }
-            return true;
-        };
-        setSubmitListener(() => submitHandler);
-    }, [required, mediaObject]);
+            return true
+        }
+        setSubmitListener(() => submitHandler)
+    }, [addAlert, required, setSubmitListener, title, value])
 
     useEffect(() => {
-        setBackOnEscape && setBackOnEscape(!open);
-    }, [open]);
+        setBackOnEscape?.(!open)
+    }, [setBackOnEscape, open])
 
     return (
         <>
@@ -71,10 +75,10 @@ export function MediaSelection({title, value: mediaData, onSelect, description, 
                 <div className="flex flex-col gap-2 items-start"
                      onClick={() => setOpen(true)}
                 >
-                    {mediaObject?.contentUrl &&
+                    {value?.contentUrl &&
                       <div className="flex flex-col justify-center">
                         <img
-                          src={backendPath(mediaObject.contentUrl)} alt="image of act"
+                          src={backendPath(value.contentUrl)} alt="image of act"
                           className="max-h-32 max-w-32"
                         />
                       </div>
@@ -87,50 +91,55 @@ export function MediaSelection({title, value: mediaData, onSelect, description, 
                 </div>
             </div>
             <Dialog open={open} title="Bild auswählen" onClose={() => setOpen(false)}>
-                <MediaSelectionDialog onSelect={onSelect} onClose={() => setOpen(false)}/>
+                <MediaSelectionDialog
+                    query={query}
+                    refetchFragment={refetchFragment}
+                    uploadMutation={uploadMutation}
+                    onSelect={onSelect}
+                    onClose={() => setOpen(false)}
+                />
             </Dialog>
         </>
     );
 }
 
-type MediaSelectionProps = {
-    onSelect: (mediaObject: MediaSelection_mediaObject$key) => void,
+type MediaSelectionProps<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
+    query: TypedGql<QUERY>,
+    refetchFragment: TypedGql<REFETCH_FRAGMENT>,
+    uploadMutation: TypedGql<UPLOAD_MUTATION>,
+    onSelect: (mediaObject: MediaObject) => void,
     onClose: () => void
 }
 
-function MediaSelectionDialog({onSelect, onClose}: MediaSelectionProps) {
-    const selectHandler = (mediaObject: MediaSelection_mediaObject$key) => {
-        onSelect(mediaObject);
-        onClose();
+function MediaSelectionDialog<
+    REFETCH_FRAGMENT extends RefetchableFragment,
+    QUERY extends OperationType & {response: REFETCH_FRAGMENT},
+    UPLOAD_MUTATION extends UploadMutation
+>(
+    {query, refetchFragment, uploadMutation, onSelect, onClose}: MediaSelectionProps<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
+) {
+    const selectHandler = (mediaObject: MediaObject) => {
+        onSelect(mediaObject)
+        onClose()
     }
-    const mediaObjectsRef: MediaSelection_mediaObjects$key = useLazyLoadQuery<MediaSelectionQuery>(
-      graphql `query MediaSelectionQuery {...MediaSelection_mediaObjects}`, {}
-    );
+    const mediaObjectResult = useLazyLoadQuery<QUERY>(untypeGql(query), {})
     const {data: {mediaObjects}, loadNext, hasNext, isLoadingNext}
-    = usePaginationFragment(graphql`
-        fragment MediaSelection_mediaObjects on Query
-        @argumentDefinitions(
-            count: {type: "Int", defaultValue: 12}
-            cursor: {type: "String", defaultValue: null}
-        )
-        @refetchable(queryName: "MediaSelectionPaginationQuery") {
-            mediaObjects(order: [{id: "DESC"}], first: $count, after: $cursor)
-            @connection(key: "MediaSelection_mediaObjects") {
-                __id
-                edges {...MediaSelection_mediaObjectEdge}
-            }
-        }`,
-        mediaObjectsRef,
-    );
+        = usePaginationFragment(untypeGql(refetchFragment), mediaObjectResult)
+    ;
     return (
         <EndlessScrollContainer className="overflow-y-scroll flex flex-col gap-4 pr-2 max-h-96">
-            {mediaObjects && <MediaUploader mediaObjectsConnection={mediaObjects?.__id}/>}
+            {mediaObjects &&
+                <MediaUploader
+                  mutation={uploadMutation}
+                  mediaObjectsConnection={mediaObjects?.__id}
+                />
+            }
             {mediaObjects?.edges &&
                 <ul role="list"
                     className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-4"
                 >
                     {mediaObjects.edges.map((mediaEdge, i) => mediaEdge &&
-                    <PotentialMediaObject mediaEdgeFragment={mediaEdge} onSelect={selectHandler} key={i}/>)}
+                    <PotentialMediaObject mediaObject={mediaEdge.node} onSelect={selectHandler} key={i}/>)}
                 </ul>
             }
             <ScrollVisibilityTrigger trigger={() => loadNext(24)} isActive={!isLoadingNext && hasNext}/>
@@ -140,22 +149,17 @@ function MediaSelectionDialog({onSelect, onClose}: MediaSelectionProps) {
 }
 
 type PotentialMediaObjectProps = {
-    mediaEdgeFragment: MediaSelection_mediaObjectEdge$key,
-    onSelect: (mediaEdge: MediaSelection_mediaObject$key) => void
+    mediaObject: MediaObject,
+    onSelect: (mediaObject: MediaObject) => void
 }
 
-function PotentialMediaObject({mediaEdgeFragment, onSelect}: PotentialMediaObjectProps) {
-    const mediaEdge = useFragment(
-        graphql`fragment MediaSelection_mediaObjectEdge on MediaObjectEdge {
-            node { contentUrl ...MediaSelection_mediaObject }
-        }`, mediaEdgeFragment
-    );
-    const contentUrl = mediaEdge.node?.contentUrl;
+function PotentialMediaObject({mediaObject, onSelect}: PotentialMediaObjectProps) {
+    const contentUrl = mediaObject.contentUrl;
     return (
         <li className="relative">
             <div
                 className="group w-24 min-h-16 block overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100"
-                onClick={() => mediaEdge.node && onSelect(mediaEdge.node)}
+                onClick={() => onSelect(mediaObject)}
             >
                 <img alt="potential image"
                      className="pointer-events-none object-cover group-hover:opacity-75"

@@ -1,15 +1,12 @@
 import {useState} from "react";
-import {useFragment} from "react-relay";
-import {mediaSelectionObjectFragment} from "./MediaSelection.tsx";
-import {MediaSelection_mediaObject$key} from "./__generated__/MediaSelection_mediaObject.graphql.ts";
+import {MediaObject} from "./MediaSelection";
 
-export const useSelectedMedia = (reducer: (ref: MediaSelection_mediaObject$key) => void) => {
-    const [dataRef, setDataRef] = useState<MediaSelection_mediaObject$key>();
-    const selectedMedia = useFragment(mediaSelectionObjectFragment, dataRef);
+export const useSelectedMedia = (reducer: (mediaObject: MediaObject | undefined) => void) => {
+    const [selectedMedia, setSelectedMedia] = useState<MediaObject>();
 
-    const selectMedia = (ref: MediaSelection_mediaObject$key) => {
-        reducer(ref);
-        setDataRef(ref);
+    const selectMedia = (selection: MediaObject) => {
+        reducer(selectedMedia);
+        setSelectedMedia(selection);
     };
 
     return {selectedMedia, selectMedia};

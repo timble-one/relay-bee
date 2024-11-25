@@ -1,48 +1,45 @@
-import {graphql} from "relay-runtime";
+import {MutationParameters} from "relay-runtime";
 import {useMutation} from "react-relay";
 import React, {ChangeEvent} from "react";
-import {MediaUploaderMutation} from "./__generated__/MediaUploaderMutation.graphql.ts";
 import UploadIcon from "../../icon/UploadIcon.tsx";
+import {TypedGql, untypeGql} from "../../../util/typeGql";
 
-const mediaObjectUploadMutation = graphql`
-    mutation MediaUploaderMutation(
-        $connections: [ID!]!
-        $file: Upload!
-    ) {
-        uploadMediaObject(input: {file: $file}) {
-            mediaObject @prependNode(connections: $connections, edgeTypeName: "MediaObjectEdge") {
-                id
-                contentUrl
-}}}`;
+export type UploadMutation = MutationParameters & {
+    variables: {connections: string[], file: File[]},
+    uploadables: {file: File}
+}
 
-type Props = {
+type Props<MUTATION> = {
+    mutation: TypedGql<MUTATION>,
     mediaObjectsConnection: string
-};
+}
 
-export default function MediaUploader({mediaObjectsConnection}: Props) {
-    const [commitImage] = useMutation<MediaUploaderMutation>(mediaObjectUploadMutation);
+export default function MediaUploader<MUTATION extends UploadMutation>(
+    {mutation, mediaObjectsConnection}: Props<MUTATION>
+) {
+    const [commitImage] = useMutation<MUTATION>(untypeGql(mutation))
 
     const uploadFile = (file: File) => {
         commitImage({
             variables: {connections: [mediaObjectsConnection], file: [file]}, uploadables: {file},
-        });
+        })
     }
 
     const selectHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
+        const files = e.target.files
         if (files) {
-            uploadFile(files[0]);
+            uploadFile(files[0])
         }
-    };
+    }
 
     const dropHandler = (e: React.DragEvent) => {
-        e.preventDefault();
+        e.preventDefault()
         if (e.dataTransfer?.items) {
-            const file = e.dataTransfer.items[0].getAsFile();
-            file && uploadFile(file);
+            const file = e.dataTransfer.items[0].getAsFile()
+            if (file) uploadFile(file)
         } else {
-            const file = e.dataTransfer?.items[0].getAsFile();
-            file && uploadFile(file);
+            const file = e.dataTransfer?.items[0].getAsFile()
+            if (file) uploadFile(file)
         }
     }
 

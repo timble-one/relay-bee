@@ -1,10 +1,7 @@
 # Todo
- - Problematik mit Fragments und Queries in MediaSelection und MediaUploader lösen
-    - Es gibt in dieser Library kein Schema
-      - Dann kann es auch keine Fragments/Queries geben?
-    - Sollten einfach allgemeine Typen definiert werden und das definieren der Queries/Fragments zur verwendeneden Applikation überlassen werden?
  - Alle Fehler beheben
  - Unterschied zwischen LoadingIndicator und Spinner?
+ - Die Library im OAD-Backend testweise einbauen
 
 # React + TypeScript + Vite
 
