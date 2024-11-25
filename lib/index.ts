@@ -6,7 +6,7 @@ export type {ExtractNodeFromEdges} from "./util/util.ts"
 export {backendPath} from "./util/util.ts"
 export {logout, getCurrentUser} from "./util/auth.ts"
 export {createRouteConfig} from "./util/createRouteConfig.ts"
-export {typeGql, untypeGql} from "./util/typeGql.ts"
+export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 
 // -- components
 export {LoadingIndicator} from "./components/LoadingIndicator.tsx"

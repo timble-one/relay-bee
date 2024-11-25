@@ -12,7 +12,7 @@ import {useForm} from "../../form/useForm.ts";
 import {EscapeContext} from "../../../util/escape/EscapeContext.ts";
 import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
-import {TypedGql, untypeGql} from "../../../../util/typeGql";
+import {TypedGQL, untypeGQL} from "../../../../util/typeGQL";
 
 export type MediaObject = {id: string, contentUrl: string}
 
@@ -22,9 +22,9 @@ type RefetchableFragment = KeyType & {' $data': MediaObjectsResult}
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     title: string,
     value: MediaObject | undefined | null,
-    query: TypedGql<QUERY>,
-    refetchFragment: TypedGql<REFETCH_FRAGMENT>,
-    uploadMutation: TypedGql<UPLOAD_MUTATION>,
+    query: TypedGQL<QUERY>,
+    refetchFragment: TypedGQL<REFETCH_FRAGMENT>,
+    uploadMutation: TypedGQL<UPLOAD_MUTATION>,
     onSelect: (mediaObject: MediaObject) => void
     description?: string
     required?: boolean
@@ -104,9 +104,9 @@ export function MediaSelection<
 }
 
 type MediaSelectionProps<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
-    query: TypedGql<QUERY>,
-    refetchFragment: TypedGql<REFETCH_FRAGMENT>,
-    uploadMutation: TypedGql<UPLOAD_MUTATION>,
+    query: TypedGQL<QUERY>,
+    refetchFragment: TypedGQL<REFETCH_FRAGMENT>,
+    uploadMutation: TypedGQL<UPLOAD_MUTATION>,
     onSelect: (mediaObject: MediaObject) => void,
     onClose: () => void
 }
@@ -122,9 +122,9 @@ function MediaSelectionDialog<
         onSelect(mediaObject)
         onClose()
     }
-    const mediaObjectResult = useLazyLoadQuery<QUERY>(untypeGql(query), {})
+    const mediaObjectResult = useLazyLoadQuery<QUERY>(untypeGQL(query), {})
     const {data: {mediaObjects}, loadNext, hasNext, isLoadingNext}
-        = usePaginationFragment(untypeGql(refetchFragment), mediaObjectResult)
+        = usePaginationFragment(untypeGQL(refetchFragment), mediaObjectResult)
     ;
     return (
         <EndlessScrollContainer className="overflow-y-scroll flex flex-col gap-4 pr-2 max-h-96">
