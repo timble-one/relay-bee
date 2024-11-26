@@ -3,8 +3,9 @@ import {transformObjectMap} from "../../../../../util/util.ts";
 import {useRouter} from "found";
 import {useEffect, useState} from "react";
 
-export type SortingCombination<T = Record<string, unknown>> = {[p in keyof T]?: SortKey}
-export type SortFunction<T = Record<string, unknown>> = (column: keyof T) => (order: SortKey | undefined) => void
+export type GenericSortingCombination = Record<string, string | null>
+export type SortingCombination<T = GenericSortingCombination> = {[p in keyof T]?: SortKey}
+export type SortFunction<T = GenericSortingCombination> = (column: keyof T) => (order: SortKey | undefined) => void
 type SearchParamsArray = [string, string][]
 
 type Props<T> = {

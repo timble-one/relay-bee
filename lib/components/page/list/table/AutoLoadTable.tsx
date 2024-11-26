@@ -4,10 +4,10 @@ import Spinner from "../../../icon/Spinner.tsx";
 import DeleteConfirmation from "./delete/DeleteConfirmation.tsx";
 import useDeleter, {DeleteListener} from "../../../util/useDeleter.ts";
 import {DeleteContext} from "./delete/DeleteContext.ts";
-import {SortFunction, SortingCombination} from "./sort/useSorting.ts";
+import {GenericSortingCombination, SortFunction, SortingCombination} from "./sort/useSorting.ts";
 import {SortingContext} from "./sort/SortingContext.ts";
 
-type Props = {
+type Props<SORTING_ORDER> = {
     title: string,
     demonstrativePronoun: string,
     children: ReactNode,
@@ -15,11 +15,11 @@ type Props = {
     isLoadingNext: boolean,
     onLoadNext: (count: number) => void,
     onDelete: DeleteListener,
-    sortFunction: SortFunction,
+    sortFunction: SortFunction<SORTING_ORDER>,
     sortingCombination: SortingCombination
 };
 
-export function AutoLoadTable({
+export function AutoLoadTable<SORTING_ORDER extends GenericSortingCombination>({
     title,
     demonstrativePronoun,
     children,
@@ -29,7 +29,7 @@ export function AutoLoadTable({
     onDelete,
     sortFunction,
     sortingCombination
-}: Props) {
+}: Props<SORTING_ORDER>) {
     const [deleteConfirmationId, setDeleteConfirmationId] = useState<string | undefined>();
     const {getDeleter} = useDeleter(title, onDelete);
     return (
