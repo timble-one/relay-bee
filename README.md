@@ -1,5 +1,6 @@
 # Todo
  - Fehler finden. Es kommt irgend ein Fehler von der `useRouter` Hook im `useSorting` (siehe 'npm run dev`)
+   - Vermutlich liegt es daran, dass `useRouter` und der Router (Provider) nicht den gleichen Kontext verwenden (innerhalb und ausserhalb der library)
  - Die Library im OAD-Backend testweise einbauen
  - Im ScrollVisibilityTrigger.tsx wurden im useEffect alle Abhängigkeiten hinzugefügt
    - Führt das jetzt zu endlos loop?
