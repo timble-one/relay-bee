@@ -1,3 +1,5 @@
+import "./index.css"
+
 export type {EntityDescription} from "./EntityDescription.tsx"
 export {useRelayEnvironmentCreator} from "./useRelayEnvironmentCreator"
 
