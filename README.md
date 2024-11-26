@@ -1,4 +1,6 @@
 # Todo
+ - Fehler finden. Es kommt irgend ein Fehler von der `useRouter` Hook im `useSorting` (siehe 'npm run dev`)
+ - Die Library im OAD-Backend testweise einbauen
  - Im ScrollVisibilityTrigger.tsx wurden im useEffect alle Abhängigkeiten hinzugefügt
    - Führt das jetzt zu endlos loop?
      - Kurz mit einem console.debug checken
@@ -9,8 +11,6 @@
    - Kurz checken ob der Trick mit der defaultSortingCombination noch funktioniert?
      - Da wurde auch das useEffect erweitert (siehe useSorting)
  - Unterschied zwischen LoadingIndicator und Spinner?
- - Die Library im OAD-Backend testweise einbauen
- - Die Library richtig auf NPM publishen
 
 # React + TypeScript + Vite
 
