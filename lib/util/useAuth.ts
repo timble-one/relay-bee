@@ -1,12 +1,12 @@
 import {useContext} from "react";
-import {EnvironmentContext} from "../EnvironmentContext";
+import {SystemEnvContext} from "../SystemEnvContext.ts";
 
 type User = {token: string};
 
 export type LoginResult = 'success' | 'invalid-credentials' | 'error';
 
 export const useAuth = () => {
-    const env = useContext(EnvironmentContext)
+    const env = useContext(SystemEnvContext)
 
     const login = async (email: string, password: string): Promise<LoginResult> => {
         const response = await fetch(`${env?.httpEndpoint}/auth`, {

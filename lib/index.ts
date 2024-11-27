@@ -1,12 +1,16 @@
 import "./index.css"
 
 export type {EntityDescription} from "./EntityDescription.tsx"
+export {SystemEnvContext} from "./SystemEnvContext.ts"
 
 // -- util
 export type {ExtractNodeFromEdges} from "./util/util.ts"
 export {useAuth} from "./util/useAuth.ts"
-export {useRelayEnvironmentCreator} from "./util/useRelayEnvironmentCreator.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
+
+// util/relay
+export {useRBeeEnvironment} from "./util/relay/useRBeeEnvironment.tsx"
+export {RBeeEnvironmentProvider} from "./util/relay/RBeeEnvironmentProvider.tsx"
 
 // util/router
 export {createRouteConfig} from "./util/router/createRouteConfig.ts"

@@ -1,13 +1,12 @@
 import {createContext, useContext} from "react";
 import {RouterState} from "found";
 
-type RBeeRouterContext = RouterState | undefined
-export const RBeeRouterContext = createContext<RBeeRouterContext>(undefined)
+export const RBeeRouterContext = createContext<RouterState | undefined>(undefined)
 
 export const usePeerRouter = () => {
-    const rBeeRouterContext = useContext(RBeeRouterContext)
-    if (!rBeeRouterContext) {
+    const context = useContext(RBeeRouterContext)
+    if (!context) {
         throw new Error('RBeeRouterContext must be defined')
     }
-    return rBeeRouterContext
+    return context
 }

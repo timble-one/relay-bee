@@ -5,14 +5,14 @@ import {
   Store,
   FetchFunction,
 } from "relay-runtime";
-import {useAuth} from "./useAuth.ts";
+import {useAuth} from "../useAuth.ts";
 import {useContext} from "react";
-import {EnvironmentContext} from "../EnvironmentContext.ts";
+import {SystemEnvContext} from "../../SystemEnvContext.ts";
 
 export type FetchError = {message: 'unauthorized' | 'missing-credentials'};
 
 export const useRelayEnvironmentCreator = () => {
-  const env = useContext(EnvironmentContext)
+  const env = useContext(SystemEnvContext)
   const {getCurrentUser} = useAuth()
 
   const fetchFn: FetchFunction = async (operation, variables, _cacheConfig, uploadables) => {
@@ -66,9 +66,10 @@ export const useRelayEnvironmentCreator = () => {
     return data;
   };
 
-  return () =>
+  return () => (
     new Environment({
-    network: Network.create(fetchFn),
-    store: new Store(new RecordSource()),
-  })
+      network: Network.create(fetchFn),
+      store: new Store(new RecordSource())
+    })
+  )
 }
