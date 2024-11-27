@@ -1,7 +1,9 @@
 # Todo
- - Fehler finden. Es kommt irgend ein Fehler von der `useRouter` Hook im `useSorting` (siehe 'npm run dev`)
-   - Vermutlich liegt es daran, dass `useRouter` und der Router (Provider) nicht den gleichen Kontext verwenden (innerhalb und ausserhalb der library)
+ - Kurz versuchen einen RelayBeeContext zu erstellen um den Router relay-bee zur Verfügung zu stellen
+   - dann muss er nicht bei jedem Aufruf von `useTable` mitgegeben werden und muss dann auch nicht innerhalb von relay-bee an `useSorting` weitergegeben werden
+   - Wenn das nicht schnell funktioniert, dafür einen Issue erstellen -> hat keine Prio!
  - Die Library im OAD-Backend testweise einbauen
+   - Fehler beheben
  - Im ScrollVisibilityTrigger.tsx wurden im useEffect alle Abhängigkeiten hinzugefügt
    - Führt das jetzt zu endlos loop?
      - Kurz mit einem console.debug checken
