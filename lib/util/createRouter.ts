@@ -1,6 +1,14 @@
-import {RouteConfig} from "found";
+import {createFarceRouter, RouteConfig} from "found";
 import {ComponentType} from "react";
 import {GraphQLTaggedNode} from "relay-runtime";
+import {BrowserProtocol, queryMiddleware} from "farce";
+
+export const createRouter = (routes: RouteConfig) =>
+    createFarceRouter({
+        historyProtocol: new BrowserProtocol(),
+        historyMiddlewares: [queryMiddleware],
+        routeConfig: routes,
+})
 
 export type RelayableRouteObject<VARIABLES> = {
     children?: RouteConfig | Record<string, RouteConfig>
