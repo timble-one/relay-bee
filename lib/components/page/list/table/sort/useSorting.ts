@@ -1,7 +1,7 @@
 import {SortKey, sortKeys} from "./SortKey.ts";
 import {transformObjectMap} from "../../../../../util/util.ts";
-import {RouterState} from "found";
 import {useEffect, useState} from "react";
+import {usePeerRouter} from "../../../../../util/router/usePeerRouter.ts";
 
 export type GenericSortingCombination = Record<string, string | null>
 export type SortingCombination<T = GenericSortingCombination> = {[p in keyof T]?: SortKey}
@@ -10,13 +10,12 @@ type SearchParamsArray = [string, string][]
 
 type Props<T> = {
     defaultSortingCombination: SortingCombination<T>,
-    router: RouterState
 }
 
 export function useSorting<T>(
-    {defaultSortingCombination, router: foundRouter}: Props<T>
+    {defaultSortingCombination}: Props<T>
 ) {
-    const {match, router} = foundRouter
+    const {match, router} = usePeerRouter()
     const searchParamArray: SearchParamsArray = Array.from(Object.entries(match.location.query))
 
     // the default sorting is disabled as soon as the order changed manually

@@ -2,7 +2,7 @@ import {RouteConfig} from "found";
 import {ComponentType} from "react";
 import {GraphQLTaggedNode} from "relay-runtime";
 
-export type RelayableRouteObject<VARIABLES> = {
+export type RBeeRouteObject<VARIABLES> = {
     children?: RouteConfig | Record<string, RouteConfig>
     Component?: ComponentType<unknown>
     path?: string
@@ -10,7 +10,7 @@ export type RelayableRouteObject<VARIABLES> = {
     prepareVariables?: (params: Record<string, string>) => VARIABLES
 }
 
-export const createRouteConfig = (routeConfig: RelayableRouteObject<unknown>[]): RouteConfig => {
+export const createRouteConfig = (routeConfig: RBeeRouteObject<unknown>[]): RouteConfig => {
     return routeConfig.map(c => ({
         ...c,
         fetchPolicy: 'store-or-network',
