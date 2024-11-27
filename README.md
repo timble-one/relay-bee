@@ -1,6 +1,7 @@
 # Todo
- - Kurz versuchen einen RelayBeeContext zu erstellen um den Router relay-bee zur Verfügung zu stellen
+ - Kurz versuchen einen `RBeeRouterContext` zu erstellen um den Router relay-bee zur Verfügung zu stellen
    - dann muss er nicht bei jedem Aufruf von `useTable` mitgegeben werden und muss dann auch nicht innerhalb von relay-bee an `useSorting` weitergegeben werden
+   - In relay-bee könnte dafür dann eine `usePeerRouter` Hook oder so gemacht werden
    - Wenn das nicht schnell funktioniert, dafür einen Issue erstellen -> hat keine Prio!
  - Die Library im OAD-Backend testweise einbauen
    - Fehler beheben
