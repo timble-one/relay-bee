@@ -1,7 +1,15 @@
 import "./index.css"
 
 export type {EntityDescription} from "./EntityDescription.tsx"
-export {useRelayEnvironmentCreator} from "./useRelayEnvironmentCreator"
+export {useRelayEnvironmentCreator} from "./useRelayEnvironmentCreator.ts"
+
+// found is proxied because otherwise separate context instances will be bundled
+/*export type {RouteConfig, Resolver} from "./found.ts"
+export {useRouter, Link} from "./found.ts"*/
+
+export type {Resolver} from "found-relay"
+export type {RouteConfig} from "found"
+export {Link, useRouter} from "found"
 
 // -- util
 export type {ExtractNodeFromEdges} from "./util/util.ts"
