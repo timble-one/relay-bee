@@ -2,7 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import {OperationType} from "relay-runtime";
 import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
 import MediaUploader, {UploadMutation} from "../MediaUploader.tsx";
-import Dialog from "../../../Dialog.tsx";
+import Dialog from "../../../dialog/Dialog.tsx";
 import {nameToId, useBackendPath} from "../../../../util/util.ts";
 import Spinner from "../../../icon/Spinner.tsx";
 import {EndlessScrollContainer} from "../../../util/endless-scroll/EndlessScrollContainer.tsx";

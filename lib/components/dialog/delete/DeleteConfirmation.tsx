@@ -1,4 +1,4 @@
-import Dialog from "../../../../Dialog.tsx";
+import Dialog from "../Dialog.tsx";
 
 type Props = {
     title: string,

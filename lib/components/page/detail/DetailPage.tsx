@@ -2,7 +2,7 @@ import {ReactNode, useState} from "react";
 import {EntityDescription} from "../../../EntityDescription.tsx";
 import {Form} from "../../input/form/Form.tsx";
 import {TrashIcon} from "@heroicons/react/16/solid";
-import DeleteConfirmation from "../list/table/delete/DeleteConfirmation.tsx";
+import DeleteConfirmation from "../../dialog/delete/DeleteConfirmation.tsx";
 import useDeleter from "../../util/useDeleter.ts";
 import Breadcrumbs from "../../Breadcrumbs.tsx";
 import {Link, useRouter} from "found";

@@ -1,9 +1,9 @@
 import {ReactNode, useState} from "react";
 import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
 import Spinner from "../../../icon/Spinner.tsx";
-import DeleteConfirmation from "./delete/DeleteConfirmation.tsx";
+import DeleteConfirmation from "../../../dialog/delete/DeleteConfirmation.tsx";
 import useDeleter, {DeleteListener} from "../../../util/useDeleter.ts";
-import {DeleteContext} from "./delete/DeleteContext.ts";
+import {DeleteContext} from "../../../dialog/delete/DeleteContext.ts";
 import {GenericSortingCombination, SortFunction, SortingCombination} from "./sort/useSorting.ts";
 import {SortingContext} from "./sort/SortingContext.ts";
 

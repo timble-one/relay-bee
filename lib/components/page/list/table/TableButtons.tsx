@@ -1,6 +1,6 @@
 import {PencilIcon, TrashIcon} from "@heroicons/react/16/solid";
 import {useContext} from "react";
-import {DeleteContext} from "./delete/DeleteContext.ts";
+import {DeleteContext} from "../../../dialog/delete/DeleteContext.ts";
 import {Link} from "found";
 
 export function TableButtons({rowId, editUrl}: {rowId: string, editUrl: string}) {
