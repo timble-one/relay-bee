@@ -1,6 +1,5 @@
 import {Context, ReactNode} from "react";
-import {Match, Router} from "found";
-import {usePeerRouter} from "./usePeerRouter.ts";
+import {Match, Router, RouterState} from "found";
 
 // copied from found-library because it is not exported
 export interface RouterContextState<TContext> {
@@ -9,12 +8,12 @@ export interface RouterContextState<TContext> {
 }
 
 type Props = {
+    router: RouterState,
     Context: Context<RouterContextState<unknown>>
     children: ReactNode
 }
 
-export const RBeeRouterProvider = ({Context, children}: Props) => {
-    const router = usePeerRouter();
+export const RBeeRouterProvider = ({router, Context, children}: Props) => {
     return (
         <Context.Provider value={router}>
             {children}
