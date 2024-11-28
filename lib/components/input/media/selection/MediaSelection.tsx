@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {OperationType} from "relay-runtime";
 import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
 import MediaUploader, {UploadMutation} from "../MediaUploader.tsx";
@@ -9,7 +9,6 @@ import {EndlessScrollContainer} from "../../../util/endless-scroll/EndlessScroll
 import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
 import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
-import {EscapeContext} from "../../../util/escape/EscapeContext.ts";
 import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 import {TypedGQL, untypeGQL} from "../../../../util/typeGQL";
@@ -42,7 +41,6 @@ export function MediaSelection<
     const inputId = nameToId(title)
     const {addAlert} = useAlerts()
     const {setSubmitListener} = useForm()
-    const {setBackOnEscape} = useContext(EscapeContext)
     const backendPath = useBackendPath()
 
     useEffect(() => {
@@ -55,10 +53,6 @@ export function MediaSelection<
         }
         setSubmitListener(() => submitHandler)
     }, [addAlert, required, setSubmitListener, title, value])
-
-    useEffect(() => {
-        setBackOnEscape?.(!open)
-    }, [setBackOnEscape, open])
 
     return (
         <>

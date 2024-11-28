@@ -1,5 +1,4 @@
 # Todo
- - Das ESC-Feature zu den Popups (z.B. Delete-Popup, gibt es noch andere?) hinzufügen
  - Die Library im OAD-Backend testweise einbauen
    - Fehler beheben
  - Im ScrollVisibilityTrigger.tsx wurden im useEffect alle Abhängigkeiten hinzugefügt

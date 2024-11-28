@@ -1,6 +1,7 @@
 import {ReactNode} from "react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {Dialog as HeadlessUiDialog, DialogBackdrop, DialogPanel, DialogTitle} from '@headlessui/react'
+import {useCloseOnEscape} from "../util/escape/useCloseOnEscape.ts";
 
 type Props = {
     title: string,
@@ -11,6 +12,7 @@ type Props = {
 }
 
 export default function Dialog({title, open, onClose, actionButtons, children}: Props) {
+    useCloseOnEscape(open)
     return (
         <HeadlessUiDialog open={open} onClose={onClose} className="relative z-10">
             <DialogBackdrop

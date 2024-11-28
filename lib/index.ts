@@ -38,7 +38,7 @@ export {TableButtons} from "./components/page/list/table/TableButtons.tsx"
 export {TableBody} from "./components/page/list/table/TableBody.tsx"
 export {AutoLoadTable} from "./components/page/list/table/AutoLoadTable.tsx"
 // components/page/detail
-export type { ValidData } from "./components/page/detail/useEntitySaver.ts"
+export type {ValidData} from "./components/page/detail/useEntitySaver.ts"
 export {useEntitySaver} from "./components/page/detail/useEntitySaver.ts"
 export {useNewEntityHandler} from "./components/page/detail/useNewEntityHandler.ts"
 export {useEntityState} from "./components/page/detail/useEntityState.ts"
