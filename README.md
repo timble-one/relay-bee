@@ -13,6 +13,8 @@
    - Kurz checken ob der Trick mit der defaultSortingCombination noch funktioniert?
      - Da wurde auch das useEffect erweitert (siehe useSorting)
  - Unterschied zwischen LoadingIndicator und Spinner?
+ - Wenn relay-bee komplett extrahiert ist, checken ob der LoadingIndicator im Suspense vom NavigationLayout wieder funktioniert?
+   - Funktioniert momentan auf der ActList nicht. Dort wird beim Laden der Tabellen-Header angezeigt und sonst nichts
 
 # React + TypeScript + Vite
 
