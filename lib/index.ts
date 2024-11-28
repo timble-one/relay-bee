@@ -9,7 +9,7 @@ export {useAuth} from "./util/useAuth.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 
 // util/relay
-export {useRBeeEnvironment} from "./util/relay/useRBeeEnvironment.tsx"
+export {useRBeeEnvironment} from "./util/relay/useRBeeEnvironment.ts"
 export {RBeeEnvironmentProvider} from "./util/relay/RBeeEnvironmentProvider.tsx"
 
 // util/router
