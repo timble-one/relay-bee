@@ -1,7 +1,7 @@
 import {SortKey, sortKeys} from "./SortKey.ts";
 import {transformObjectMap} from "../../../../../util/util.ts";
-import {useEffect, useState} from "react";
 import {useRouter} from "found";
+import {useEffect} from "react";
 
 export type GenericSortingCombination = Record<string, string | null>
 export type SortingCombination<T = GenericSortingCombination> = {[p in keyof T]?: SortKey}
@@ -17,10 +17,14 @@ export function useSorting<T>(
 ) {
     const {match, router} = useRouter()
     const searchParamArray: SearchParamsArray = Array.from(Object.entries(match.location.query))
+    useEffect(() => {setQueryParams(defaultSortingCombination)}, [])
 
-    // the default sorting is disabled as soon as the order changed manually
-    // otherwise the sorting behaviour can feel weird
-    const [enableDefault, setEnableDefault] = useState(true)
+    const setQueryParams = (sortingCombination: SortingCombination<T>) => {
+        router.replace({
+            pathname: match.location.pathname,
+            query: transformObjectMap(sortingCombination, ([c, o]) => [c + 'Order', o])
+        })
+    }
 
     const getSortingCombination = (searchParams: SearchParamsArray): SortingCombination<T> => {
         const orderParams = searchParams
@@ -29,11 +33,9 @@ export function useSorting<T>(
         ;
         if (orderParams.length) {
             return Object.fromEntries(orderParams)
-        } else if (enableDefault) {
-            return defaultSortingCombination
         }
-        return {};
-    };
+        return {}
+    }
 
     const sortingCombination = getSortingCombination(searchParamArray)
 
@@ -42,20 +44,11 @@ export function useSorting<T>(
         if (order) {
             newOrderCombination = {...sortingCombination, [column]: order}
         } else {
-            delete newOrderCombination[column];
+            delete newOrderCombination[column]
         }
-        router.replace({
-            pathname: match.location.pathname,
-            query: transformObjectMap(newOrderCombination, ([c, o]) => [c + 'Order', o])
-        })
-    };
+        setQueryParams(newOrderCombination)
+    }
 
-    useEffect(() => {
-        if (enableDefault && sortingCombination != defaultSortingCombination) {
-            setEnableDefault(false)
-        }
-    }, [defaultSortingCombination, enableDefault, sortingCombination])
-
-    const sortingQuery = Object.entries(sortingCombination).map(([c, o]) => ({[c]: o}));
+    const sortingQuery = Object.entries(sortingCombination).map(([c, o]) => ({[c]: o}))
     return {sortingCombination, sortingQuery, sort}
 }
