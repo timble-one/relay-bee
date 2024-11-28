@@ -1,4 +1,7 @@
 # Todo
+ - DetailPage im oad-backend zum Laufen bringen
+   - die ganzen Queries und anderen Parameter? der MediaSelection übergeben
+     - Ev, das MediaObject-Handling extrahieren? (oad-backend spezifisch?)
  - Die Library im OAD-Backend testweise einbauen
    - Fehler beheben
  - Im ScrollVisibilityTrigger.tsx wurden im useEffect alle Abhängigkeiten hinzugefügt
