@@ -13,7 +13,7 @@ import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 import {TypedGQL, untypeGQL} from "../../../../util/typeGQL";
 
-export type MediaObject = {id: string, contentUrl: string}
+export type MediaObject = {id: string, contentUrl: string | null | undefined}
 
 type MediaObjectsResult = {mediaObjects: {__id: string, edges: {node: MediaObject}[]}}
 type RefetchableFragment = KeyType & {' $data': MediaObjectsResult}
