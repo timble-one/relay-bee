@@ -15,6 +15,7 @@ export {RBeeEnvironmentProvider} from "./util/relay/RBeeEnvironmentProvider.tsx"
 // util/router
 export {createRouteConfig} from "./util/router/createRouteConfig.ts"
 export {RBeeRouterContext} from "./util/router/usePeerRouter.ts"
+export {RBeeRouterProvider} from "./util/router/RBeeRouterProvider.tsx"
 
 // -- components
 export {LoadingIndicator} from "./components/LoadingIndicator.tsx"
