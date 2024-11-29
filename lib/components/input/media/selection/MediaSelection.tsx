@@ -52,7 +52,7 @@ export function MediaSelection<
             return true
         }
         setSubmitListener(() => submitHandler)
-    }, [addAlert, required, setSubmitListener, title, value])
+    }, [required, title, value])
 
     return (
         <>

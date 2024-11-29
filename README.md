@@ -1,18 +1,9 @@
 # Todo
  - DetailPage im oad-backend zum Laufen bringen
-   - die ganzen Queries und anderen Parameter? der MediaSelection übergeben
-     - Ev, das MediaObject-Handling extrahieren? (oad-backend spezifisch?)
+   - testen ob die ganzen graphql-Sachen funktionieren, die jetzt der DetailPage und der MediaSelection übergeben werden?
+   - Ev, das MediaObject-Handling extrahieren? (oad-backend spezifisch?)
  - Die Library im OAD-Backend testweise einbauen
    - Fehler beheben
- - Im ScrollVisibilityTrigger.tsx wurden im useEffect alle Abhängigkeiten hinzugefügt
-   - Führt das jetzt zu endlos loop?
-     - Kurz mit einem console.debug checken
-   - Ev nicht. Wenn doch, muss wohl der Setter nur aufgerufen werden, wenn sich der Listener geändert hat.
-   - Same
-     - in useEffect von useBackOnEscape.ts
-   - Falls es allgemein noch Probleme gibt. Es wurden noch bei anderen `useEffects` Abhängigkeiten eingefügt
-   - Kurz checken ob der Trick mit der defaultSortingCombination noch funktioniert?
-     - Da wurde auch das useEffect erweitert (siehe useSorting)
  - Unterschied zwischen LoadingIndicator und Spinner?
  - Wenn relay-bee komplett extrahiert ist, checken ob der LoadingIndicator im Suspense vom NavigationLayout wieder funktioniert?
    - Funktioniert momentan auf der ActList nicht. Dort wird beim Laden der Tabellen-Header angezeigt und sonst nichts

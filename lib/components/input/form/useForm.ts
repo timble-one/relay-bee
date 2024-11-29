@@ -7,6 +7,6 @@ export function useForm() {
     useEffect(() => {
         addSubmitListener(submitListener);
         return () => removeSubmitListener(submitListener)
-    }, [addSubmitListener, removeSubmitListener, submitListener])
+    }, [submitListener])
     return {setSubmitListener}
 }

@@ -35,41 +35,41 @@ export function DetailPage<DELETE_MUTATION extends MutationParameters & {variabl
     }
 
     return (
-        <div className="flex flex-col gap-8">
-            <Breadcrumbs pages={[
-                {name: entityDescription.title.plural, href: `/${entityDescription.handle}`},
-                {name: objectName ? objectName : `Neuer ${entityDescription.title.singular}`, href: ''}
-            ]}/>
-            <Form className="flex flex-col gap-8" onSubmit={onSubmit}>
-                <div className="border-b border-gray-900/10 pb-8">
-                    <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <EscapeContext.Provider value={escapeContext}>
+        <EscapeContext.Provider value={escapeContext}>
+            <div className="flex flex-col gap-8">
+                <Breadcrumbs pages={[
+                    {name: entityDescription.title.plural, href: `/${entityDescription.handle}`},
+                    {name: objectName ? objectName : `Neuer ${entityDescription.title.singular}`, href: ''}
+                ]}/>
+                <Form className="flex flex-col gap-8" onSubmit={onSubmit}>
+                    <div className="border-b border-gray-900/10 pb-8">
+                        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             {children}
-                        </EscapeContext.Provider>
+                        </div>
                     </div>
-                </div>
-                <div className="flex items-center justify-end gap-x-6">
-                    <button type="button" onClick={() => setDeleteConfirmationOpen(true)}>
-                        <TrashIcon className="h-6 w-6"/>
-                    </button>
-                    <Link to={`/${entityDescription.handle}`} className="text-sm font-semibold leading-6 text-gray-900">
-                        Schliessen
-                    </Link>
-                    <button
-                        type="submit"
-                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                        Speichern
-                    </button>
-                </div>
-            </Form>
-            <DeleteConfirmation
-                title={entityDescription.title.singular}
-                demonstrativePronoun={entityDescription.title.demonstrativPronoun}
-                open={deleteConfirmationOpen}
-                onDelete={deleteAct}
-                onClose={() => setDeleteConfirmationOpen(false)}
-            />
-        </div>
+                    <div className="flex items-center justify-end gap-x-6">
+                        <button type="button" onClick={() => setDeleteConfirmationOpen(true)}>
+                            <TrashIcon className="h-6 w-6"/>
+                        </button>
+                        <Link to={`/${entityDescription.handle}`} className="text-sm font-semibold leading-6 text-gray-900">
+                            Schliessen
+                        </Link>
+                        <button
+                            type="submit"
+                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Speichern
+                        </button>
+                    </div>
+                </Form>
+                <DeleteConfirmation
+                    title={entityDescription.title.singular}
+                    demonstrativePronoun={entityDescription.title.demonstrativPronoun}
+                    open={deleteConfirmationOpen}
+                    onDelete={deleteAct}
+                    onClose={() => setDeleteConfirmationOpen(false)}
+                />
+            </div>
+        </EscapeContext.Provider>
     )
 }
