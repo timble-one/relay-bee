@@ -4,6 +4,7 @@
    - Ev, das MediaObject-Handling extrahieren? (oad-backend spezifisch?)
  - Die Library im OAD-Backend testweise einbauen
    - Fehler beheben
+ - Schauen, dass nicht immer zuerst die unsortierte Liste ladet und dann die sortierte reinglitcht. ist ziemlich unsexy.
  - Unterschied zwischen LoadingIndicator und Spinner?
  - Wenn relay-bee komplett extrahiert ist, checken ob der LoadingIndicator im Suspense vom NavigationLayout wieder funktioniert?
    - Funktioniert momentan auf der ActList nicht. Dort wird beim Laden der Tabellen-Header angezeigt und sonst nichts

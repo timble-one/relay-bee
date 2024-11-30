@@ -3,7 +3,7 @@ import {RelayEnvironmentProvider} from "react-relay";
 import {ReactNode} from "react";
 import {RBeeEnvironmentContext} from "./useRBeeEnvironment.ts";
 
-export const RBeeEnvironmentProvider = ({children}: {children: ReactNode}) => {
+export const PeerRelayEnvironmentProvider = ({children}: {children: ReactNode}) => {
     const relayEnvironmentCreator = useRelayEnvironmentCreator()
     const relayEnvironment = relayEnvironmentCreator()
     return (

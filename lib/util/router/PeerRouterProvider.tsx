@@ -7,7 +7,7 @@ type Props = {
     children: ReactNode
 }
 
-export const RBeeRouterProvider = ({router, children}: Props) => {
+export const PeerRouterProvider = ({router, children}: Props) => {
     return (
         <RouterContext.Provider value={router}>
             {children}

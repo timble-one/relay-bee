@@ -11,11 +11,11 @@ export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 
 // util/relay
 export {useRBeeEnvironment} from "./util/relay/useRBeeEnvironment.ts"
-export {RBeeEnvironmentProvider} from "./util/relay/RBeeEnvironmentProvider.tsx"
+export {PeerRelayEnvironmentProvider} from "./util/relay/PeerRelayEnvironmentProvider.tsx"
 
 // util/router
 export {createRouteConfig} from "./util/router/createRouteConfig.ts"
-export {RBeeRouterProvider} from "./util/router/RBeeRouterProvider.tsx"
+export {PeerRouterProvider} from "./util/router/PeerRouterProvider.tsx"
 
 // -- components
 export {LoadingIndicator} from "./components/LoadingIndicator.tsx"
