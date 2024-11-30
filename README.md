@@ -16,6 +16,8 @@
    - readme aufräumen
    - Todos in Zukunft in einen Issue
 
+<img src="public/logo.png" alt="Sample Image" style="width: 300px;">
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
