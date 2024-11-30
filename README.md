@@ -7,6 +7,13 @@
  - Unterschied zwischen LoadingIndicator und Spinner?
  - Wenn relay-bee komplett extrahiert ist, checken ob der LoadingIndicator im Suspense vom NavigationLayout wieder funktioniert?
    - Funktioniert momentan auf der ActList nicht. Dort wird beim Laden der Tabellen-Header angezeigt und sonst nichts
+ - Logo generieren
+   - Logo: simple von AI generieren lassen
+     - vektorisieren
+     - Hintergrund löschen
+     - in Readme einfügen
+   - readme aufräumen
+   - Todos in Zukunft in einen Issue
 
 # React + TypeScript + Vite
 
