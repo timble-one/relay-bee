@@ -20,6 +20,7 @@ export {PeerRouterProvider} from "./util/router/PeerRouterProvider.tsx"
 // -- components
 export {LoadingIndicator} from "./components/LoadingIndicator.tsx"
 export {PromptLayout} from "./components/PromptLayout.tsx"
+export {LoginForm} from "./components/LoginForm.tsx"
 
 // components/util
 export {EndlessScrollContainer} from "./components/util/endless-scroll/EndlessScrollContainer.tsx"

@@ -1,9 +1,9 @@
 # Todo
  - DetailPage im oad-backend zum Laufen bringen
-   - testen ob die ganzen graphql-Sachen funktionieren, die jetzt der DetailPage und der MediaSelection übergeben werden?
    - Ev, das MediaObject-Handling extrahieren? (oad-backend spezifisch?)
  - Die Library im OAD-Backend testweise einbauen
    - Fehler beheben
+   - Alle Komponenten von relay-bee verwenden und im oad-backend löschen
  - Schauen, dass nicht immer zuerst die unsortierte Liste ladet und dann die sortierte reinglitcht. ist ziemlich unsexy.
  - Unterschied zwischen LoadingIndicator und Spinner?
  - Wenn relay-bee komplett extrahiert ist, checken ob der LoadingIndicator im Suspense vom NavigationLayout wieder funktioniert?

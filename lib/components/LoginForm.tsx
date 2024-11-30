@@ -8,7 +8,7 @@ type StateType = {
     message?: string,
 }
 
-export default function LoginForm({onSuccess}: {onSuccess: () => void}) {
+export function LoginForm({onSuccess}: {onSuccess: () => void}) {
     const [state, setState] = useState<StateType>({email: '', password: ''})
     const {login} = useAuth()
 

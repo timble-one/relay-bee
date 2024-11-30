@@ -1,6 +1,6 @@
 import {FetchError} from "../../util/relay/useRelayEnvironmentCreator.ts";
-import LoginForm from "../LoginForm.tsx";
 import {useRouter} from "found";
+import {LoginForm} from "../LoginForm.tsx";
 
 type Props = { error: Error & FetchError, resetErrorBoundary: () => void};
 
