@@ -12,6 +12,7 @@ export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 // util/relay
 export {useRBeeEnvironment} from "./util/relay/useRBeeEnvironment.ts"
 export {PeerRelayEnvironmentProvider} from "./util/relay/PeerRelayEnvironmentProvider.tsx"
+export {useTypedMutation} from "./util/relay/useTypedMutation.ts"
 
 // util/router
 export {createRouteConfig} from "./util/router/createRouteConfig.ts"
@@ -54,6 +55,7 @@ export {SelectInput} from "./components/input/SelectInput.tsx"
 export {TextInput} from "./components/input/TextInput.tsx"
 export {Toggle} from "./components/input/Toggle.tsx"
 // components/input/media
+export type {MediaObject} from "./components/input/media/selection/MediaSelection.tsx"
 export {MediaSelection} from "./components/input/media/selection/MediaSelection.tsx"
 export {useSelectedMedia} from "./components/input/media/selection/useSelectedMedia.ts"
 

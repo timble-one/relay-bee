@@ -13,10 +13,22 @@ import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 import {TypedGQL, untypeGQL} from "../../../../util/typeGQL";
 
-export type MediaObject = {id: string, contentUrl: string | null | undefined}
+export type MediaObject = {
+    readonly id: string,
+    readonly contentUrl: string | null | undefined
+}
 
-type MediaObjectsResult = {mediaObjects: {__id: string, edges: {node: MediaObject}[]}}
-type RefetchableFragment = KeyType & {' $data': MediaObjectsResult}
+type MediaObjectsResult = {
+    mediaObjects: {
+        __id: string, edges: ReadonlyArray<(
+            {
+                readonly node: MediaObject | undefined | null
+            } | undefined | null
+        )> | undefined | null
+    } | undefined | null
+}
+
+type RefetchableFragment = KeyType<MediaObjectsResult>
 
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     title: string,
@@ -95,7 +107,7 @@ export function MediaSelection<
                 />
             </Dialog>
         </>
-    );
+    )
 }
 
 type MediaSelectionProps<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
@@ -111,16 +123,16 @@ function MediaSelectionDialog<
     QUERY extends OperationType & {response: REFETCH_FRAGMENT},
     UPLOAD_MUTATION extends UploadMutation
 >(
-    {query, refetchFragment, uploadMutation, onSelect, onClose}: MediaSelectionProps<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
+    {query, refetchFragment, uploadMutation, onSelect, onClose}
+    : MediaSelectionProps<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
 ) {
     const selectHandler = (mediaObject: MediaObject) => {
         onSelect(mediaObject)
         onClose()
     }
     const mediaObjectResult = useLazyLoadQuery<QUERY>(untypeGQL(query), {})
-    const {data: {mediaObjects}, loadNext, hasNext, isLoadingNext}
-        = usePaginationFragment(untypeGQL(refetchFragment), mediaObjectResult)
-    ;
+    const paginationFragment = usePaginationFragment(untypeGQL(refetchFragment), mediaObjectResult)
+    const {data: {mediaObjects} = {}, loadNext, hasNext, isLoadingNext} = paginationFragment
     return (
         <EndlessScrollContainer className="overflow-y-scroll flex flex-col gap-4 pr-2 max-h-96">
             {mediaObjects &&
@@ -133,8 +145,9 @@ function MediaSelectionDialog<
                 <ul role="list"
                     className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-4"
                 >
-                    {mediaObjects.edges.map((mediaEdge, i) => mediaEdge &&
-                    <PotentialMediaObject mediaObject={mediaEdge.node} onSelect={selectHandler} key={i}/>)}
+                    {mediaObjects.edges.map((mediaEdge, i) => mediaEdge?.node &&
+                        <PotentialMediaObject mediaObject={mediaEdge.node} onSelect={selectHandler} key={i}/>)
+                    }
                 </ul>
             }
             <ScrollVisibilityTrigger trigger={() => loadNext(24)} isActive={!isLoadingNext && hasNext}/>
@@ -149,7 +162,7 @@ type PotentialMediaObjectProps = {
 }
 
 function PotentialMediaObject({mediaObject, onSelect}: PotentialMediaObjectProps) {
-    const contentUrl = mediaObject.contentUrl
+    const contentUrl = mediaObject?.contentUrl
     const backendPath = useBackendPath()
     return (
         <li className="relative">
@@ -162,5 +175,5 @@ function PotentialMediaObject({mediaObject, onSelect}: PotentialMediaObjectProps
                      src={(contentUrl && backendPath(contentUrl)) ?? undefined}/>
             </div>
         </li>
-    );
+    )
 }

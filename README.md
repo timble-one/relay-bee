@@ -1,19 +1,18 @@
 # Todo
- - DetailPage im oad-backend zum Laufen bringen
-   - Ev, das MediaObject-Handling extrahieren? (oad-backend spezifisch?)
  - Die Library im OAD-Backend testweise einbauen
    - Fehler beheben
    - Alle Komponenten von relay-bee verwenden und im oad-backend löschen
+ - Herausfinden, warum im refetch-fragment im oad-backend auf der act-page keine eslint-warning kommt
+    - wenn ich ein Property eingebe, welches es nicht gibt
+    - gemeint ist inline in webstorm
+    - Ist zumindest auf meinem MacBook Air so
+    - Ev einmal abwarten ob das auch bei weiteren Projekten (FlexiRent so sein wird?)
+    - Ev versuchen herauszufinden, was auf dem MacBook PRO anders konfiguiert ist, dass es dort geht?
  - Schauen, dass nicht immer zuerst die unsortierte Liste ladet und dann die sortierte reinglitcht. ist ziemlich unsexy.
  - Unterschied zwischen LoadingIndicator und Spinner?
  - Wenn relay-bee komplett extrahiert ist, checken ob der LoadingIndicator im Suspense vom NavigationLayout wieder funktioniert?
    - Funktioniert momentan auf der ActList nicht. Dort wird beim Laden der Tabellen-Header angezeigt und sonst nichts
- - Logo generieren
-   - Logo: simple von AI generieren lassen
-     - vektorisieren
-     - Hintergrund löschen
-     - in Readme einfügen
-   - readme aufräumen
+ - readme aufräumen
    - Todos in Zukunft in einen Issue
 
 <img src="public/logo.png" alt="Sample Image" style="width: 300px;">

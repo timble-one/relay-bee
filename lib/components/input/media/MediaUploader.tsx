@@ -5,8 +5,7 @@ import UploadIcon from "../../icon/UploadIcon.tsx";
 import {TypedGQL, untypeGQL} from "../../../util/typeGQL";
 
 export type UploadMutation = MutationParameters & {
-    variables: {connections: string[], file: File[]},
-    uploadables: {file: File}
+    variables: {connections: ReadonlyArray<string>, file: File[]}
 }
 
 type Props<MUTATION> = {
