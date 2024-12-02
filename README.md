@@ -1,5 +1,11 @@
 # Todo
- - Warum gibt es render-Loops?
+
+ - readme aufräumen
+   - Todos in Zukunft in einen Issue
+
+## Prio 2 (erstmal in einen Issue)
+
+ - Checken, warum bei den DateInputs, rechts so viel Platz ist aber kein Hinweis?
  - Die Library im OAD-Backend testweise einbauen
    - Fehler beheben
    - Alle Komponenten von relay-bee verwenden und im oad-backend löschen
@@ -13,8 +19,6 @@
  - Unterschied zwischen LoadingIndicator und Spinner?
  - Wenn relay-bee komplett extrahiert ist, checken ob der LoadingIndicator im Suspense vom NavigationLayout wieder funktioniert?
    - Funktioniert momentan auf der ActList nicht. Dort wird beim Laden der Tabellen-Header angezeigt und sonst nichts
- - readme aufräumen
-   - Todos in Zukunft in einen Issue
 
 <img src="public/logo.png" alt="Sample Image" style="width: 300px;">
 
