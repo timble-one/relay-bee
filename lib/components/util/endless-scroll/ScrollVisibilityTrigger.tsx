@@ -8,8 +8,8 @@ type Props = {
 }
 
 export function ScrollVisibilityTrigger({trigger, isActive}: Props) {
-    const ref = useRef<HTMLDivElement>(null);
-    const context = useContext(EndlessScrollContext);
+    const ref = useRef<HTMLDivElement>(null)
+    const context = useContext(EndlessScrollContext)
     useEffect(() => {
         const scrollListener = () => {
             const currentRef = ref.current;
@@ -17,8 +17,8 @@ export function ScrollVisibilityTrigger({trigger, isActive}: Props) {
                 trigger()
             }
         }
-        context.setScrollListener(scrollListener);
-    }, [context, isActive, trigger]);
+        context.setScrollListener(scrollListener)
+    }, [isActive, trigger])
     return (
         <div ref={ref}>
             <div className="h-1"></div>
