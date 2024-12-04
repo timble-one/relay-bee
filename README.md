@@ -15,3 +15,8 @@ Relay library for creating extendable backend UI's
   - `npm install found-relay` (router)
   - `npm install react-error-boundary`
 - Create an extendable backend UI fast!
+
+### Authentication
+
+RelayBee uses JWT-Authentication.  
+If you use ApiPlatform (Symfony, PHP) for the backend, this Bundle is recommended: https://symfony.com/bundles/LexikJWTAuthenticationBundle/current/index.html
