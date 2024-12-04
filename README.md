@@ -2,9 +2,16 @@
 
 Relay library for creating extendable backend UI's
 
-**Technologies:** Relay (GraphQL), TypeScript, Tailwind, Vite
+**Technologies:** Relay, GraphQL, React, TypeScript, Tailwind, Vite
 
 ### Setup
 
-1. Create your project from some template including the mentioned technologies.
-2. Use relay-bee to create an extendable backend UI fast!
+- Create your project with react, vite and tailwind
+  - https://tailwindcss.com/docs/guides/vite?utm_source=chatgpt.com
+  - `--template react-ts` instead of `--template react` (TypeScript)
+- Add relay (https://relay.dev/docs/getting-started/installation-and-setup/)
+- `npm install relay-bee`
+- Add peer dependencies:
+  - `npm install found-relay` (router)
+  - `npm install react-error-boundary`
+- Create an extendable backend UI fast!
