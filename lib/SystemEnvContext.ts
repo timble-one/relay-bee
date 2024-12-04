@@ -1,3 +1,9 @@
 import {createContext} from "react";
 
-export const SystemEnvContext = createContext<{ httpEndpoint: string } | undefined>(undefined)
+type SystemEnvContext = {
+    httpEndpoint: string
+    authPath?: string
+    passwordPath?: string
+}
+
+export const SystemEnvContext = createContext<SystemEnvContext | undefined>(undefined)

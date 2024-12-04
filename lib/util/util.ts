@@ -26,3 +26,22 @@ export const useBackendPath = (): (path: string) => string => {
     const environment = useContext(SystemEnvContext)
     return (path: string) => environment?.httpEndpoint + path
 }
+
+export const setObjectProperty = (obj: Record<string, string | unknown>, path: string, value: string) => {
+    const keys = path.split('.')
+    const lastKey = keys.pop()
+    let current: Record<string, string | unknown> = obj
+
+    keys.forEach(key => {
+        if (!current[key] || typeof current[key] !== 'object') {
+            current[key] = {};
+        }
+        if (current[key] !== null && typeof current[key] === 'object' && current[key].constructor === Object) {
+            current = current[key] as Record<string, unknown>;
+        }
+    });
+
+    if (lastKey) {
+        current[lastKey] = value;
+    }
+};

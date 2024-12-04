@@ -14,6 +14,9 @@ Relay library for creating extendable backend UI's
 - Add peer dependencies:
   - `npm install found-relay` (router)
   - `npm install react-error-boundary`
+  - `npm install @headlessui/react`
+  - `npm install @floating-ui/react`
+  - `npm install @heroicons/react`
 - Create an extendable backend UI fast!
 
 ### Authentication
