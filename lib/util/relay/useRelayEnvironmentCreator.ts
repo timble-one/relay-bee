@@ -7,12 +7,12 @@ import {
 } from "relay-runtime";
 import {useAuth} from "../useAuth.ts";
 import {useContext} from "react";
-import {SystemEnvContext} from "../../SystemEnvContext.ts";
+import {EnvironmentContext} from "../../EnvironmentContext.ts";
 
 export type FetchError = {message: 'unauthorized' | 'missing-credentials'};
 
 export const useRelayEnvironmentCreator = () => {
-  const env = useContext(SystemEnvContext)
+  const env = useContext(EnvironmentContext)
   const {getCurrentUser} = useAuth()
 
   const fetchFn: FetchFunction = async (operation, variables, _cacheConfig, uploadables) => {
@@ -58,7 +58,7 @@ export const useRelayEnvironmentCreator = () => {
       });
     }
 
-    const resp = await fetch(`${env?.httpEndpoint}/graphql`, request);
+    const resp = await fetch(`${env?.httpEndpoint}${env?.basePath}/graphql`, request);
     const data = await resp.json();
     if (data.code === 401) {
       throw new Error('unauthorized');

@@ -1,7 +1,8 @@
 import "./index.css"
 
 export type {EntityDescription} from "./EntityDescription.tsx"
-export {SystemEnvContext} from "./SystemEnvContext.ts"
+export type {EnvironmentContextType} from "./EnvironmentContext.ts"
+export {EnvironmentContext} from "./EnvironmentContext.ts"
 
 // -- util
 export type {ExtractNodeFromEdges} from "./util/util.ts"

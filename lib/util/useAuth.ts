@@ -1,18 +1,18 @@
 import {useContext} from "react";
-import {SystemEnvContext} from "../SystemEnvContext.ts";
 import {setObjectProperty} from "./util.ts";
+import {EnvironmentContext} from "../EnvironmentContext.ts";
 
 type User = {token: string};
 
 export type LoginResult = 'success' | 'invalid-credentials' | 'error';
 
 export const useAuth = () => {
-    const env = useContext(SystemEnvContext)
+    const env = useContext(EnvironmentContext)
 
     const login = async (email: string, password: string): Promise<LoginResult> => {
         const credentials = {email}
         setObjectProperty(credentials, env?.passwordPath ?? 'password', password)
-        const response = await fetch(`${env?.httpEndpoint}${env?.authPath ?? '/api/auth'}`, {
+        const response = await fetch(`${env?.httpEndpoint}${env?.basePath}/auth`, {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: new Headers({'Content-Type': 'application/json'})
