@@ -1,8 +1,6 @@
 import "./index.css"
 
 export type {EntityDescription} from "./EntityDescription.tsx"
-export type {EnvironmentContextType} from "./EnvironmentContext.ts"
-export {EnvironmentContext} from "./EnvironmentContext.ts"
 
 // -- util
 export type {ExtractNodeFromEdges} from "./util/util.ts"
@@ -11,9 +9,13 @@ export {useAuth} from "./util/useAuth.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 
 // util/relay
-export {useRBeeEnvironment} from "./util/relay/useRBeeEnvironment.ts"
+export {usePeerRelayEnv} from "./util/relay/usePeerRelayEnv.ts"
 export {PeerRelayEnvironmentProvider} from "./util/relay/PeerRelayEnvironmentProvider.tsx"
 export {useTypedMutation} from "./util/relay/useTypedMutation.ts"
+
+// util/environment
+export type {EnvironmentContextType} from "./util/environment/EnvironmentContext.ts"
+export {EnvironmentContext} from "./util/environment/EnvironmentContext.ts"
 
 // util/router
 export {createRouteConfig} from "./util/router/createRouteConfig.ts"

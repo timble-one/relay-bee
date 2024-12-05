@@ -1,16 +1,16 @@
 import {useRelayEnvironmentCreator} from "./useRelayEnvironmentCreator.ts";
 import {RelayEnvironmentProvider} from "react-relay";
 import {ReactNode} from "react";
-import {RBeeEnvironmentContext} from "./useRBeeEnvironment.ts";
+import {PeerRelayEnvContext} from "./usePeerRelayEnv.ts";
 
 export const PeerRelayEnvironmentProvider = ({children}: {children: ReactNode}) => {
     const relayEnvironmentCreator = useRelayEnvironmentCreator()
     const relayEnvironment = relayEnvironmentCreator()
     return (
         <RelayEnvironmentProvider environment={relayEnvironment}>
-            <RBeeEnvironmentContext.Provider value={relayEnvironment}>
+            <PeerRelayEnvContext.Provider value={relayEnvironment}>
                 {children}
-            </RBeeEnvironmentContext.Provider>
+            </PeerRelayEnvContext.Provider>
         </RelayEnvironmentProvider>
     )
 }

@@ -1,5 +1,4 @@
-import {useContext} from "react";
-import {EnvironmentContext} from "../EnvironmentContext.ts";
+import {useEnv} from "./environment/useEnv..ts";
 
 export type ExtractNodeFromEdges<
     T extends {
@@ -23,8 +22,8 @@ export const nameToId = (name: string): string => name.toLowerCase()
 ;
 
 export const useBackendPath = (): (path: string) => string => {
-    const environment = useContext(EnvironmentContext)
-    return (path: string) => environment?.httpEndpoint + path
+    const env = useEnv()
+    return (path: string) => env.httpEndpoint + path
 }
 
 export const setObjectProperty = (obj: Record<string, string | unknown>, path: string, value: string) => {
