@@ -4,8 +4,8 @@ import {EnvironmentContext, EnvironmentContextType} from "./EnvironmentContext.t
 export const useEnv = (): EnvironmentContextType => {
     const context = useContext(EnvironmentContext)
     return {
-        httpEndpoint: context.basePath ?? 'https://localhost',
+        httpEndpoint: context.httpEndpoint ?? 'https://localhost',
         basePath: context.basePath ?? '',
-        passwordPath: context.basePath ?? 'password',
+        passwordPath: context.passwordPath ?? 'password',
     }
 }
