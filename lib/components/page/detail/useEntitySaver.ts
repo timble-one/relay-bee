@@ -27,17 +27,15 @@ export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends Zo
         validationSchema: VALIDATION,
         data: Partial<DATA>
     ): ValidData<DATA, VALIDATION> | undefined => {
-        try {
-            const validatedData = validationSchema.parse(data)
-            return { ...data, ...validatedData }
-        } catch (error) {
-            if (error instanceof ZodError) {
-                error.errors.forEach(e => {
-                    addAlert(`${e.path.join('/')}: ${e.message}`, 'WARNING')
-                })
-            } else {
-                throw error
-            }
+        const result = validationSchema.safeParse(data)
+        if (result.success) {
+            return {...data, ...result.data}
+        } else {
+            const error: ZodError = result.error
+            console.debug('zod error', error)
+            error.errors.forEach(e => {
+                addAlert(`${e.path.join('/')}: ${e.message}`, 'WARNING')
+            })
         }
     };
 

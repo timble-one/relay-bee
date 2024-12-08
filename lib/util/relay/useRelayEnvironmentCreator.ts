@@ -12,7 +12,7 @@ export type FetchError = {message: 'unauthorized' | 'missing-credentials'};
 
 export const useRelayEnvironmentCreator = () => {
   const env = useEnv()
-  const {getCurrentUser} = useAuth()
+  const {getCurrentUser, logout} = useAuth()
 
   const fetchFn: FetchFunction = async (operation, variables, _cacheConfig, uploadables) => {
     const user = getCurrentUser();
@@ -60,7 +60,7 @@ export const useRelayEnvironmentCreator = () => {
     const resp = await fetch(`${env?.httpEndpoint}${env?.basePath}/graphql`, request);
     const data = await resp.json();
     if (data.code === 401) {
-      throw new Error('unauthorized');
+      logout()
     }
     return data;
   };

@@ -1,5 +1,6 @@
 import TooltipIcon from "../icon/TooltipIcon.tsx";
 import {nameToId} from "../../util/util.ts";
+import {HTMLInputTypeAttribute} from "react";
 
 type Props = {
     title: string,
@@ -7,9 +8,10 @@ type Props = {
     onChange?: (newValue: string) => void,
     description?: string
     required?: boolean
+    type?: HTMLInputTypeAttribute
 };
 
-export function TextInput({title, value, onChange = () => undefined, description, required}: Props) {
+export function TextInput({title, value, onChange = () => undefined, description, required, type}: Props) {
     const inputId = nameToId(title);
     return (
         <div className="sm:col-span-4 max-w-md">
@@ -19,7 +21,7 @@ export function TextInput({title, value, onChange = () => undefined, description
             <div className="relative mt-2 rounded-md shadow-sm">
                 <input
                     id={inputId}
-                    type="text"
+                    type={type ?? 'text'}
                     required={required}
                     value={value ?? ''}
                     onChange={(e) => onChange(e.currentTarget.value)}
