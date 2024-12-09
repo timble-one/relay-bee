@@ -1,4 +1,5 @@
 import {useEnv} from "./environment/useEnv..ts";
+import {RefinementCtx, z} from "zod";
 
 export type ExtractNodeFromEdges<
     T extends {
@@ -43,4 +44,16 @@ export const setObjectProperty = (obj: Record<string, string | unknown>, path: s
     if (lastKey) {
         current[lastKey] = value;
     }
-};
+}
+
+export const validateJSON = (str: string, ctx: RefinementCtx) => {
+    try {
+        return JSON.parse(str)
+    } catch {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Ungültiges JSON Format',
+        })
+        return z.NEVER
+    }
+}

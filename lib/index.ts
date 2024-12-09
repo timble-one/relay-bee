@@ -4,7 +4,7 @@ export type {EntityDescription} from "./EntityDescription.tsx"
 
 // -- util
 export type {ExtractNodeFromEdges} from "./util/util.ts"
-export {useBackendPath} from "./util/util.ts"
+export {useBackendPath, validateJSON} from "./util/util.ts"
 export {useAuth} from "./util/useAuth.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 
