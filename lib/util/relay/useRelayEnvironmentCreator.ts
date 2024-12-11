@@ -6,7 +6,7 @@ import {
   FetchFunction,
 } from "relay-runtime";
 import {useAuth} from "../useAuth.ts";
-import {useEnv} from "../environment/useEnv..ts";
+import {useEnv} from "../environment/useEnv.ts";
 
 export type FetchError = {message: 'unauthorized' | 'missing-credentials'};
 

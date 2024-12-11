@@ -1,4 +1,4 @@
-import {useEnv} from "./environment/useEnv..ts";
+import {useEnv} from "./environment/useEnv.ts";
 import {RefinementCtx, z} from "zod";
 
 export type ExtractNodeFromEdges<

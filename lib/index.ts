@@ -16,6 +16,7 @@ export {useTypedMutation} from "./util/relay/useTypedMutation.ts"
 // util/environment
 export type {EnvironmentContextType} from "./util/environment/EnvironmentContext.ts"
 export {EnvironmentContext} from "./util/environment/EnvironmentContext.ts"
+export {useEnv} from "./util/environment/useEnv.ts"
 
 // util/router
 export {createRouteConfig} from "./util/router/createRouteConfig.ts"
