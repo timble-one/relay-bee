@@ -1,4 +1,7 @@
-<img src="doc/logo.png" alt="Sample Image" style="width: 300px;">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="doc/logo-dark.png">
+  <img alt="Description of image" src="doc/logo.png" style="width: 300px;">
+</picture>
 
 Relay library for creating extendable backend UI's
 
