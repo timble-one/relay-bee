@@ -11,6 +11,7 @@ import {useBackOnEscape} from "../../util/escape/useBackOnEscape.ts";
 import {TypedGQL, untypeGQL} from "../../../util/typeGQL";
 import {MutationParameters} from "relay-runtime";
 import {useMutation} from "react-relay";
+import {getDefaultListRoute} from "../list/getDefaultListRoute.ts";
 
 type Props<DELETE_MUTATION> = {
     children: ReactNode,
@@ -28,17 +29,18 @@ export function DetailPage<DELETE_MUTATION extends MutationParameters & {variabl
     const {getDeleter} = useDeleter(entityDescription.title.singular, commitDelete)
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
     const {router} = useRouter()
-    const escapeContext = useBackOnEscape(`/${entityDescription.handle}`)
+    const listRoute = getDefaultListRoute(entityDescription)
+    const escapeContext = useBackOnEscape(listRoute)
 
     const deleteAct = () => {
-        getDeleter(state?.id, () => router.push(`/${entityDescription.handle}`))()
+        getDeleter(state?.id, () => router.push(listRoute))()
     }
 
     return (
         <EscapeContext.Provider value={escapeContext}>
             <div className="flex flex-col gap-8">
                 <Breadcrumbs pages={[
-                    {name: entityDescription.title.plural, href: `/${entityDescription.handle}`},
+                    {name: entityDescription.title.plural, href: listRoute},
                     {name: objectName ? objectName : `Neuer ${entityDescription.title.singular}`, href: ''}
                 ]}/>
                 <Form className="flex flex-col gap-8" onSubmit={onSubmit}>
@@ -51,7 +53,7 @@ export function DetailPage<DELETE_MUTATION extends MutationParameters & {variabl
                         <button type="button" onClick={() => setDeleteConfirmationOpen(true)}>
                             <TrashIcon className="h-6 w-6"/>
                         </button>
-                        <Link to={`/${entityDescription.handle}`} className="text-sm font-semibold leading-6 text-gray-900">
+                        <Link to={listRoute} className="text-sm font-semibold leading-6 text-gray-900">
                             Schliessen
                         </Link>
                         <button

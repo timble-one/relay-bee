@@ -8,6 +8,8 @@ const filterDefinedValues = <K extends string | number | symbol, V>(record: Reco
 ;
 
 export const getDefaultListRoute = (entityDescription: EntityDescription<unknown>) => {
-    const query = sortingCombinationToQuery(entityDescription.defaultSorting ?? {})
-    return `/${entityDescription.handle}?${new URLSearchParams(filterDefinedValues(query))}`
+    const path = `/${entityDescription.handle}`
+    const query = entityDescription.defaultSorting && sortingCombinationToQuery(entityDescription.defaultSorting)
+    const searchParams = query && new URLSearchParams(filterDefinedValues(query))
+    return searchParams ? `${path}?${searchParams}` : path
 }
