@@ -38,6 +38,7 @@ export {useBackOnEscape} from "./components/util/escape/useBackOnEscape.ts"
 export {RefetchListContextProvider} from "./components/page/refetch-list-context/RefetchListContextProvider.tsx"
 export {useRefetchListContext} from "./components/page/refetch-list-context/useRefetchListContext.ts"
 export {ListPage} from "./components/page/list/ListPage.tsx"
+export {getDefaultListRoute} from "./components/page/list/getDefaultListRoute.ts"
 // components/page/list/table
 export {useTable} from "./components/page/list/table/useTable.ts"
 export {TableHeader} from "./components/page/list/table/TableHeader.tsx"

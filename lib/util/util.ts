@@ -9,6 +9,10 @@ export type ExtractNodeFromEdges<
     = NonNullable<NonNullable<NonNullable<NonNullable<T>['edges']>[number]>['node']>
 ;
 
+export function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
+    return value !== null && value !== undefined;
+}
+
 export const transformObjectMap = <INPUT extends {[key: string]: INPUT[KEY]}, OUTPUT, KEY extends keyof INPUT>(
     mapping: INPUT, transformer: (input: [string, INPUT[KEY]]) => [string, OUTPUT]
 ): { [key: string]: OUTPUT } =>

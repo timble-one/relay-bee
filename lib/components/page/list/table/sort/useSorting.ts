@@ -1,28 +1,24 @@
 import {SortKey, sortKeys} from "./SortKey.ts";
 import {transformObjectMap} from "../../../../../util/util.ts";
 import {useRouter} from "found";
-import {useEffect} from "react";
 
 export type GenericSortingCombination = Record<string, string | null>
 export type SortingCombination<T = GenericSortingCombination> = {[p in keyof T]?: SortKey}
 export type SortFunction<T = GenericSortingCombination> = (column: keyof T) => (order: SortKey | undefined) => void
 type SearchParamsArray = [string, string][]
 
-type Props<T> = {
-    defaultSortingCombination: SortingCombination<T>,
-}
+export const sortingCombinationToQuery
+    = (sortingCombination: SortingCombination) => transformObjectMap(sortingCombination, ([c, o]) => [c + 'Order', o])
+;
 
-export function useSorting<T>(
-    {defaultSortingCombination}: Props<T>
-) {
+export function useSorting<T>() {
     const {match, router} = useRouter()
     const searchParamArray: SearchParamsArray = Array.from(Object.entries(match.location.query))
-    useEffect(() => {setQueryParams(defaultSortingCombination)}, [])
 
     const setQueryParams = (sortingCombination: SortingCombination<T>) => {
         router.replace({
             pathname: match.location.pathname,
-            query: transformObjectMap(sortingCombination, ([c, o]) => [c + 'Order', o])
+            query: sortingCombinationToQuery(sortingCombination)
         })
     }
 

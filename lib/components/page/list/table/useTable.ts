@@ -1,19 +1,16 @@
-import {SortingCombination, useSorting} from "./sort/useSorting.ts";
+import {useSorting} from "./sort/useSorting.ts";
 import {useLazyLoadQuery} from "react-relay";
 import {GraphQLTaggedNode, OperationType} from "relay-runtime";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 
-type Props<SORTING_ORDER> = {
+type Props = {
     query: GraphQLTaggedNode,
-    defaultSortingCombination: SortingCombination<SORTING_ORDER>,
 }
 
 export function useTable<
     DATA_KEY extends KeyType, QUERY extends {response: DATA_KEY} & OperationType, SORTING_ORDER
->({query, defaultSortingCombination}: Props<SORTING_ORDER>) {
-    const {sortingQuery, sortingCombination, sort} = useSorting<SORTING_ORDER>({
-        defaultSortingCombination,
-    })
+>({query}: Props) {
+    const {sortingQuery, sortingCombination, sort} = useSorting<SORTING_ORDER>()
     const data: DATA_KEY = useLazyLoadQuery<QUERY>(
         query, {order: sortingQuery}
     )

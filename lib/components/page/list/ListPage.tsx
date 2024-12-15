@@ -2,17 +2,20 @@ import Breadcrumbs from "../../Breadcrumbs.tsx";
 import {ReactNode} from "react";
 import {Link} from "found";
 import {EntityDescription} from "../../../EntityDescription.tsx";
+import {getDefaultListRoute} from "./getDefaultListRoute.ts";
 
 type Props = {
     entityDescription: EntityDescription,
     children: ReactNode
-};
+}
 
 export function ListPage({entityDescription, children}: Props) {
     return (
         <>
             <div className="flex justify-between items-center">
-                <Breadcrumbs pages={[{name: entityDescription.title.plural, href: `/${entityDescription.handle}`}]}/>
+                <Breadcrumbs
+                    pages={[{name: entityDescription.title.plural, href: getDefaultListRoute(entityDescription)}]}
+                />
                 <Link
                     className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     to={`/${entityDescription.handle}/new`}
