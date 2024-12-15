@@ -1,17 +1,17 @@
 import {useEffect, useState} from "react";
 import {OperationType} from "relay-runtime";
 import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
-import MediaUploader, {UploadMutation} from "../MediaUploader.tsx";
-import Dialog from "../../../dialog/Dialog.tsx";
-import {nameToId, useBackendPath} from "../../../../util/util.ts";
-import Spinner from "../../../icon/Spinner.tsx";
-import {EndlessScrollContainer} from "../../../util/endless-scroll/EndlessScrollContainer.tsx";
-import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
-import {useAlerts} from "../../../alert/useAlerts.ts";
-import {useForm} from "../../form/useForm.ts";
-import TooltipIcon from "../../../icon/TooltipIcon.tsx";
+import MediaUploader, {UploadMutation} from "./MediaUploader.tsx";
+import Dialog from "../../dialog/Dialog.tsx";
+import {nameToId, useBackendPath} from "../../../util/util.ts";
+import Spinner from "../../icon/Spinner.tsx";
+import {EndlessScrollContainer} from "../../util/endless-scroll/EndlessScrollContainer.tsx";
+import {ScrollVisibilityTrigger} from "../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
+import {useAlerts} from "../../alert/useAlerts.ts";
+import {useForm} from "../form/useForm.ts";
+import TooltipIcon from "../../icon/TooltipIcon.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
-import {TypedGQL, untypeGQL} from "../../../../util/typeGQL";
+import {TypedGQL, untypeGQL} from "../../../util/typeGQL";
 
 export type MediaObject = {
     readonly id: string,
