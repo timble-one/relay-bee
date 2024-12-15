@@ -5,7 +5,7 @@ import {EntityDescription} from "../../../EntityDescription.tsx";
 import {getDefaultListRoute} from "./getDefaultListRoute.ts";
 
 type Props = {
-    entityDescription: EntityDescription,
+    entityDescription: EntityDescription<unknown>,
     children: ReactNode
 }
 

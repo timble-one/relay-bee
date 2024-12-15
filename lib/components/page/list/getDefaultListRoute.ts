@@ -7,7 +7,7 @@ const filterDefinedValues = <K extends string | number | symbol, V>(record: Reco
     (Object.fromEntries(Object.entries(record).filter(([, v]) => v !== undefined)) as Defined<Record<K, V>>)
 ;
 
-export const getDefaultListRoute = (entityDescription: EntityDescription) => {
+export const getDefaultListRoute = (entityDescription: EntityDescription<unknown>) => {
     const query = sortingCombinationToQuery(entityDescription.defaultSorting ?? {})
     return `/${entityDescription.handle}?${new URLSearchParams(filterDefinedValues(query))}`
 }
