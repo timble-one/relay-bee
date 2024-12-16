@@ -15,7 +15,7 @@ import {getDefaultListRoute} from "../list/getDefaultListRoute.ts";
 
 type Props<DELETE_MUTATION> = {
     children: ReactNode,
-    entityDescription: EntityDescription,
+    entityDescription: EntityDescription<unknown>,
     objectName?: string,
     state: {id?: string},
     onSubmit: () => void,
