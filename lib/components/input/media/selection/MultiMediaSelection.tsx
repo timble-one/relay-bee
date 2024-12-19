@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {OperationType} from "relay-runtime";
 import {UploadMutation} from "../MediaUploader.tsx";
 import {useAlerts} from "../../../alert/useAlerts.ts";
@@ -19,18 +19,21 @@ import {
     SortableContext,
     sortableKeyboardCoordinates,
     useSortable,
-    verticalListSortingStrategy
 } from "@dnd-kit/sortable";
 import {CSS} from '@dnd-kit/utilities';
+import TooltipIcon from "../../../icon/TooltipIcon.tsx";
+import {nameToId, notEmpty, useBackendPath} from "../../../../util/util.ts";
 
 export type SortedMediaObjectCursorConnection = {
     edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string,
-            readonly sortingImportance: number
-            readonly mediaObject: MediaObject
-        } | undefined | null
+        readonly node: SortedMediaObject | undefined | null
     } | undefined | null> | undefined | null
+}
+
+type SortedMediaObject = {
+    readonly id: string,
+    readonly sortingImportance: number
+    readonly mediaObject: MediaObject
 }
 
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
@@ -39,7 +42,7 @@ type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     query: TypedGQL<QUERY>,
     refetchFragment: TypedGQL<REFETCH_FRAGMENT>,
     uploadMutation: TypedGQL<UPLOAD_MUTATION>,
-    onSelect: (mediaObjects: SortedMediaObjectCursorConnection) => void
+    onChange: (mediaObjects: SortedMediaObjectCursorConnection) => void
     description?: string
     required?: boolean
 }
@@ -49,15 +52,15 @@ export function MultiMediaSelection<
     REFETCH_FRAGMENT extends MediaSelection_RefetchableFragment,
     UPLOAD_MUTATION extends UploadMutation
 >(
-    {title, value, required = false}
+    {title, value, description, onChange, required = false}
     : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
 ) {
     //const [selectionDialogOpen, setSelectionDialogOpen] = useState(false)
-    //const inputId = nameToId(title)
+    const inputId = nameToId(title)
     const {addAlert} = useAlerts()
     const {setSubmitListener} = useForm()
-    //const backendPath = useBackendPath()
-    const [items, setItems] = useState<(string | number)[]>([1, 2, 3])
+    const sortableMedias = value?.edges?.map(e => e?.node).filter(notEmpty)
+
     const sensors = useSensors(
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
@@ -79,29 +82,21 @@ export function MultiMediaSelection<
     const handleDragEnd = (event: DragEndEvent) => {
         const {active, over} = event
         if (active.id !== over?.id) {
-            setItems((items) => {
-                const oldIndex = items.indexOf(active.id)
-                const newIndex = over !== null ? items.indexOf(over.id) : undefined
-                return newIndex ? arrayMove(items, oldIndex, newIndex) : items
-            })
+            const activeMedia = sortableMedias?.find(m => m.id === active.id)
+            const oldIndex = activeMedia && sortableMedias?.indexOf(activeMedia)
+            const overMedia = sortableMedias?.find(m => m.id === over?.id)
+            const newIndex = overMedia && over !== null ? sortableMedias?.indexOf(overMedia) : undefined
+            if (oldIndex !== undefined && newIndex !== undefined && sortableMedias) {
+                onChange({edges:
+                    arrayMove(sortableMedias, oldIndex, newIndex).map(m => ({node: m}))
+                })
+            }
         }
     };
 
     return (
         <>
-            <DndContext
-                sensors={sensors}
-                collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd}
-            >
-                <SortableContext
-                    items={items}
-                    strategy={verticalListSortingStrategy}
-                >
-                    {items.map(id => <SortableItem key={id} id={id} />)}
-                </SortableContext>
-            </DndContext>
-            {/*<div className="sm:col-span-4 max-w-md flex flex-col gap-2">
+            <div className="sm:col-span-4 max-w-md flex flex-col gap-2">
                 <div className="flex flex-row gap-2">
                     <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                         {title}
@@ -112,25 +107,24 @@ export function MultiMediaSelection<
                       </TooltipIcon>
                     }
                 </div>
-                <div className="flex flex-col gap-2 items-start"
-                     onClick={() => setSelectionDialogOpen(true)}
-                >
-                    {value?.contentUrl &&
-                      <div className="flex flex-col justify-center">
-                        <img
-                          src={backendPath(value.contentUrl)} alt="image of act"
-                          className="max-h-32 max-w-32"
-                        />
-                      </div>
-                    }
+                <div className="flex flex-col gap-2 items-start">
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                        <div className="flex flex-wrap">
+                            {sortableMedias &&
+                                <SortableContext items={sortableMedias}>
+                                    {sortableMedias.map(o => <SortableMedia key={o.id} sortedMedia={o} />)}
+                                </SortableContext>
+                            }
+                        </div>
+                    </DndContext>
                     <button id={inputId} type="button"
                         className="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     >
-                        Bild auswählen
+                        Bild hinzufügen
                     </button>
                 </div>
             </div>
-            <Dialog open={selectionDialogOpen} title="Bild auswählen" onClose={() => setSelectionDialogSelectionDialogOpen(false)}>
+            {/*<Dialog open={selectionDialogOpen} title="Bild auswählen" onClose={() => setSelectionDialogSelectionDialogOpen(false)}>
                 <MediaSelectionDialog
                     query={query}
                     refetchFragment={refetchFragment}
@@ -145,23 +139,29 @@ export function MultiMediaSelection<
 
 
 
-export function SortableItem({id}: {id: string | number}) {
+export function SortableMedia({sortedMedia}: {sortedMedia: SortedMediaObject}) {
+    const backendPath = useBackendPath()
+    const contentUrl = sortedMedia.mediaObject.contentUrl
+
     const {
         attributes,
         listeners,
         setNodeRef,
         transform,
         transition,
-    } = useSortable({id});
+    } = useSortable({id: sortedMedia?.id})
 
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
-    };
+    }
 
     return (
         <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-            <h2>Sortable Item</h2>
+            {contentUrl && <img
+                src={backendPath(contentUrl)} alt="image"
+                className="max-h-32 max-w-32"
+            />}
         </div>
-    );
+    )
 }
