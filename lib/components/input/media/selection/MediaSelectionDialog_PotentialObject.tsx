@@ -1,5 +1,5 @@
 import {useBackendPath} from "../../../../util/util.ts";
-import {MediaObject} from "./MediaSelection.tsx";
+import {MediaObject} from "./MediaSelectionDialog.tsx";
 
 type Props = {
     mediaObject: MediaObject,

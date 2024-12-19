@@ -7,12 +7,7 @@ import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
 import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {TypedGQL} from "../../../../util/typeGQL.ts";
-import {MediaSelection_RefetchableFragment, MediaSelectionDialog} from "./MediaSelectionDialog.tsx";
-
-export type MediaObject = {
-    readonly id: string,
-    readonly contentUrl: string | null | undefined
-}
+import {MediaObject, MediaSelection_RefetchableFragment, MediaSelectionDialog} from "./MediaSelectionDialog.tsx";
 
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     title: string,
@@ -25,7 +20,7 @@ type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     required?: boolean
 }
 
-export function MediaSelection<
+export function SingleMediaSelection<
     QUERY extends OperationType & {response: REFETCH_FRAGMENT},
     REFETCH_FRAGMENT extends MediaSelection_RefetchableFragment,
     UPLOAD_MUTATION extends UploadMutation

@@ -5,17 +5,20 @@ import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
 import {EndlessScrollContainer} from "../../../util/endless-scroll/EndlessScrollContainer.tsx";
 import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
 import Spinner from "../../../icon/Spinner.tsx";
-import {MediaObject} from "./MediaSelection.tsx";
 import {MediaSelectionDialog_PotentialObject} from "./MediaSelectionDialog_PotentialObject.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 
+export type MediaObject = {
+    readonly id: string,
+    readonly contentUrl: string | null | undefined
+}
+
 type MediaObjectsResult = {
     mediaObjects: {
-        __id: string, edges: ReadonlyArray<(
-            {
+        __id: string, edges: ReadonlyArray<({
                 readonly node: MediaObject | undefined | null
             } | undefined | null
-            )> | undefined | null
+        )> | undefined | null
     } | undefined | null
 }
 

@@ -60,8 +60,10 @@ export {SelectInput} from "./components/input/SelectInput.tsx"
 export {TextInput} from "./components/input/TextInput.tsx"
 export {Toggle} from "./components/input/Toggle.tsx"
 // components/input/media
-export type {MediaObject} from "./components/input/media/selection/MediaSelection.tsx"
-export {MediaSelection} from "./components/input/media/selection/MediaSelection.tsx"
+export type {SortedMediaObjectCursorConnection} from "./components/input/media/selection/MultiMediaSelection.tsx"
+export type {MediaObject} from "./components/input/media/selection/MediaSelectionDialog.tsx"
+export {SingleMediaSelection} from "./components/input/media/selection/SingleMediaSelection.tsx"
+export {MultiMediaSelection} from "./components/input/media/selection/MultiMediaSelection.tsx"
 
 // components/alert
 export {AlertContextProvider} from "./components/alert/AlertContextProvider.tsx"
