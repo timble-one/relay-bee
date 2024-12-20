@@ -1,10 +1,10 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {OperationType} from "relay-runtime";
 import {UploadMutation} from "../MediaUploader.tsx";
 import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
 import {TypedGQL} from "../../../../util/typeGQL.ts";
-import {MediaObject, MediaSelection_RefetchableFragment} from "./MediaSelectionDialog.tsx";
+import {MediaObject, MediaSelection_RefetchableFragment, MediaSelectionDialog} from "./MediaSelectionDialog.tsx";
 import {
     closestCenter,
     DndContext,
@@ -24,6 +24,7 @@ import {CSS} from '@dnd-kit/utilities';
 import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {nameToId, notEmpty, useBackendPath} from "../../../../util/util.ts";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import Dialog from "../../../dialog/Dialog.tsx";
 
 export type SortedMediaObjectCursorConnection = {
     edges: ReadonlyArray<{
@@ -32,7 +33,7 @@ export type SortedMediaObjectCursorConnection = {
 }
 
 type SortedMediaObject = {
-    readonly id: string,
+    readonly id?: string,
     readonly sortingImportance: number
     readonly mediaObject: MediaObject
 }
@@ -53,14 +54,14 @@ export function MultiMediaSelection<
     REFETCH_FRAGMENT extends MediaSelection_RefetchableFragment,
     UPLOAD_MUTATION extends UploadMutation
 >(
-    {title, value, description, onChange, required = false}
+    {title, value: mediaObjects, description, onChange, query, uploadMutation, refetchFragment, required = false}
     : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
 ) {
-    //const [selectionDialogOpen, setSelectionDialogOpen] = useState(false)
+    const [selectionDialogOpen, setSelectionDialogOpen] = useState(false)
     const inputId = nameToId(title)
     const {addAlert} = useAlerts()
     const {setSubmitListener} = useForm()
-    const sortableMedias = value?.edges?.map(e => e?.node).filter(notEmpty)
+    const sortableMedias = mediaObjects?.edges?.map(e => e?.node?.mediaObject).filter(notEmpty)
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -71,14 +72,14 @@ export function MultiMediaSelection<
 
     useEffect(() => {
         const submitHandler = () => {
-            if (required && !value) {
+            if (required && !mediaObjects) {
                 addAlert(`"${title}" ist ein Pflichtfeld`, 'WARNING')
                 return false
             }
             return true
         }
         setSubmitListener(() => submitHandler)
-    }, [required, title, value])
+    }, [required, title, mediaObjects])
 
     const handleDragEnd = (event: DragEndEvent) => {
         const {active, over} = event
@@ -90,15 +91,26 @@ export function MultiMediaSelection<
             if (oldIndex !== undefined && newIndex !== undefined && sortableMedias) {
                 onChange({edges:
                     arrayMove(sortableMedias, oldIndex, newIndex)
-                        .map((m, i) => ({node: {...m, sortingImportance: sortableMedias.length - i}}))
+                        .map((m, i) => ({node: {mediaObject: m, sortingImportance: sortableMedias.length - i}}))
                 })
             }
         }
     };
 
     const getRemoveHandler = (id: string) => () =>
-        onChange({edges: value?.edges?.filter(e => e?.node?.id !== id)})
+        onChange({edges: mediaObjects?.edges?.filter(e => e?.node?.mediaObject.id !== id)})
     ;
+
+    const add = (mediaObject: MediaObject) => {
+        if (!mediaObjects?.edges?.find(e => e?.node?.mediaObject.id == mediaObject.id)) {
+            onChange({
+                ...mediaObjects ?? {},
+                edges: [...mediaObjects?.edges ?? [],
+                    {node: {mediaObject, sortingImportance: 0}}
+                ]
+            })
+        }
+    }
 
     return (
         <>
@@ -118,42 +130,47 @@ export function MultiMediaSelection<
                         <div className="flex flex-wrap">
                             {sortableMedias &&
                                 <SortableContext items={sortableMedias}>
-                                    {sortableMedias.map(o =>
-                                        <SortableMedia key={o.id} sortedMedia={o} onRemove={getRemoveHandler(o.id)} />
+                                    {sortableMedias.map(m =>
+                                        <SortableMedia
+                                            key={m.id}
+                                            mediaObject={m}
+                                            onRemove={getRemoveHandler(m.id)}
+                                        />
                                     )}
                                 </SortableContext>
                             }
                         </div>
                     </DndContext>
                     <button id={inputId} type="button"
+                        onClick={() => setSelectionDialogOpen(true)}
                         className="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     >
                         Bild hinzufügen
                     </button>
                 </div>
             </div>
-            {/*<Dialog open={selectionDialogOpen} title="Bild auswählen" onClose={() => setSelectionDialogSelectionDialogOpen(false)}>
+            <Dialog open={selectionDialogOpen} title="Bild auswählen" onClose={() => setSelectionDialogOpen(false)}>
                 <MediaSelectionDialog
                     query={query}
                     refetchFragment={refetchFragment}
                     uploadMutation={uploadMutation}
-                    onSelect={onSelect}
+                    onSelect={add}
                     onClose={() => setSelectionDialogOpen(false)}
                 />
-            </Dialog>*/}
+            </Dialog>
         </>
     )
 }
 
 
 type SortableMediaProps = {
-    sortedMedia: SortedMediaObject
+    mediaObject: MediaObject
     onRemove: () => void
 }
 
-export function SortableMedia({sortedMedia, onRemove}: SortableMediaProps) {
+export function SortableMedia({mediaObject, onRemove}: SortableMediaProps) {
     const backendPath = useBackendPath()
-    const contentUrl = sortedMedia.mediaObject.contentUrl
+    const contentUrl = mediaObject.contentUrl
 
     const {
         attributes,
@@ -161,7 +178,7 @@ export function SortableMedia({sortedMedia, onRemove}: SortableMediaProps) {
         setNodeRef,
         transform,
         transition,
-    } = useSortable({id: sortedMedia?.id})
+    } = useSortable({id: mediaObject.id})
 
     const style = {
         transform: CSS.Transform.toString(transform),
