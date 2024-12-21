@@ -21,6 +21,8 @@ Relay library for creating extendable backend UI's
   - `npm install @headlessui/react`
   - `npm install @floating-ui/react`
   - `npm install @heroicons/react`
+- Install the tailwindcss/forms plugin: https://github.com/tailwindlabs/tailwindcss-forms
+  - This is recommended for some input-fields to look cleaner
 - Improve Linting with this plugin: https://github.com/relayjs/eslint-plugin-relay?utm_source=chatgpt.com
 - Create an extendable backend UI fast!
 
