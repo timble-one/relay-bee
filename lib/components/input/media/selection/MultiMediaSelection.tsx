@@ -27,7 +27,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import Dialog from "../../../dialog/Dialog.tsx";
 
 export type SortedMediaObjectCursorConnection = {
-    edges: ReadonlyArray<{
+    edges?: ReadonlyArray<{
         readonly node: SortedMediaObject | undefined | null
     } | undefined | null> | undefined | null
 }

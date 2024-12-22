@@ -1,26 +1,31 @@
 import {useState} from "react";
+import {PartialDeep} from "type-fest";
 
 const getChangeListenerFactory =
-    <T, K extends keyof T>(state: T, setState: (state: T) => void) =>
+    <T, K extends keyof T>(state: PartialDeep<T>, setState: (state: PartialDeep<T>) => void) =>
         (field: K) =>
-            (newValue: T[K]) =>
+            (newValue: PartialDeep<T[K]>) =>
                 state && setState({...state, [field]: newValue})
 ;
 
 type InputProps<T> = {
-    value: T | undefined;
-    onChange: (newValue: T) => void;
+    value: PartialDeep<T> | undefined
+    onChange: (newValue: T) => void
 }
 
-export const useEntityState = <T extends object>(entity: Partial<T> | undefined | null): {
-    state: Partial<T>,
-    setState: (state: Partial<T>) => void,
-    inputProps: <K extends keyof T>(name: K) => InputProps<T[K]>
-} => {
-    const [state, setState] = useState<Partial<T>>(entity ?? {})
-    const getChangeListener = getChangeListenerFactory(state, setState)
+/*function getValue<T, K extends keyof T>(obj: PartialDeep<T>, key: K): T[K] | undefined {
+    return obj && key in obj ? (obj as T )[key] : undefined; // Type assertion
+}*/
 
-    const inputProps = <K extends keyof T>(name: K) => (
+export const useEntityState = <T extends object>(entity: PartialDeep<T> | undefined | null): {
+    state: PartialDeep<T>,
+    setState: (state: PartialDeep<T>) => void,
+    inputProps: <K extends keyof T>(name: K) => InputProps<PartialDeep<T[K]>>
+} => {
+    const [state, setState] = useState<PartialDeep<T>>(entity ?? <PartialDeep<T>>{});
+    const getChangeListener = getChangeListenerFactory<T, keyof T>(state, setState)
+
+    const inputProps = (name: keyof T) => (
         {value: state[name], onChange: getChangeListener(name)}
     )
 
