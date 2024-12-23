@@ -7,7 +7,7 @@ import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
 import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {TypedGQL} from "../../../../util/typeGQL.ts";
-import {MediaObject, MediaSelection_RefetchableFragment, MediaSelectionDialog} from "./MediaSelectionDialog.tsx";
+import {MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog} from "./MediaInsertionDialog.tsx";
 
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     title: string,
@@ -77,7 +77,7 @@ export function SingleMediaSelection<
                 </div>
             </div>
             <Dialog open={open} title="Bild auswählen" onClose={() => setOpen(false)}>
-                <MediaSelectionDialog
+                <MediaInsertionDialog
                     query={query}
                     refetchFragment={refetchFragment}
                     uploadMutation={uploadMutation}

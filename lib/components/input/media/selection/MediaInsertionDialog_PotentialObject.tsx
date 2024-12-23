@@ -1,12 +1,12 @@
 import {useBackendPath} from "../../../../util/util.ts";
-import {MediaObject} from "./MediaSelectionDialog.tsx";
+import {MediaObject} from "./MediaInsertionDialog.tsx";
 
 type Props = {
     mediaObject: MediaObject,
     onSelect: (mediaObject: MediaObject) => void
 }
 
-export const MediaSelectionDialog_PotentialObject = ({mediaObject, onSelect}: Props) => {
+export const MediaInsertionDialog_PotentialObject = ({mediaObject, onSelect}: Props) => {
     const contentUrl = mediaObject?.contentUrl
     const backendPath = useBackendPath()
     return (

@@ -5,7 +5,7 @@ import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
 import {EndlessScrollContainer} from "../../../util/endless-scroll/EndlessScrollContainer.tsx";
 import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
 import Spinner from "../../../icon/Spinner.tsx";
-import {MediaSelectionDialog_PotentialObject} from "./MediaSelectionDialog_PotentialObject.tsx";
+import {MediaInsertionDialog_PotentialObject} from "./MediaInsertionDialog_PotentialObject.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 
 export type MediaObject = {
@@ -32,7 +32,7 @@ type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     onClose: () => void
 }
 
-export const MediaSelectionDialog = <
+export const MediaInsertionDialog = <
     REFETCH_FRAGMENT extends MediaSelection_RefetchableFragment,
     QUERY extends OperationType & {response: REFETCH_FRAGMENT},
     UPLOAD_MUTATION extends UploadMutation
@@ -60,7 +60,7 @@ export const MediaSelectionDialog = <
                   className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-4"
               >
                   {mediaObjects.edges.map((mediaEdge, i) => mediaEdge?.node &&
-                      <MediaSelectionDialog_PotentialObject
+                      <MediaInsertionDialog_PotentialObject
                           mediaObject={mediaEdge.node} onSelect={selectHandler} key={i}
                       />
                   )}

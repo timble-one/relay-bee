@@ -32,9 +32,11 @@ export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends Zo
             return {...data, ...result.data}
         } else {
             const error: ZodError = result.error
-            console.debug('zod error', error)
+            console.warn(error)
             error.errors.forEach(e => {
-                addAlert(`${e.path.join('/')}: ${e.message}`, 'WARNING')
+                const path = e.path.join('/')
+                const message = path ? [path, e.message] : [e.message]
+                addAlert(message.join(': '), 'WARNING')
             })
         }
     };
