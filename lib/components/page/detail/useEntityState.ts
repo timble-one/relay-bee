@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const getChangeListenerFactory =
     <T, K extends keyof T>(state: T, setState: (state: T) => void) =>
@@ -19,6 +19,10 @@ export const useEntityState = <T extends object>(entity: Partial<T> | undefined 
 } => {
     const [state, setState] = useState<Partial<T>>(entity ?? {})
     const getChangeListener = getChangeListenerFactory(state, setState)
+
+    useEffect(() => {
+        setState(entity ?? {})
+    }, [entity])
 
     const inputProps = <K extends keyof T>(name: K) => (
         {value: state[name], onChange: getChangeListener(name)}
