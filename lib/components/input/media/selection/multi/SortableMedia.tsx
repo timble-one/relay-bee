@@ -3,7 +3,7 @@ import {useBackendPath} from "../../../../../util/util.ts";
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {XMarkIcon} from "@heroicons/react/24/outline";
-import {CircularButton} from "../../../../CircularButton.ts";
+import {CircularButton} from "../../../button/CircularButton.ts";
 import clsx from "clsx";
 import {DragIcon} from "../../../../icon/DragIcon.tsx";
 

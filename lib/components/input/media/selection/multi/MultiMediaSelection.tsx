@@ -23,6 +23,8 @@ import TooltipIcon from "../../../../icon/TooltipIcon.tsx";
 import {nameToId, notEmpty} from "../../../../../util/util.ts";
 import Dialog from "../../../../dialog/Dialog.tsx";
 import {SortableMedia} from "./SortableMedia.tsx";
+import {SecondaryButton} from "../../../button/SecondaryButton.ts";
+import clsx from "clsx";
 
 export type SortedMediaObjectCursorConnection = {
     edges: ReadonlyArray<{
@@ -141,7 +143,7 @@ export function MultiMediaSelection<
                     </DndContext>
                     <button id={inputId} type="button"
                         onClick={() => setSelectionDialogOpen(true)}
-                        className="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        className={clsx(SecondaryButton.getTailwindClasses())}
                     >
                         Bild hinzufügen
                     </button>

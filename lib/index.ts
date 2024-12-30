@@ -26,7 +26,10 @@ export {PeerRouterProvider} from "./util/router/PeerRouterProvider.tsx"
 export {LoadingIndicator} from "./components/LoadingIndicator.tsx"
 export {PromptLayout} from "./components/PromptLayout.tsx"
 export {LoginForm} from "./components/LoginForm.tsx"
-export {CircularButton} from "./components/CircularButton.ts"
+
+// components/button
+export {CircularButton} from "./components/input/button/CircularButton.ts"
+export {SecondaryButton} from "./components/input/button/SecondaryButton.ts"
 
 // components/util
 export {EndlessScrollContainer} from "./components/util/endless-scroll/EndlessScrollContainer.tsx"
