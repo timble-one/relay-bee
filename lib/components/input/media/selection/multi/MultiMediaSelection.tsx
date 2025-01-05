@@ -1,10 +1,9 @@
 import {useEffect, useState} from "react";
-import {OperationType} from "relay-runtime";
 import {UploadMutation} from "../../MediaUploader.tsx";
 import {useAlerts} from "../../../../alert/useAlerts.ts";
 import {useForm} from "../../../form/useForm.ts";
 import {TypedGQL} from "../../../../../util/typeGQL.ts";
-import {MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog} from "../MediaInsertionDialog.tsx";
+import {MediaObject, MediaInsertionDialog} from "../MediaInsertionDialog.tsx";
 import {
     closestCenter,
     DndContext,
@@ -38,24 +37,18 @@ type SortedMediaObject = {
     readonly mediaObject: MediaObject
 }
 
-type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
+type Props<UPLOAD_MUTATION> = {
     title: string,
     value: SortedMediaObjectCursorConnection | undefined | null,
-    query: TypedGQL<QUERY>,
-    refetchFragment: TypedGQL<REFETCH_FRAGMENT>,
     uploadMutation: TypedGQL<UPLOAD_MUTATION>,
     onChange: (mediaObjects: SortedMediaObjectCursorConnection) => void
     description?: string
     required?: boolean
 }
 
-export function MultiMediaSelection<
-    QUERY extends OperationType & {response: REFETCH_FRAGMENT},
-    REFETCH_FRAGMENT extends MediaSelection_RefetchableFragment,
-    UPLOAD_MUTATION extends UploadMutation
->(
-    {title, value: mediaObjects, description, onChange, query, uploadMutation, refetchFragment, required = false}
-    : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
+export function MultiMediaSelection<UPLOAD_MUTATION extends UploadMutation>(
+    {title, value: mediaObjects, description, onChange, uploadMutation, required = false}
+    : Props<UPLOAD_MUTATION>
 ) {
     const [selectionDialogOpen, setSelectionDialogOpen] = useState(false)
     const inputId = nameToId(title)
@@ -151,8 +144,6 @@ export function MultiMediaSelection<
             </div>
             <Dialog open={selectionDialogOpen} title="Bild auswählen" onClose={() => setSelectionDialogOpen(false)}>
                 <MediaInsertionDialog
-                    query={query}
-                    refetchFragment={refetchFragment}
                     uploadMutation={uploadMutation}
                     onSelect={add}
                     onClose={() => setSelectionDialogOpen(false)}

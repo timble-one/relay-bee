@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {OperationType} from "relay-runtime";
 import {UploadMutation} from "../MediaUploader.tsx";
 import Dialog from "../../../dialog/Dialog.tsx";
 import {nameToId, useBackendPath} from "../../../../util/util.ts";
@@ -7,32 +6,34 @@ import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
 import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {TypedGQL} from "../../../../util/typeGQL.ts";
-import {MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog} from "./MediaInsertionDialog.tsx";
+import {MediaInsertionDialog} from "./MediaInsertionDialog.tsx";
+import {useFragment} from "react-relay";
+import GenericSingleMediaSelection_mediaObjectGraphql
+    from "./__generated__/GenericSingleMediaSelection_mediaObject.graphql.ts";
+import {
+    RBeeSingleMediaSelectionFragment_mediaObject$key
+} from "./__generated__/RBeeSingleMediaSelectionFragment_mediaObject.graphql.ts";
 
-type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
+type Props<UPLOAD_MUTATION> = {
     title: string,
-    value: MediaObject | undefined | null,
-    query: TypedGQL<QUERY>,
-    refetchFragment: TypedGQL<REFETCH_FRAGMENT>,
+    value: RBeeSingleMediaSelectionFragment_mediaObject$key | undefined | null,
     uploadMutation: TypedGQL<UPLOAD_MUTATION>,
-    onSelect: (mediaObject: MediaObject) => void
+    onSelect: (mediaObject: {id: string, contentUrl: string | undefined | null}) => void
     description?: string
     required?: boolean
 }
 
-export function SingleMediaSelection<
-    QUERY extends OperationType & {response: REFETCH_FRAGMENT},
-    REFETCH_FRAGMENT extends MediaSelection_RefetchableFragment,
-    UPLOAD_MUTATION extends UploadMutation
->(
-    {title, value, query, refetchFragment, uploadMutation, onSelect, description, required = false}
-    : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
+export function SingleMediaSelection<UPLOAD_MUTATION extends UploadMutation>(
+    {title, value: data, uploadMutation, onSelect, description, required = false}
+    : Props<UPLOAD_MUTATION>
 ) {
     const [open, setOpen] = useState(false)
     const inputId = nameToId(title)
     const {addAlert} = useAlerts()
     const {setSubmitListener} = useForm()
     const backendPath = useBackendPath()
+
+    const value = useFragment(GenericSingleMediaSelection_mediaObjectGraphql, data)
 
     useEffect(() => {
         const submitHandler = () => {
@@ -76,8 +77,6 @@ export function SingleMediaSelection<
             </div>
             <Dialog open={open} title="Bild auswählen" onClose={() => setOpen(false)}>
                 <MediaInsertionDialog
-                    query={query}
-                    refetchFragment={refetchFragment}
                     uploadMutation={uploadMutation}
                     onSelect={onSelect}
                     onClose={() => setOpen(false)}
