@@ -1,20 +1,20 @@
 import TooltipIcon from "../icon/TooltipIcon.tsx";
 import {nameToId} from "../../util/util.ts";
 
-type Option = {value: string, name: string}
+type Option<T> = {value: T, name: string}
 
-type Props = {
+type Props<T> = {
     title: string,
-    options: Option[],
+    options: Option<T>[],
     value?: string,
-    onChange?: (newValue: string) => void,
+    onChange?: (newValue: T) => void,
     description?: string
     required?: boolean
 };
 
 export function SelectInput<T extends string>({
     title, options, value, onChange, description, required
-}: Props) {
+}: Props<T>) {
     const inputId = nameToId(title);
     return (
         <div className="sm:col-span-3 flex flex-col gap-2">
