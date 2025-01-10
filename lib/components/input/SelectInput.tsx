@@ -17,7 +17,7 @@ export function SelectInput<T extends string>({
 }: Props<T>) {
     const inputId = nameToId(title);
     return (
-        <div className="sm:col-span-3 flex flex-col gap-2">
+        <div className="col-span-full 2xl:col-span-3 max-w-xs flex flex-col gap-2">
             <div className="flex flex-row gap-2">
                 <label htmlFor={inputId} className="block text-sm/6 font-medium text-gray-900">
                     {title}

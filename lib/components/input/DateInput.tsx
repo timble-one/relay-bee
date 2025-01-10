@@ -13,7 +13,7 @@ export function DateInput({title, value, onChange = () => undefined, description
     const inputId = nameToId(title);
     const dateWithoutTimezone = value?.split('+')[0];
     return (
-        <div className="sm:col-span-4 max-w-md">
+        <div className="col-span-full 2xl:col-span-3 max-w-xs">
             <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>

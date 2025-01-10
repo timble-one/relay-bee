@@ -12,7 +12,7 @@ type Props = {
 export function Toggle({title, value, onChange: onChange = () => undefined, description}: Props) {
     const inputId = nameToId(title);
     return (
-        <div className="sm:col-span-4 max-w-md">
+        <div className="col-span-2 2xl:col-span-1 max-w-xs">
             <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>
