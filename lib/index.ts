@@ -40,7 +40,6 @@ export {useBackOnEscape} from "./components/util/escape/useBackOnEscape.ts"
 
 // components/page
 export {RefetchListContextProvider} from "./components/page/refetch-list-context/RefetchListContextProvider.tsx"
-export {useRefetchListContext} from "./components/page/refetch-list-context/useRefetchListContext.ts"
 export {ListPage} from "./components/page/list/ListPage.tsx"
 export {getDefaultListRoute} from "./components/page/list/getDefaultListRoute.ts"
 // components/page/list/table
@@ -50,6 +49,7 @@ export {TableButtons} from "./components/page/list/table/TableButtons.tsx"
 export {TableBody} from "./components/page/list/table/TableBody.tsx"
 export {AutoLoadTable} from "./components/page/list/table/AutoLoadTable.tsx"
 export {useSorting} from "./components/page/list/table/sort/useSorting.ts"
+export {useTable} from "./components/page/list/table/useTable.ts"
 // components/page/detail
 export type {ValidData} from "./components/page/detail/useEntitySaver.ts"
 export {useEntitySaver} from "./components/page/detail/useEntitySaver.ts"

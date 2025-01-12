@@ -1,40 +1,25 @@
-import {SortKey, sortKeys} from "./SortKey.ts";
+import {SortKey} from "./SortKey.ts";
 import {transformObjectMap} from "../../../../../util/util.ts";
 import {useRouter} from "found";
+import {usePrevious} from "../../../../../util/usePrevious.ts";
+import {useEffect} from "react";
+import {RefetchFnDynamic} from "react-relay";
+import {OperationType} from "relay-runtime";
+import {KeyType} from "react-relay/relay-hooks/helpers";
+import {SortingCombination, useSortingCombination} from "./useSortingCombination.ts";
 
 export type GenericSortingCombination = Record<string, string | null>
-export type SortingCombination<T = GenericSortingCombination> = {[p in keyof T]?: SortKey}
 export type SortFunction<T = GenericSortingCombination> = (column: keyof T) => (order: SortKey | undefined) => void
-type SearchParamsArray = [string, string][]
 
 export const sortingCombinationToQuery
     = (sortingCombination: SortingCombination) => transformObjectMap(sortingCombination, ([c, o]) => [c + 'Order', o])
 ;
 
-export function useSorting<T>() {
+export function useSorting<T>(refetch: RefetchFnDynamic<OperationType, KeyType>) {
     const {match, router} = useRouter()
-    const searchParamArray: SearchParamsArray = Array.from(Object.entries(match.location.query))
+    const sortingCombination = useSortingCombination<T>()
     const sortHeader = (key: keyof T) => ({sortKey: key})
-
-    const setQueryParams = (sortingCombination: SortingCombination<T>) => {
-        router.replace({
-            pathname: match.location.pathname,
-            query: sortingCombinationToQuery(sortingCombination)
-        })
-    }
-
-    const getSortingCombination = (searchParams: SearchParamsArray): SortingCombination<T> => {
-        const orderParams = searchParams
-            .filter(([k, v]) => k.endsWith('Order') && sortKeys.includes(v as SortKey))
-            .map(([c, o]) => [c.split('Order')[0], o])
-        ;
-        if (orderParams.length) {
-            return Object.fromEntries(orderParams)
-        }
-        return {}
-    }
-
-    const sortingCombination = getSortingCombination(searchParamArray)
+    const sortingQuery = Object.entries(sortingCombination).map(([c, o]) => ({[c]: o}))
 
     const sort: SortFunction<T> = (column: keyof T) => (order: SortKey | undefined) => {
         let newOrderCombination = sortingCombination
@@ -43,9 +28,25 @@ export function useSorting<T>() {
         } else {
             delete newOrderCombination[column]
         }
-        setQueryParams(newOrderCombination)
+        router.replace({
+            pathname: match.location.pathname,
+            query: sortingCombinationToQuery(newOrderCombination)
+        })
     }
 
-    const sortingQuery = Object.entries(sortingCombination).map(([c, o]) => ({[c]: o}))
+    // The previous pathname must be compared because otherwise a refetch can be triggered on the previous pathname with
+    // a new incompatible sortingQuery. This can happen when navigating between different pages.
+    const previousPathname = usePrevious(match.location.pathname)
+
+    const previousSortingQuery = usePrevious(sortingQuery)
+    useEffect(() => {
+        if (
+            JSON.stringify(sortingQuery) !== JSON.stringify(previousSortingQuery)
+            && match.location.pathname === previousPathname
+        ) {
+            refetch({order: sortingQuery})
+        }
+    }, [sortingQuery])
+
     return {sortingCombination, sortingQuery, sort, sortHeader}
 }

@@ -1,4 +1,4 @@
-import {SortingCombination} from "./components/page/list/table/sort/useSorting.ts";
+import {SortingCombination} from "./components/page/list/table/sort/useSortingCombination.ts";
 
 export type EntityDescription<SORTING_ORDER = never> = {
     title: {
