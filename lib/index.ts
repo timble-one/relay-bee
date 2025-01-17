@@ -68,6 +68,7 @@ export type {SortedMediaObjectCursorConnection} from "./components/input/media/s
 export type {MediaObject} from "./components/input/media/selection/MediaInsertionDialog.tsx"
 export {SingleMediaSelection} from "./components/input/media/selection/SingleMediaSelection.tsx"
 export {MultiMediaSelection} from "./components/input/media/selection/multi/MultiMediaSelection.tsx"
+export {TextEditor} from "./components/input/text-editor/TextEditor.tsx"
 
 // components/alert
 export {AlertContextProvider} from "./components/alert/AlertContextProvider.tsx"

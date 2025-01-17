@@ -1,0 +1,35 @@
+/* This class is meant for html-content, that is dynamically loaded (e.g a product-description). */
+.inserted-html {
+    & p {
+        @apply leading-4;
+    }
+    & h3 {
+        @apply text-xl !important;
+        @apply pt-2;
+    }
+    & h4 {
+        @apply text-lg !important;
+        @apply pt-2;
+    }
+    & h5 {
+        @apply text-base !important;
+        @apply pt-2;
+    }
+    & ol {
+        @apply list-decimal;
+        @apply ml-6;
+    }
+    & ul {
+        @apply list-disc;
+        @apply ml-0;
+    }
+    & ul, & ol {
+        @apply list-outside;
+        @apply pl-0;
+
+        & li {
+            @apply ml-0;
+            @apply pl-0;
+        }
+    }
+}
