@@ -1,4 +1,3 @@
-import {useEnv} from "./environment/useEnv.ts";
 import {RefinementCtx, z} from "zod";
 
 export type ExtractNodeFromEdges<
@@ -25,11 +24,6 @@ export const nameToId = (name: string): string => name.toLowerCase()
     .replace('ö', 'oe')
     .replace('ü', 'ue')
 ;
-
-export const useBackendPath = (): (path: string) => string => {
-    const env = useEnv()
-    return (path: string) => env.httpEndpoint + path
-}
 
 export const setObjectProperty = (obj: Record<string, string | unknown>, path: string, value: string) => {
     const keys = path.split('.')

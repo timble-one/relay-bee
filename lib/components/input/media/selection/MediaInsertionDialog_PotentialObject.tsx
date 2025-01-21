@@ -1,5 +1,5 @@
-import {useBackendPath} from "../../../../util/util.ts";
 import {MediaObject} from "./MediaInsertionDialog.tsx";
+import {useImagePath} from "../../../../util/usePath.ts";
 
 type Props = {
     mediaObject: MediaObject,
@@ -8,7 +8,7 @@ type Props = {
 
 export const MediaInsertionDialog_PotentialObject = ({mediaObject, onSelect}: Props) => {
     const contentUrl = mediaObject?.contentUrl
-    const backendPath = useBackendPath()
+    const imagePath = useImagePath()
     return (
         <li className="relative">
             <div
@@ -17,7 +17,7 @@ export const MediaInsertionDialog_PotentialObject = ({mediaObject, onSelect}: Pr
             >
                 <img alt="potential image"
                      className="pointer-events-none object-cover group-hover:opacity-75"
-                     src={(contentUrl && backendPath(contentUrl)) ?? undefined}/>
+                     src={(contentUrl && imagePath(contentUrl, 100)) ?? undefined}/>
             </div>
         </li>
     )

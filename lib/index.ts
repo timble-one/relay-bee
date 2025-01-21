@@ -4,9 +4,10 @@ export type {EntityDescription} from "./EntityDescription.tsx"
 
 // -- util
 export type {ExtractNodeFromEdges} from "./util/util.ts"
-export {useBackendPath, validateJSON, notEmpty} from "./util/util.ts"
+export {validateJSON, notEmpty} from "./util/util.ts"
 export {useAuth} from "./util/useAuth.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
+export {useBackendPath, useImagePath} from "./util/usePath.ts"
 
 // util/relay
 export {usePeerRelayEnv} from "./util/relay/usePeerRelayEnv.ts"

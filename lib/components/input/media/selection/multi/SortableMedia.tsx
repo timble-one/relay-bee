@@ -1,11 +1,11 @@
 import {MediaObject} from "../MediaInsertionDialog.tsx";
-import {useBackendPath} from "../../../../../util/util.ts";
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {CircularButton} from "../../../button/CircularButton.ts";
 import clsx from "clsx";
 import {DragIcon} from "../../../../icon/DragIcon.tsx";
+import {useImagePath} from "../../../../../util/usePath.ts";
 
 type Props = {
     mediaObject: MediaObject
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export function SortableMedia({mediaObject, onRemove}: Props) {
-    const backendPath = useBackendPath()
+    const imagePath = useImagePath()
     const contentUrl = mediaObject.contentUrl
 
     const {
@@ -50,7 +50,7 @@ export function SortableMedia({mediaObject, onRemove}: Props) {
                         <XMarkIcon aria-hidden="true" className="size-5"/>
                     </button>
                     <img
-                        src={backendPath(contentUrl)} alt=""
+                        src={imagePath(contentUrl, 200)} alt=""
                         className="w-48 m-4 aspect-[3/2] rounded-2xl object-cover"
                     />
               </div>

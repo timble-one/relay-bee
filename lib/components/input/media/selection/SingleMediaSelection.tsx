@@ -2,12 +2,13 @@ import {useEffect, useState} from "react";
 import {OperationType} from "relay-runtime";
 import {UploadMutation} from "../MediaUploader.tsx";
 import Dialog from "../../../dialog/Dialog.tsx";
-import {nameToId, useBackendPath} from "../../../../util/util.ts";
+import {nameToId} from "../../../../util/util.ts";
 import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
 import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {TypedGQL} from "../../../../util/typeGQL.ts";
 import {MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog} from "./MediaInsertionDialog.tsx";
+import {useImagePath} from "../../../../util/usePath.ts";
 
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     title: string,
@@ -32,7 +33,7 @@ export function SingleMediaSelection<
     const inputId = nameToId(title)
     const {addAlert} = useAlerts()
     const {setSubmitListener} = useForm()
-    const backendPath = useBackendPath()
+    const imagePath = useImagePath()
 
     useEffect(() => {
         const submitHandler = () => {
@@ -62,7 +63,7 @@ export function SingleMediaSelection<
                     {value?.contentUrl &&
                       <div className="flex flex-col justify-center">
                         <img
-                          src={backendPath(value.contentUrl)} alt="image of act"
+                          src={imagePath(value.contentUrl, 200)} alt="image of act"
                           className="max-h-32 max-w-32"
                         />
                       </div>
