@@ -4,9 +4,10 @@ import {useImagePath} from "../../../../util/usePath.ts";
 type Props = {
     mediaObject: MediaObject,
     onSelect: (mediaObject: MediaObject) => void
+    loadFullSizedImages?: boolean
 }
 
-export const MediaInsertionDialog_PotentialObject = ({mediaObject, onSelect}: Props) => {
+export const MediaInsertionDialog_PotentialObject = ({mediaObject, onSelect, loadFullSizedImages}: Props) => {
     const contentUrl = mediaObject?.contentUrl
     const imagePath = useImagePath()
     return (
@@ -17,7 +18,8 @@ export const MediaInsertionDialog_PotentialObject = ({mediaObject, onSelect}: Pr
             >
                 <img alt="potential image"
                      className="pointer-events-none object-cover group-hover:opacity-75"
-                     src={(contentUrl && imagePath(contentUrl, 100)) ?? undefined}/>
+                     src={(contentUrl && imagePath(contentUrl, loadFullSizedImages ? undefined : 100)) ?? undefined}
+                />
             </div>
         </li>
     )

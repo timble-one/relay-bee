@@ -19,6 +19,7 @@ type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     onSelect: (mediaObject: MediaObject) => void
     description?: string
     required?: boolean
+    loadFullSizedImages?: boolean
 }
 
 export function SingleMediaSelection<
@@ -26,7 +27,7 @@ export function SingleMediaSelection<
     REFETCH_FRAGMENT extends MediaSelection_RefetchableFragment,
     UPLOAD_MUTATION extends UploadMutation
 >(
-    {title, value, query, refetchFragment, uploadMutation, onSelect, description, required = false}
+    {title, value, query, refetchFragment, uploadMutation, onSelect, description, required, loadFullSizedImages}
     : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
 ) {
     const [open, setOpen] = useState(false)
@@ -63,7 +64,7 @@ export function SingleMediaSelection<
                     {value?.contentUrl &&
                       <div className="flex flex-col justify-center">
                         <img
-                          src={imagePath(value.contentUrl, 200)} alt="image of act"
+                          src={imagePath(value.contentUrl, loadFullSizedImages ? undefined : 200)} alt="image of act"
                           className="max-h-32 max-w-32"
                         />
                       </div>
@@ -82,6 +83,7 @@ export function SingleMediaSelection<
                     uploadMutation={uploadMutation}
                     onSelect={onSelect}
                     onClose={() => setOpen(false)}
+                    loadFullSizedImages={loadFullSizedImages}
                 />
             </Dialog>
         </>
