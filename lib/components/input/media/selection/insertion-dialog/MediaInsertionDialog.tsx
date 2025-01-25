@@ -5,7 +5,7 @@ import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
 import {EndlessScrollContainer} from "../../../util/endless-scroll/EndlessScrollContainer.tsx";
 import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
 import Spinner from "../../../icon/Spinner.tsx";
-import {MediaInsertionDialog_PotentialObject} from "./MediaInsertionDialog_PotentialObject.tsx";
+import {PotentialObject} from "./PotentialObject.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 
 export type MediaObject = {
@@ -61,7 +61,7 @@ export const MediaInsertionDialog = <
                   className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-4"
               >
                   {mediaObjects.edges.map((mediaEdge, i) => mediaEdge?.node &&
-                      <MediaInsertionDialog_PotentialObject
+                      <PotentialObject
                           key={i}
                           mediaObject={mediaEdge.node}
                           onSelect={selectHandler}

@@ -7,7 +7,7 @@ type Props = {
     loadFullSizedImages?: boolean
 }
 
-export const MediaInsertionDialog_PotentialObject = ({mediaObject, onSelect, loadFullSizedImages}: Props) => {
+export const PotentialObject = ({mediaObject, onSelect, loadFullSizedImages}: Props) => {
     const contentUrl = mediaObject?.contentUrl
     const imagePath = useImagePath()
     return (
