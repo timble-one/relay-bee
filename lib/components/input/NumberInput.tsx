@@ -8,17 +8,18 @@ type Props = {
     value?: number | null,
     onChange?: (newValue: number) => void,
     onError?: (message: string) => void,
-    description?: string
+    description?: string,
+    required?: boolean,
 };
 
 export function NumberInput(
-    {title, value, onChange = () => undefined, description}: Props) {
+    {title, value, onChange = () => undefined, description, required}: Props) {
     const onStringChange = (e: React.FormEvent<HTMLInputElement>) => {
         onChange(Number(e.currentTarget.value));
     }
     const inputId = nameToId(title);
     return (
-        <div className="col-span-full 2xl:col-span-3 max-w-xs">
+        <div className="col-span-2 2xl:col-span-1">
             <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>
@@ -28,8 +29,11 @@ export function NumberInput(
                     type="number"
                     value={value ?? ''}
                     onChange={onStringChange}
-                    className={clsx(description ? 'pl-3 pr-10' : 'p-3',
-                        'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6')}
+                    required={required}
+                    className={clsx(
+                        'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                        description ? 'pl-3 pr-10' : 'p-3',
+                    )}
                 />
                 {description &&
                   <TooltipIcon iconClasses="absolute inset-y-0 right-0 flex items-center pr-3">

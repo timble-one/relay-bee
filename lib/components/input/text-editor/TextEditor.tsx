@@ -77,7 +77,7 @@ export const TextEditor = ({title, readOnly, defaultValue, onChange}: Props) => 
     }, [ref])
 
     return (
-        <div className="col-span-full 2xl:col-span-3 max-w-2xl">
+        <div className="col-span-full 2xl:col-span-3">
             <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>
