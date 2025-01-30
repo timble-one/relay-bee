@@ -3,7 +3,7 @@
   <img alt="Description of image" src="doc/logo/logo-small.png">
 </picture>
 
-Relay library for creating extendable backend UI's
+Relay library for creating extendable admin/backend UI's
 
 **Technologies:** Relay, GraphQL, React, TypeScript, Tailwind, Vite
 

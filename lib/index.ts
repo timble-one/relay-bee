@@ -28,6 +28,9 @@ export {LoadingIndicator} from "./components/LoadingIndicator.tsx"
 export {PromptLayout} from "./components/PromptLayout.tsx"
 export {LoginForm} from "./components/LoginForm.tsx"
 
+// components/icon
+export {Spinner} from "./components/icon/Spinner.tsx"
+
 // components/button
 export {CircularButton} from "./components/input/button/CircularButton.ts"
 export {SecondaryButton} from "./components/input/button/SecondaryButton.ts"

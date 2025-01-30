@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-export default function Spinner({visible = true}: {visible?: boolean}) {
+export default function DeprecatedDefaultExport({visible = true}: {visible?: boolean}) {
     return (
         <div role="status" className={clsx(
             visible ? 'transition-opacity opacity-100 duration-1000' : 'transition-none opacity-0')}
@@ -17,3 +17,5 @@ export default function Spinner({visible = true}: {visible?: boolean}) {
         </div>
     );
 }
+
+export const Spinner = DeprecatedDefaultExport
