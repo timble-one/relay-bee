@@ -9,11 +9,12 @@ type Props<DATA, VALIDATION extends ZodTypeAny> = {
     data: DATA
     validationSchema: VALIDATION
     update: (existingEntity: ValidData<DATA, VALIDATION> & {id: string}) => void,
-    create: (newEntity: ValidData<DATA, VALIDATION>) => void
+    create: (newEntity: ValidData<DATA, VALIDATION>) => void,
+    subValidation?: {schema: ZodTypeAny, data: unknown}
 }
 
 export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends ZodTypeAny>(
-    {data, validationSchema, update, create}: Props<DATA, VALIDATION>
+    {data, validationSchema, update, create, subValidation}: Props<DATA, VALIDATION>
 ) => {
     const {addAlert} = useAlerts()
     const {wrapWithErrorAlerts, handleError} = useErrorWrapper()
@@ -27,13 +28,14 @@ export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends Zo
         validationSchema: VALIDATION,
         data: Partial<DATA>
     ): ValidData<DATA, VALIDATION> | undefined => {
+        const subResult = subValidation?.schema.safeParse(subValidation?.data)
         const result = validationSchema.safeParse(data)
-        if (result.success) {
+        if (result.success && (!subResult || subResult.success)) {
             return {...data, ...result.data}
         } else {
-            const error: ZodError = result.error
+            const error: ZodError | undefined = subResult?.error || result.error
             console.warn(error)
-            error.errors.forEach(e => {
+            error?.errors.forEach(e => {
                 const path = e.path.join('/')
                 const message = path ? [path, e.message] : [e.message]
                 addAlert(message.join(': '), 'WARNING')
