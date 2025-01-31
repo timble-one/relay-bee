@@ -69,7 +69,7 @@ export {TextInput} from "./components/input/TextInput.tsx"
 export {Toggle} from "./components/input/Toggle.tsx"
 // components/input/media
 export type {SortedMediaObjectCursorConnection} from "./components/input/media/selection/multi/MultiMediaSelection.tsx"
-export type {MediaObject} from "./components/input/media/selection/MediaInsertionDialog.tsx"
+export type {MediaObject} from "./components/input/media/selection/insertion-dialog/MediaInsertionDialog.tsx"
 export {SingleMediaSelection} from "./components/input/media/selection/SingleMediaSelection.tsx"
 export {MultiMediaSelection} from "./components/input/media/selection/multi/MultiMediaSelection.tsx"
 export {TextEditor} from "./components/input/text-editor/TextEditor.tsx"

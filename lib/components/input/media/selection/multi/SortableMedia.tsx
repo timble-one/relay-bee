@@ -1,4 +1,4 @@
-import {MediaObject} from "../MediaInsertionDialog.tsx";
+import {MediaObject} from "../insertion-dialog/MediaInsertionDialog.tsx";
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {XMarkIcon} from "@heroicons/react/24/outline";

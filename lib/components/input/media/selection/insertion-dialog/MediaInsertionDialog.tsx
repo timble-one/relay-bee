@@ -1,10 +1,10 @@
-import {TypedGQL, untypeGQL} from "../../../../util/typeGQL.ts";
+import {TypedGQL, untypeGQL} from "../../../../../util/typeGQL.ts";
 import {OperationType} from "relay-runtime";
-import MediaUploader, {UploadMutation} from "../MediaUploader.tsx";
+import MediaUploader, {UploadMutation} from "../../MediaUploader.tsx";
 import {useLazyLoadQuery, usePaginationFragment} from "react-relay";
-import {EndlessScrollContainer} from "../../../util/endless-scroll/EndlessScrollContainer.tsx";
-import {ScrollVisibilityTrigger} from "../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
-import Spinner from "../../../icon/Spinner.tsx";
+import {EndlessScrollContainer} from "../../../../util/endless-scroll/EndlessScrollContainer.tsx";
+import {ScrollVisibilityTrigger} from "../../../../util/endless-scroll/ScrollVisibilityTrigger.tsx";
+import Spinner from "../../../../icon/Spinner.tsx";
 import {PotentialObject} from "./PotentialObject.tsx";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 

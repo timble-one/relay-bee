@@ -4,7 +4,9 @@ import {UploadMutation} from "../../MediaUploader.tsx";
 import {useAlerts} from "../../../../alert/useAlerts.ts";
 import {useForm} from "../../../form/useForm.ts";
 import {TypedGQL} from "../../../../../util/typeGQL.ts";
-import {MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog} from "../MediaInsertionDialog.tsx";
+import {
+    MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog
+} from "../insertion-dialog/MediaInsertionDialog.tsx";
 import {
     closestCenter,
     DndContext,

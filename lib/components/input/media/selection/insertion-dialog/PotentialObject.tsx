@@ -1,5 +1,5 @@
 import {MediaObject} from "./MediaInsertionDialog.tsx";
-import {useImagePath} from "../../../../util/usePath.ts";
+import {useImagePath} from "../../../../../util/usePath.ts";
 
 type Props = {
     mediaObject: MediaObject,
