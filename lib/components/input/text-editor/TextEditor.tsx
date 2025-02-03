@@ -10,7 +10,6 @@ import Link from "quill/formats/link";
 import List from "quill/formats/list";
 import Underline from "quill/formats/underline";
 import {toolbarOptions} from "./Toolbar.ts";
-import {nameToId} from "../../../util/util.ts";
 import "./text-editor.css";
 
 Quill.register({
@@ -32,7 +31,6 @@ type Props = {
 }
 
 export const TextEditor = ({title, readOnly, defaultValue, onChange}: Props) => {
-    const inputId = nameToId(title);
     const ref = useRef<Quill>()
     const containerRef = useRef<HTMLDivElement>(null)
     const defaultValueRef = useRef(defaultValue)
@@ -78,10 +76,10 @@ export const TextEditor = ({title, readOnly, defaultValue, onChange}: Props) => 
 
     return (
         <div className="col-span-full 2xl:col-span-3">
-            <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
+            <label className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>
-            <div id={inputId} className="relative mt-2 rounded-md shadow-sm">
+            <div className="relative mt-2 rounded-md shadow-sm">
                 <div className="inserted-html" ref={containerRef}></div>
             </div>
         </div>
