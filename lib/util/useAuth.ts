@@ -1,5 +1,5 @@
 import {useEnv} from "./environment/useEnv.ts";
-import {setObjectProperty} from "./property.ts";
+import {setProp} from "./props.ts";
 
 type User = {token: string};
 
@@ -9,7 +9,7 @@ export const useAuth = () => {
     const env = useEnv();
     const login = async (email: string, password: string): Promise<LoginResult> => {
         const credentials = {email}
-        setObjectProperty(credentials, env.passwordPath, password)
+        setProp(credentials, env.passwordPath, password)
         const response = await fetch(`${env.httpEndpoint}${env.basePath}/auth`, {
             method: 'POST',
             body: JSON.stringify(credentials),

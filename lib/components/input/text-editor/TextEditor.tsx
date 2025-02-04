@@ -47,6 +47,10 @@ export const TextEditor = ({title, readOnly, defaultValue, onChange}: Props) => 
     }, [ref, readOnly])
 
     useEffect(() => {
+        if (defaultValue) ref.current?.setContents(JSON.parse(defaultValue))
+    }, [defaultValue])
+
+    useEffect(() => {
         if (ref && typeof ref !== 'function') {
             const container = containerRef.current;
             const editorContainer = container?.appendChild(
