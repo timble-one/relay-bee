@@ -1,5 +1,5 @@
-import {setObjectProperty} from "./util.ts";
 import {useEnv} from "./environment/useEnv.ts";
+import {setObjectProperty} from "./property.ts";
 
 type User = {token: string};
 

@@ -3,7 +3,6 @@ import "./index.css"
 export type {EntityDescription} from "./EntityDescription.tsx"
 
 // -- util
-export type {ExtractNodeFromEdges} from "./util/util.ts"
 export {validateJSON, notEmpty} from "./util/util.ts"
 export {useAuth} from "./util/useAuth.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
@@ -13,6 +12,7 @@ export {useBackendPath, useImagePath} from "./util/usePath.ts"
 export {usePeerRelayEnv} from "./util/relay/usePeerRelayEnv.ts"
 export {PeerRelayEnvironmentProvider} from "./util/relay/PeerRelayEnvironmentProvider.tsx"
 export {useTypedMutation} from "./util/relay/useTypedMutation.ts"
+export type {ExtractNodeFromEdges} from "./util/relay/util.ts"
 
 // util/environment
 export type {EnvironmentContextType} from "./util/environment/EnvironmentContext.ts"

@@ -1,6 +1,7 @@
 import {useAlerts} from "../../alert/useAlerts.ts";
 import {z, ZodError, ZodTypeAny} from "zod";
 import {useErrorWrapper} from "../../alert/useErrorWrapper.ts";
+import {removePropertiesRecursive} from "../../../util/property.ts";
 
 export type ValidData<DATA, VALIDATION extends ZodTypeAny> = z.infer<VALIDATION> & Partial<DATA>
 const hasId = (state: {id?: string}): state is {id: string} => state.id != undefined;
@@ -45,10 +46,11 @@ export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends Zo
 
     const save = () => {
         const validData = validate(validationSchema, data)
-        if (validData && hasId(validData)) {
-            update(validData)
+        const inputData = validData && removePropertiesRecursive(validData, ['__id', '__fragmentOwner', '__fragments'])
+        if (inputData && hasId(inputData)) {
+            update(inputData)
         } else {
-            if (validData) create(validData)
+            if (inputData) create(inputData)
         }
     }
 
