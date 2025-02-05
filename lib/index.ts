@@ -63,7 +63,7 @@ export {useEntityState} from "./components/page/detail/useEntityState.ts"
 export {DetailPage} from "./components/page/detail/DetailPage.tsx"
 
 // components/input
-export {DateInput} from "./components/input/DateInput.tsx"
+export {DateTimeInput, DateInput} from "./components/input/DateTimeInput.tsx"
 export {NumberInput} from "./components/input/NumberInput.tsx"
 export {SelectInput} from "./components/input/SelectInput.tsx"
 export {TextInput} from "./components/input/TextInput.tsx"
