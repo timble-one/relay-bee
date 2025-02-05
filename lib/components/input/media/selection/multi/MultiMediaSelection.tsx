@@ -127,7 +127,7 @@ export function MultiMediaSelection<
 
     return (
         <>
-            <div className="col-span-full 2xl:col-span-3">
+            <div className="col-span-full 2xl:col-span-6">
                 <div className="flex flex-row gap-2">
                     <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                         {title}

@@ -51,7 +51,7 @@ export function SingleMediaSelection<
 
     return (
         <>
-            <div className="col-span-full row-span-2 2xl:col-span-1">
+            <div className="col-span-6 2xl:col-span-3 row-span-4">
                 <div className="flex flex-row gap-2">
                     <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                         {title}

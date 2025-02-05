@@ -22,7 +22,7 @@ export function NumberInput(
     }
     const inputId = nameToId(title);
     return (
-        <div className="flex flex-col gap-2 col-span-3 xl:col-span-2 2xl:col-span-1">
+        <div className="flex flex-col gap-2 col-span-6 xl:col-span-3 2xl:col-span-2">
             <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>

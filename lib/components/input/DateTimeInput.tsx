@@ -27,7 +27,7 @@ export function DateTimeInput(
     const inputId = nameToId(title);
     const dateWithoutTimezone = value?.split('+')[0];
     return (
-        <div className="col-span-3 xl:col-span-2 2xl:col-span-1 max-w-xs">
+        <div className="col-span-6 xl:col-span-4 2xl:col-span-3 max-w-xs">
             <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>

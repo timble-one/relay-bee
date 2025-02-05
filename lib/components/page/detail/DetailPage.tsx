@@ -38,14 +38,14 @@ export function DetailPage<DELETE_MUTATION extends MutationParameters & {variabl
 
     return (
         <EscapeContext.Provider value={escapeContext}>
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-w-screen-2xl">
                 <Breadcrumbs pages={[
                     {name: entityDescription.title.plural, href: listRoute},
                     {name: objectName ? objectName : `Neuer ${entityDescription.title.singular}`, href: ''}
                 ]}/>
                 <Form className="flex flex-col gap-8" onSubmit={onSubmit}>
                     <div className="border-b border-gray-900/10 pb-8">
-                        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="grid grid-cols-12 gap-x-6 gap-y-8">
                             {children}
                         </div>
                     </div>
