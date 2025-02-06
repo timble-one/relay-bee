@@ -14,7 +14,7 @@ type Props = {
 export function TextInput({title, value, onChange = () => undefined, description, required, type}: Props) {
     const inputId = nameToId(title);
     return (
-        <div className="col-span-8 xl:col-span-6 2xl:col-span-4">
+        <div className="col-span-6 2xl:col-span-3">
             <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>

@@ -61,6 +61,7 @@ export {useEntitySaver} from "./components/page/detail/useEntitySaver.ts"
 export {useNewEntityHandler} from "./components/page/detail/useNewEntityHandler.ts"
 export {useEntityState} from "./components/page/detail/useEntityState.ts"
 export {DetailPage} from "./components/page/detail/DetailPage.tsx"
+export {CompactSection, WideSection, HybridSection} from "./components/page/detail/Sections.tsx"
 
 // components/input
 export {DateTimeInput, DateInput} from "./components/input/DateTimeInput.tsx"
