@@ -49,7 +49,6 @@ type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     onChange: (mediaObjects: SortedMediaObjectCursorConnection) => void
     description?: string
     required?: boolean
-    loadFullSizedImages?: boolean
 }
 
 export function MultiMediaSelection<
@@ -57,17 +56,7 @@ export function MultiMediaSelection<
     REFETCH_FRAGMENT extends MediaSelection_RefetchableFragment,
     UPLOAD_MUTATION extends UploadMutation
 >(
-    {
-        title,
-        value: mediaObjects,
-        description,
-        onChange,
-        query,
-        uploadMutation,
-        refetchFragment,
-        required,
-        loadFullSizedImages
-    }
+    {title, value: mediaObjects, description, onChange, query, uploadMutation, refetchFragment, required = false}
     : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
 ) {
     const [selectionDialogOpen, setSelectionDialogOpen] = useState(false)
@@ -169,7 +158,6 @@ export function MultiMediaSelection<
                     uploadMutation={uploadMutation}
                     onSelect={add}
                     onClose={() => setSelectionDialogOpen(false)}
-                    loadFullSizedImages={loadFullSizedImages}
                 />
             </Dialog>
         </>

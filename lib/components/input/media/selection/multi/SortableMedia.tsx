@@ -10,10 +10,9 @@ import {useImagePath} from "../../../../../util/usePath.ts";
 type Props = {
     mediaObject: MediaObject
     onRemove: () => void
-    loadFullSizedImages?: boolean
 }
 
-export function SortableMedia({mediaObject, onRemove, loadFullSizedImages}: Props) {
+export function SortableMedia({mediaObject, onRemove}: Props) {
     const imagePath = useImagePath()
     const contentUrl = mediaObject.contentUrl
 
@@ -51,7 +50,7 @@ export function SortableMedia({mediaObject, onRemove, loadFullSizedImages}: Prop
                         <XMarkIcon aria-hidden="true" className="size-5"/>
                     </button>
                     <img
-                        src={imagePath(contentUrl, loadFullSizedImages ? undefined : 200)} alt=""
+                        src={imagePath(contentUrl, 200)} alt=""
                         className="w-48 m-4 aspect-[3/2] rounded-2xl object-cover"
                     />
               </div>

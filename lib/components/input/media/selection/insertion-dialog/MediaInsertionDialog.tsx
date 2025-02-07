@@ -30,7 +30,6 @@ type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     uploadMutation: TypedGQL<UPLOAD_MUTATION>,
     onSelect: (mediaObject: MediaObject) => void,
     onClose: () => void
-    loadFullSizedImages?: boolean
 }
 
 export const MediaInsertionDialog = <
@@ -38,7 +37,7 @@ export const MediaInsertionDialog = <
     QUERY extends OperationType & {response: REFETCH_FRAGMENT},
     UPLOAD_MUTATION extends UploadMutation
 >(
-    {query, refetchFragment, uploadMutation, onSelect, onClose, loadFullSizedImages}
+    {query, refetchFragment, uploadMutation, onSelect, onClose}
     : Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION>
 ) => {
     const selectHandler = (mediaObject: MediaObject) => {
@@ -62,10 +61,7 @@ export const MediaInsertionDialog = <
               >
                   {mediaObjects.edges.map((mediaEdge, i) => mediaEdge?.node &&
                       <PotentialObject
-                          key={i}
-                          mediaObject={mediaEdge.node}
-                          onSelect={selectHandler}
-                          loadFullSizedImages={loadFullSizedImages}
+                          mediaObject={mediaEdge.node} onSelect={selectHandler} key={i}
                       />
                   )}
               </ul>
