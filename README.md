@@ -36,3 +36,10 @@ If you use ApiPlatform (Symfony, PHP) for the backend, this Bundle is recommende
 For a better integration in intellij you can activate this relay option:
 
 ![img.png](doc/webstorm.png)
+
+### Images
+
+RelayBee does use images with heights of 100 and 200 pixels.  
+It accesses them with suffixes in this format: `xy-mh100` (max heights 100px).
+
+In Symfony projects these images can be generated with this bundle easily: https://github.com/timble-one/backend-bundle
