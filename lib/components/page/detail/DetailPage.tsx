@@ -5,13 +5,14 @@ import {TrashIcon} from "@heroicons/react/16/solid";
 import DeleteConfirmation from "../../dialog/delete/DeleteConfirmation.tsx";
 import useDeleter from "../../util/useDeleter.ts";
 import Breadcrumbs from "../../Breadcrumbs.tsx";
-import {Link, useRouter} from "found";
 import {EscapeContext} from "../../util/escape/EscapeContext.ts";
 import {useBackOnEscape} from "../../util/escape/useBackOnEscape.ts";
 import {TypedGQL, untypeGQL} from "../../../util/typeGQL";
 import {MutationParameters} from "relay-runtime";
 import {useMutation} from "react-relay";
 import {getDefaultListRoute} from "../list/getDefaultListRoute.ts";
+import {useRouter} from "../../../util/router/util.ts";
+import {Link} from "../../Link.tsx";
 
 type Props<DELETE_MUTATION> = {
     children: ReactNode,

@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import {Link} from "found";
+import {Link} from "./Link.tsx";
 
 type Props = {
     children: ReactNode,

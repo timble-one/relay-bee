@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react";
-import {useRouter} from "found";
 import {EscapeContext} from "./EscapeContext.ts";
+import {useRouter} from "../../../util/router/util.ts";
 
 export const useBackOnEscape = (destination: string) => {
     const [enabled, setEnabled] = useState(true)

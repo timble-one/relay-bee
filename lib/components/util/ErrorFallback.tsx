@@ -3,8 +3,8 @@ import {
     FETCH_ERROR_UNAUTHORIZED,
     FetchError
 } from "../../util/relay/useRelayEnvironmentCreator.ts";
-import {useRouter} from "found";
 import {LoginForm} from "../LoginForm.tsx";
+import {useRouter} from "../../util/router/util.ts";
 
 type Props = { error: Error & FetchError, resetErrorBoundary: () => void};
 
