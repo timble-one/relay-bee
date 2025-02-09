@@ -1,8 +1,8 @@
 import Breadcrumbs from "../../Breadcrumbs.tsx";
 import {ReactNode} from "react";
-import {Link} from "found";
 import {EntityDescription} from "../../../EntityDescription.tsx";
 import {getDefaultListRoute} from "./getDefaultListRoute.ts";
+import {Link} from "../../Link.tsx";
 
 type Props = {
     entityDescription: EntityDescription<unknown>,

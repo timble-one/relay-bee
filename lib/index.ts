@@ -23,11 +23,13 @@ export {useEnv} from "./util/environment/useEnv.ts"
 // util/router
 export {createRouteConfig} from "./util/router/createRouteConfig.tsx"
 export {PeerRouterProvider} from "./util/router/PeerRouterProvider.tsx"
+export {useRouter} from "./util/router/util.ts"
 
 // -- components
 export {LoadingIndicator} from "./components/LoadingIndicator.tsx"
 export {PromptLayout} from "./components/PromptLayout.tsx"
 export {LoginForm} from "./components/LoginForm.tsx"
+export {Link} from "./components/Link.tsx"
 
 // components/icon
 export {Spinner} from "./components/icon/Spinner.tsx"

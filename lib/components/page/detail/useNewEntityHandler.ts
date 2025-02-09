@@ -1,8 +1,8 @@
 import {useErrorWrapper} from "../../alert/useErrorWrapper.ts";
-import {useRouter} from "found";
 import {useContext} from "react";
 import {RefetchListContext} from "../refetch-list-context/RefetchListContext.ts";
 import {useAlerts} from "../../alert/useAlerts.ts";
+import {useRouter} from "../../../util/router/util.ts";
 
 type Props<T> = {
     getIdFromResponse: (response: T) => string | undefined,

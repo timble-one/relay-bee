@@ -1,6 +1,6 @@
-import {useRouter} from "found";
 import {SortKey, sortKeys} from "./SortKey.ts";
 import {GenericSortingCombination} from "./useSorting.ts";
+import {useRouter} from "../../../../../util/router/util.ts";
 
 export type SortingCombination<T = GenericSortingCombination> = {[p in keyof T]?: SortKey}
 

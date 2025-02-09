@@ -1,12 +1,12 @@
 import {SortKey} from "./SortKey.ts";
 import {transformObjectMap} from "../../../../../util/util.ts";
-import {useRouter} from "found";
 import {usePrevious} from "../../../../../util/usePrevious.ts";
 import {useEffect} from "react";
 import {RefetchFnDynamic} from "react-relay";
 import {OperationType} from "relay-runtime";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 import {SortingCombination, useSortingCombination} from "./useSortingCombination.ts";
+import {useRouter} from "../../../../../util/router/util.ts";
 
 export type GenericSortingCombination = Record<string, string | null>
 export type SortFunction<T = GenericSortingCombination> = (column: keyof T) => (order: SortKey | undefined) => void

@@ -1,5 +1,5 @@
 import { HomeIcon } from '@heroicons/react/20/solid'
-import {Link} from "found";
+import {Link} from "./Link.tsx";
 
 export default function Breadcrumbs({pages}: {pages: {name: string, href: string}[]}) {
     return (
