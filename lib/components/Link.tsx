@@ -1,11 +1,25 @@
-import {ReactNode} from "react";
 import {useRoute} from "../util/router/util.ts";
-import {Link as FoundLink, LocationDescriptor} from "found"
+import {Link as FoundLink, LinkInjectedProps, LinkProps, LocationDescriptor} from "found"
+import * as React from "react";
 
-export const Link = ({children, to, className}: {children: ReactNode, to: LocationDescriptor, className?: string}) => {
-    const route = useRoute();
+type Props<
+    TInner extends React.ElementType = never,
+    TInnerWithActivePropName extends React.ComponentType<
+        LinkInjectedProps & { [activePropName in TActivePropName]: boolean }
+    > = never,
+    TActivePropName extends string = never,
+> = {children: LinkProps<TInner, TInnerWithActivePropName, TActivePropName>['children'], to: LocationDescriptor, className?: string}
+
+export const Link = <
+    TInner extends React.ElementType = never,
+    TInnerWithActivePropName extends React.ComponentType<
+        LinkInjectedProps & { [activePropName in TActivePropName]: boolean }
+    > = never,
+    TActivePropName extends string = never,
+>({children, to, className}: Props<TInner, TInnerWithActivePropName, TActivePropName>) => {
+    const route = useRoute()
     return (
-        <FoundLink to={route(to)} className={className}>
+        <FoundLink<TInner, TInnerWithActivePropName, TActivePropName> to={route(to)} className={className}>
             {children}
         </FoundLink>
     )
