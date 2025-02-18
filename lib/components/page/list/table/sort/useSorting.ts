@@ -42,7 +42,7 @@ export function useSorting<T>(refetch: RefetchFnDynamic<OperationType, KeyType>)
     useEffect(() => {
         if (
             JSON.stringify(sortingQuery) !== JSON.stringify(previousSortingQuery)
-            && match.location.pathname === previousPathname
+            && (match.location.pathname === previousPathname || !previousPathname)
         ) {
             refetch({order: sortingQuery})
         }
