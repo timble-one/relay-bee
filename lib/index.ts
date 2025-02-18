@@ -54,6 +54,7 @@ export {TableButtons} from "./components/page/list/table/TableButtons.tsx"
 export {TableBody} from "./components/page/list/table/TableBody.tsx"
 export {AutoLoadTable} from "./components/page/list/table/AutoLoadTable.tsx"
 export {useSorting} from "./components/page/list/table/sort/useSorting.ts"
+export {sortingCombinationFromQuery} from "./components/page/list/table/sort/useSortingCombination.ts"
 export {useTable} from "./components/page/list/table/useTable.ts"
 // components/page/detail
 export type {ValidData} from "./components/page/detail/useEntitySaver.ts"

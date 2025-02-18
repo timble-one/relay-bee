@@ -8,7 +8,11 @@ type SearchParamsArray = [string, string][]
 
 export const useSortingCombination = <T>(): SortingCombination<T> => {
     const {match} = useRouter()
-    const searchParamArray: SearchParamsArray = Array.from(Object.entries(match.location.query))
+    return sortingCombinationFromQuery(match.location.query)
+}
+
+export const sortingCombinationFromQuery = (query: Record<string, string>) => {
+    const searchParamArray: SearchParamsArray = Array.from(Object.entries(query))
     const orderParams = searchParamArray
         .filter(([k, v]) => k.endsWith('Order') && sortKeys.includes(v as SortKey))
         .map(([c, o]) => [c.split('Order')[0], o])
