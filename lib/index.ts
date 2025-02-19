@@ -23,7 +23,7 @@ export {useEnv} from "./util/environment/useEnv.ts"
 // util/router
 export {createRouteConfig} from "./util/router/createRouteConfig.tsx"
 export {PeerRouterProvider} from "./util/router/PeerRouterProvider.tsx"
-export {useRouter} from "./util/router/util.ts"
+export {useRouter, useRoute} from "./util/router/util.ts"
 
 // -- components
 export {LoadingIndicator} from "./components/LoadingIndicator.tsx"

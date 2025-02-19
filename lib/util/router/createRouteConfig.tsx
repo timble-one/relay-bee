@@ -11,20 +11,20 @@ export type RBeeRouteObject<VARIABLES> = {
     prepareVariables?: (params: Record<string, string>) => VARIABLES
 }
 
-export const createRouteConfig = (routeConfig: RBeeRouteObject<unknown>[]): RouteConfig => {
+export const createRouteConfig = (routeConfig: RBeeRouteObject<unknown>[], basePath: string = ''): RouteConfig => {
     return routeConfig.map(c => ({
         ...c,
         fetchPolicy: 'store-or-network',
         children: c.children && (Array.isArray(c.children)
-                ? createRouteConfig(c.children)
-                : Object.fromEntries(Object.entries(c.children).map(([k, v]) => ([k, createRouteConfig(v)])))
+                ? createRouteConfig(c.children, basePath)
+                : Object.fromEntries(Object.entries(c.children).map(([k, v]) => ([k, createRouteConfig(v, basePath)])))
         ),
         render: (
             propsObject: {Component?: ComponentType<unknown> | undefined, props?: RenderProps | undefined, match: Match}
         ) => {
             const {Component, props, match} = propsObject
             if ('error' in propsObject && propsObject.error != null) {
-                handleError(propsObject.error, match.router)
+                handleError(propsObject.error, match.router, basePath)
             } else {
                 // @ts-expect-error: we can't know what props the component needs here
                 return Component && <Component {...props}/>;
@@ -34,12 +34,12 @@ export const createRouteConfig = (routeConfig: RBeeRouteObject<unknown>[]): Rout
     }))
 }
 
-const handleError = (error: NonNullable<unknown>, router: Router) => {
+const handleError = (error: NonNullable<unknown>, router: Router, basePath: string) => {
     if (typeof error == 'object' && 'message' in error) {
         if (error.message === FETCH_ERROR_UNAUTHORIZED ||
             error.message === FETCH_ERROR_MISSING_CREDENTIALS
         ) {
-            router.push('/login')
+            router.push(basePath + '/login')
         }
     }
 }
