@@ -7,6 +7,6 @@ export const useEnv = (): EnvironmentContextType => {
         httpEndpoint: context.httpEndpoint ?? 'https://localhost',
         basePath: context.basePath ?? '',
         passwordPath: context.passwordPath ?? 'password',
-        adminBasePath: context.adminBasePath ?? '/',
+        adminBasePath: context.adminBasePath ?? '',
     }
 }
