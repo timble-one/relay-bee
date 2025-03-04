@@ -29,7 +29,7 @@ export function useSorting<T>(refetch: RefetchFnDynamic<OperationType, KeyType>)
             delete newOrderCombination[column]
         }
         router.replace({
-            pathname: match.location.pathname,
+            pathname: '/' + (window.location.pathname.split('/').pop() ?? ''),
             query: sortingCombinationToQuery(newOrderCombination)
         })
     }
