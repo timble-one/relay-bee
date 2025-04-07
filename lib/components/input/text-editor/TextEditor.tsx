@@ -9,6 +9,7 @@ import Header from "quill/formats/header";
 import Link from "quill/formats/link";
 import List from "quill/formats/list";
 import Underline from "quill/formats/underline";
+import Strike from "quill/formats/strike";
 import {toolbarOptions} from "./Toolbar.ts";
 import "./text-editor.css";
 
@@ -20,7 +21,8 @@ Quill.register({
     'formats/header': Header,
     'formats/link': Link,
     'formats/underline': Underline,
-    'formats/list': List
+    'formats/list': List,
+    'formats/strike': Strike,
 })
 
 type Props = {
