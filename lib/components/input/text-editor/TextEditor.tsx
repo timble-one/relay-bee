@@ -48,9 +48,9 @@ export const TextEditor = ({title, readOnly, defaultValue, onChange}: Props) => 
         }
     }, [ref, readOnly])
 
-    useEffect(() => {
-        if (defaultValue) ref.current?.setContents(JSON.parse(defaultValue))
-    }, [defaultValue])
+    // useEffect(() => {
+    //     if (defaultValue) ref.current?.setContents(JSON.parse(defaultValue))
+    // }, [defaultValue])
 
     useEffect(() => {
         if (ref && typeof ref !== 'function') {
