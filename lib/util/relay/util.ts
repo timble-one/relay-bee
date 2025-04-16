@@ -8,7 +8,7 @@ export type ExtractNodeFromEdges<
     = NonNullable<NonNullable<NonNullable<NonNullable<T>['edges']>[number]>['node']>
 ;
 
-const relayProps = ['__id', '__fragmentOwner', '__fragments'] as const
+const relayProps = ['__id', '__fragmentOwner', '__fragments', ' $fragmentType'] as const
 export const removeRelayProps = <T>(obj: T): RecursiveOmit<T, typeof relayProps[number]> => {
     return removePropsRecursive(obj, relayProps)
 }

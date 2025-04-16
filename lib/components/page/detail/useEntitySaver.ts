@@ -6,16 +6,20 @@ import {removeRelayProps} from "../../../util/relay/util.ts";
 export type ValidData<DATA, VALIDATION extends ZodTypeAny> = z.infer<VALIDATION> & Partial<DATA>
 const hasId = (state: {id?: string}): state is {id: string} => state.id != undefined;
 
-type Props<DATA, VALIDATION extends ZodTypeAny> = {
+type Props<DATA, PARTIAL_DATA, VALIDATION extends ZodTypeAny, PRE_PROCESSED = PARTIAL_DATA> = {
     data: DATA
     validationSchema: VALIDATION
-    update: (existingEntity: ValidData<DATA, VALIDATION> & {id: string}) => void,
-    create: (newEntity: ValidData<DATA, VALIDATION>) => void,
-    subValidation?: {schema: ZodTypeAny, data: unknown}
+    preValidate?: (v: PARTIAL_DATA) => PRE_PROCESSED
+    update: (existingEntity: ValidData<PRE_PROCESSED, VALIDATION> & {id: string}) => void
+    create: (newEntity: ValidData<PRE_PROCESSED, VALIDATION>) => void
 }
 
-export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends ZodTypeAny>(
-    {data, validationSchema, update, create, subValidation}: Props<DATA, VALIDATION>
+export const useEntitySaver = <
+    DATA extends {id?: string} & PARTIAL_DATA,
+    VALIDATION extends ZodTypeAny,
+    PARTIAL_DATA = Partial<DATA>
+>(
+    {data, validationSchema, update, create, preValidate = (v: PARTIAL_DATA) => v}: Props<DATA, PARTIAL_DATA, VALIDATION>
 ) => {
     const {addAlert} = useAlerts()
     const {wrapWithErrorAlerts, handleError} = useErrorWrapper()
@@ -27,14 +31,14 @@ export const useEntitySaver = <DATA extends {id?: string}, VALIDATION extends Zo
 
     const validate = <DATA extends object, VALIDATION extends ZodTypeAny>(
         validationSchema: VALIDATION,
-        data: Partial<DATA>
+        rawData: PARTIAL_DATA
     ): ValidData<DATA, VALIDATION> | undefined => {
-        const subResult = subValidation?.schema.safeParse(subValidation?.data)
+        const data = preValidate(rawData)
         const result = validationSchema.safeParse(data)
-        if (result.success && (!subResult || subResult.success)) {
+        if (result.success) {
             return {...data, ...result.data}
         } else {
-            const error: ZodError | undefined = subResult?.error || result.error
+            const error: ZodError = result.error
             console.warn(error)
             error?.errors.forEach(e => {
                 const path = e.path.join('/')
