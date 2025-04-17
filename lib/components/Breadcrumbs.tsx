@@ -4,7 +4,7 @@ import {Link} from "./Link.tsx";
 export default function Breadcrumbs({pages}: {pages: {name: string, href: string}[]}) {
     return (
         <nav aria-label="Breadcrumb" className="flex">
-            <ol role="list" className="flex space-x-4 rounded-md bg-white px-6 shadow">
+            <ol role="list" className="flex space-x-4 rounded-md bg-white px-6 shadow border-gray-200 border">
                 <li className="flex">
                     <div className="flex items-center">
                         <Link to="/" className="text-gray-400 hover:text-gray-500">
