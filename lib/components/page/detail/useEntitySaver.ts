@@ -2,24 +2,26 @@ import {useAlerts} from "../../alert/useAlerts.ts";
 import {z, ZodError, ZodTypeAny} from "zod";
 import {useErrorWrapper} from "../../alert/useErrorWrapper.ts";
 import {removeRelayProps} from "../../../util/relay/util.ts";
+import {ifPresent} from "tssentials";
 
 export type ValidData<DATA, VALIDATION extends ZodTypeAny> = z.infer<VALIDATION> & Partial<DATA>
+type OrElse<T, D> = [T] extends [undefined] ? D : T;
 const hasId = (state: {id?: string}): state is {id: string} => state.id != undefined;
 
-type Props<DATA, PARTIAL_DATA, VALIDATION extends ZodTypeAny, PRE_PROCESSED = PARTIAL_DATA> = {
+type Props<DATA, VALIDATION extends ZodTypeAny, PRE_PROCESSED, OPTIONALLY_PROCESSED = OrElse<PRE_PROCESSED, DATA>> = {
     data: DATA
     validationSchema: VALIDATION
-    preValidate?: (v: PARTIAL_DATA) => PRE_PROCESSED
-    update: (existingEntity: ValidData<PRE_PROCESSED, VALIDATION> & {id: string}) => void
-    create: (newEntity: ValidData<PRE_PROCESSED, VALIDATION>) => void
+    preValidate?: (v: DATA) => PRE_PROCESSED
+    update: (existingEntity: ValidData<OPTIONALLY_PROCESSED, VALIDATION> & {id: string}) => void
+    create: (newEntity: ValidData<OPTIONALLY_PROCESSED, VALIDATION>) => void
 }
 
 export const useEntitySaver = <
-    DATA extends {id?: string} & PARTIAL_DATA,
+    DATA extends {id?: string},
     VALIDATION extends ZodTypeAny,
-    PARTIAL_DATA = Partial<DATA>
+    PRE_PROCESSED = undefined,
 >(
-    {data, validationSchema, update, create, preValidate = (v: PARTIAL_DATA) => v}: Props<DATA, PARTIAL_DATA, VALIDATION>
+    {data, validationSchema, update, create, preValidate}: Props<DATA, VALIDATION, PRE_PROCESSED>
 ) => {
     const {addAlert} = useAlerts()
     const {wrapWithErrorAlerts, handleError} = useErrorWrapper()
@@ -29,11 +31,11 @@ export const useEntitySaver = <
         onError: handleError
     }
 
-    const validate = <DATA extends object, VALIDATION extends ZodTypeAny>(
+    const validate = (
         validationSchema: VALIDATION,
-        rawData: PARTIAL_DATA
+        rawData: DATA
     ): ValidData<DATA, VALIDATION> | undefined => {
-        const data = preValidate(rawData)
+        const data = ifPresent(preValidate, v => v(rawData)) ?? rawData
         const result = validationSchema.safeParse(data)
         if (result.success) {
             return {...data, ...result.data}
