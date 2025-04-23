@@ -5,21 +5,20 @@ import {removeRelayProps} from "../../../util/relay/util.ts";
 import {ifPresent} from "tssentials";
 
 export type ValidData<DATA, VALIDATION extends ZodTypeAny> = z.infer<VALIDATION> & Partial<DATA>
-type OrElse<T, D> = [T] extends [undefined] ? D : T;
 const hasId = (state: {id?: string}): state is {id: string} => state.id != undefined;
 
-type Props<DATA, VALIDATION extends ZodTypeAny, PRE_PROCESSED, OPTIONALLY_PROCESSED = OrElse<PRE_PROCESSED, DATA>> = {
+type Props<DATA, VALIDATION extends ZodTypeAny, PRE_PROCESSED> = {
     data: DATA
     validationSchema: VALIDATION
     preValidate?: (v: DATA) => PRE_PROCESSED
-    update: (existingEntity: ValidData<OPTIONALLY_PROCESSED, VALIDATION> & {id: string}) => void
-    create: (newEntity: ValidData<OPTIONALLY_PROCESSED, VALIDATION>) => void
+    update: (existingEntity: ValidData<PRE_PROCESSED, VALIDATION> & {id: string}) => void
+    create: (newEntity: ValidData<PRE_PROCESSED, VALIDATION>) => void
 }
 
 export const useEntitySaver = <
     DATA extends {id?: string},
     VALIDATION extends ZodTypeAny,
-    PRE_PROCESSED = undefined,
+    PRE_PROCESSED = DATA,
 >(
     {data, validationSchema, update, create, preValidate}: Props<DATA, VALIDATION, PRE_PROCESSED>
 ) => {
