@@ -1,4 +1,5 @@
 import {RecursiveOmit, removePropsRecursive} from "../props.ts";
+import {ifPresent} from "tssentials";
 
 export type ExtractNodeFromEdges<
     T extends {
@@ -12,3 +13,6 @@ const relayProps = ['__id', '__fragmentOwner', '__fragments', ' $fragmentType'] 
 export const removeRelayProps = <T>(obj: T): RecursiveOmit<T, typeof relayProps[number]> => {
     return removePropsRecursive(obj, relayProps)
 }
+
+export const forwardFragmentSpreads = <T,>(oldData: {" $fragmentSpreads": T} | null | undefined, newData: object) =>
+    ifPresent(oldData, oldData => ({...newData, " $fragmentSpreads": oldData[" $fragmentSpreads"]}))
