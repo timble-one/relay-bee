@@ -14,9 +14,10 @@ type InputProps<T> = {
 }
 
 export const useEntityState = <T extends object>(entity: Partial<T> | undefined | null): {
-    state: Partial<T>,
-    setState: (state: Partial<T>) => void,
+    state: Partial<T>
+    setState: (state: Partial<T>) => void
     inputProps: <K extends keyof T>(name: K) => InputProps<T[K]>
+    onChange: typeof getChangeListener
 } => {
     const [state, setState] = useState<Partial<T>>(entity ?? {})
     const getChangeListener = getChangeListenerFactory(state, setState)
@@ -37,5 +38,5 @@ export const useEntityState = <T extends object>(entity: Partial<T> | undefined 
         {value: state[name], onChange: getChangeListener(name)}
     )
 
-    return {state, setState, inputProps}
+    return {state, setState, inputProps, onChange: getChangeListener}
 }
