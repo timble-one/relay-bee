@@ -41,6 +41,7 @@ export {SecondaryButton} from "./components/input/button/SecondaryButton.ts"
 // components/util
 export {EndlessScrollContainer} from "./components/util/endless-scroll/EndlessScrollContainer.tsx"
 export {ErrorFallback} from "./components/util/ErrorFallback.tsx"
+export {applyZodErrors} from "./components/util/applyZodErrors.ts"
 // components/util/escape
 export {EscapeContext} from "./components/util/escape/EscapeContext.ts"
 export {useBackOnEscape} from "./components/util/escape/useBackOnEscape.ts"

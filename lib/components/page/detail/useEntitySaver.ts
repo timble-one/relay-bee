@@ -3,6 +3,7 @@ import {z, ZodError, ZodTypeAny} from "zod";
 import {useErrorWrapper} from "../../alert/useErrorWrapper.ts";
 import {removeRelayProps} from "../../../util/relay/util.ts";
 import {ifPresent} from "tssentials";
+import {applyZodErrors} from "../../util/applyZodErrors.ts";
 
 export type ValidData<DATA, VALIDATION extends ZodTypeAny> = z.infer<VALIDATION> & Partial<DATA>
 const hasId = (state: {id?: string}): state is {id: string} => state.id != undefined;
@@ -11,6 +12,7 @@ type Props<DATA, VALIDATION extends ZodTypeAny, PRE_PROCESSED> = {
     data: DATA
     validationSchema: VALIDATION
     preValidate?: (v: DATA) => PRE_PROCESSED
+    subValidation?: () => boolean
     update: (existingEntity: ValidData<PRE_PROCESSED, VALIDATION> & {id: string}) => void
     create: (newEntity: ValidData<PRE_PROCESSED, VALIDATION>) => void
 }
@@ -20,7 +22,7 @@ export const useEntitySaver = <
     VALIDATION extends ZodTypeAny,
     PRE_PROCESSED = DATA,
 >(
-    {data, validationSchema, update, create, preValidate}: Props<DATA, VALIDATION, PRE_PROCESSED>
+    {data, validationSchema, update, create, preValidate, subValidation}: Props<DATA, VALIDATION, PRE_PROCESSED>
 ) => {
     const {addAlert} = useAlerts()
     const {wrapWithErrorAlerts, handleError} = useErrorWrapper()
@@ -35,19 +37,16 @@ export const useEntitySaver = <
         rawData: DATA
     ): ValidData<DATA, VALIDATION> | undefined => {
         const data = ifPresent(preValidate, v => v(rawData)) ?? rawData
+        if (subValidation && !subValidation()) return
         const result = validationSchema.safeParse(data)
         if (result.success) {
             return {...data, ...result.data}
         } else {
             const error: ZodError = result.error
             console.warn(error)
-            error?.errors.forEach(e => {
-                const path = e.path.join('/')
-                const message = path ? [path, e.message] : [e.message]
-                addAlert(message.join(': '), 'WARNING')
-            })
+            applyZodErrors(error, e => addAlert(e, 'WARNING'))
         }
-    };
+    }
 
     const save = () => {
         const validData = validate(validationSchema, data)
@@ -59,5 +58,5 @@ export const useEntitySaver = <
         }
     }
 
-    return {save, commitProps}
+    return {save, commitProps, addAlert}
 }
