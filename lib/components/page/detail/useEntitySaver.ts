@@ -37,11 +37,12 @@ export const useEntitySaver = <
         rawData: DATA
     ): ValidData<DATA, VALIDATION> | undefined => {
         const data = ifPresent(preValidate, v => v(rawData)) ?? rawData
-        if (subValidation && !subValidation()) return
+        const subResult = subValidation === undefined || subValidation()
         const result = validationSchema.safeParse(data)
-        if (result.success) {
+        if (result.success && subResult) {
             return {...data, ...result.data}
-        } else {
+        }
+        if (result.error) {
             const error: ZodError = result.error
             console.warn(error)
             applyZodErrors(error, e => addAlert(e, 'WARNING'))

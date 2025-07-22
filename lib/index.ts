@@ -13,7 +13,6 @@ export {usePeerRelayEnv} from "./util/relay/usePeerRelayEnv.ts"
 export {PeerRelayEnvironmentProvider} from "./util/relay/PeerRelayEnvironmentProvider.tsx"
 export {useTypedMutation} from "./util/relay/useTypedMutation.ts"
 export type {ExtractNodeFromEdges} from "./util/relay/util.ts"
-export {removeRelayProps} from "./util/relay/util.ts"
 
 // util/environment
 export type {EnvironmentContextType} from "./util/environment/EnvironmentContext.ts"
