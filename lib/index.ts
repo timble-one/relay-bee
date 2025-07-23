@@ -7,6 +7,7 @@ export {validateJSON, notEmpty} from "./util/util.ts"
 export {useAuth} from "./util/useAuth.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 export {useBackendPath, useImagePath} from "./util/usePath.ts"
+export {usePrevious} from "./util/usePrevious.ts"
 
 // util/relay
 export {usePeerRelayEnv} from "./util/relay/usePeerRelayEnv.ts"
