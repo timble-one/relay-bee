@@ -78,6 +78,7 @@ export type {MediaObject} from "./components/input/media/selection/insertion-dia
 export {SingleMediaSelection} from "./components/input/media/selection/SingleMediaSelection.tsx"
 export {MultiMediaSelection} from "./components/input/media/selection/multi/MultiMediaSelection.tsx"
 export {TextEditor} from "./components/input/text-editor/TextEditor.tsx"
+export {LexicalTextEditor} from "./components/input/lexical-text-editor/LexicalTextEditor.tsx"
 
 // components/alert
 export {AlertContextProvider} from "./components/alert/AlertContextProvider.tsx"

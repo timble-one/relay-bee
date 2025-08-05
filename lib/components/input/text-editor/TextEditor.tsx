@@ -32,6 +32,9 @@ type Props = {
     onChange?: (value: string) => void
 }
 
+/**
+ * @deprecated use LexicalTextEditor instead
+ */
 export const TextEditor = ({title, readOnly, defaultValue, onChange}: Props) => {
     const ref = useRef<Quill>()
     const containerRef = useRef<HTMLDivElement>(null)

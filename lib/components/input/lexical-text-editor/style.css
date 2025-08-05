@@ -1,0 +1,34 @@
+.inserted-html {
+    .editor-text-underline {
+        @apply underline;
+    }
+
+    .editor-text-strikethrough {
+        @apply line-through;
+    }
+
+    .editor-link {
+        @apply text-blue-500
+    }
+
+    h3 {
+        @apply text-2xl mt-3
+    }
+    h4 {
+        @apply text-xl mt-2
+    }
+    h5 {
+        @apply text-lg mt-1
+    }
+
+
+    ol, ul {
+        @apply ml-4
+    }
+    ol {
+        @apply list-decimal
+    }
+    ul {
+        @apply list-disc
+    }
+}
