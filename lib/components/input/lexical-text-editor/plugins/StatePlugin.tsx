@@ -9,7 +9,7 @@ export type Serializer = {
 
 type Props = {
     serializerRef: MutableRefObject<Serializer | undefined>,
-    initialState?: string,
+    initialState?: string | null,
 }
 
 export const StatePlugin = ({serializerRef, initialState}: Props) => {

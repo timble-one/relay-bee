@@ -13,7 +13,7 @@ import { Serializer, StatePlugin } from './plugins/StatePlugin.tsx';
 
 type Props = {
     title: string,
-    initialValue?: string,
+    initialValue?: string | null,
     serializerRef: MutableRefObject<Serializer | undefined>
 }
 
