@@ -3,7 +3,7 @@ import {z, ZodError, ZodTypeAny} from "zod";
 import {useErrorWrapper} from "../../alert/useErrorWrapper.ts";
 import {removeRelayProps} from "../../../util/relay/util.ts";
 import {ifPresent} from "tssentials";
-import {applyZodErrors} from "../../util/applyZodErrors.ts";
+import {applyZodErrors} from "../../error/applyZodErrors.ts";
 
 export type ValidData<DATA, VALIDATION extends ZodTypeAny> = z.infer<VALIDATION> & Partial<DATA>
 const hasId = (state: {id?: string}): state is {id: string} => state.id != undefined;

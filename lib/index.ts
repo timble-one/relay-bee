@@ -1,5 +1,6 @@
 import "./index.css"
 
+export {HttpError} from "found"
 export type {EntityDescription} from "./EntityDescription.tsx"
 
 // -- util
@@ -40,11 +41,14 @@ export {SecondaryButton} from "./components/input/button/SecondaryButton.ts"
 
 // components/util
 export {EndlessScrollContainer} from "./components/util/endless-scroll/EndlessScrollContainer.tsx"
-export {ErrorFallback} from "./components/util/ErrorFallback.tsx"
-export {applyZodErrors} from "./components/util/applyZodErrors.ts"
 // components/util/escape
 export {EscapeContext} from "./components/util/escape/EscapeContext.ts"
 export {useBackOnEscape} from "./components/util/escape/useBackOnEscape.ts"
+
+// components/error
+export {ErrorFallback} from "./components/error/error-fallback/ErrorFallback.tsx"
+export {applyZodErrors} from "./components/error/applyZodErrors.ts"
+export {NotFound} from "./components/error/NotFound.tsx"
 
 // components/page
 export {RefetchListContextProvider} from "./components/page/refetch-list-context/RefetchListContextProvider.tsx"

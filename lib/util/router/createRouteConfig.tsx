@@ -1,4 +1,4 @@
-import {Match, RenderProps, RouteConfig, Router} from "found";
+import {HttpError, Match, RenderProps, RouteConfig, Router} from "found";
 import {ComponentType} from "react";
 import {GraphQLTaggedNode} from "relay-runtime";
 import {FETCH_ERROR_MISSING_CREDENTIALS, FETCH_ERROR_UNAUTHORIZED} from "../relay/useRelayEnvironmentCreator.ts";
@@ -35,6 +35,9 @@ export const createRouteConfig = (routeConfig: RBeeRouteObject<unknown>[], baseP
 }
 
 const handleError = (error: NonNullable<unknown>, router: Router, basePath: string) => {
+    if (error instanceof HttpError && error.status === 404) {
+        return <h2>404 from createRouteConfig</h2>
+    }
     if (typeof error == 'object' && 'message' in error) {
         if (error.message === FETCH_ERROR_UNAUTHORIZED ||
             error.message === FETCH_ERROR_MISSING_CREDENTIALS
