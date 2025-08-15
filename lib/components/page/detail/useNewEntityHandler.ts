@@ -3,6 +3,7 @@ import {useContext} from "react";
 import {RefetchListContext} from "../refetch-list-context/RefetchListContext.ts";
 import {useAlerts} from "../../alert/useAlerts.ts";
 import {useRouter} from "../../../util/router/util.ts";
+import {useEnv} from "../../../util/environment/useEnv.ts";
 
 type Props<T> = {
     getIdFromResponse: (response: T) => string | undefined,
@@ -14,16 +15,18 @@ export const useNewEntityHandler = <T extends object>({getIdFromResponse, reduce
     const {match, router} = useRouter()
     const refetchListContext = useContext(RefetchListContext);
     const {addAlert} = useAlerts()
+    const {adminBasePath} = useEnv()
 
     return (
         wrapWithErrorAlerts<T>({onSuccess: (response) => {
             refetchListContext.setRefetchNeeded(true)
             const id = getIdFromResponse(response)
             if (id) {
-                const pathSegments = match.location.pathname.split('/')
-                pathSegments.pop()
-                const basePath = pathSegments.join('/')
-                router.replace(`${basePath}/${id}`)
+                const parentElements = match.location.pathname
+                    .slice(adminBasePath.length)
+                    .split('/')
+                    .slice(0, -1)
+                router.replace([...parentElements, id].join('/'))
                 reducer(id)
                 addAlert('Erfolgreich erstellt!', 'SUCCESS')
             } else {
