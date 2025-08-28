@@ -5,7 +5,6 @@ import {
     FORMAT_TEXT_COMMAND, SELECTION_CHANGE_COMMAND,
 } from 'lexical';
 import {mergeRegister} from '@lexical/utils';
-import {$isLinkNode, TOGGLE_LINK_COMMAND} from '@lexical/link';
 import {
     Bars3BottomLeftIcon, Bars3BottomRightIcon, Bars3Icon,
     BoldIcon,
@@ -13,9 +12,6 @@ import {
     StrikethroughIcon,
     UnderlineIcon,
 } from "@heroicons/react/20/solid";
-import {LinkButton} from "./LinkButton.tsx";
-import {getSelectedNode} from "../../utils/getSelectedNode.ts";
-import {sanitizeUrl} from "../../utils/url.ts";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {Button} from "./Button.tsx";
 import {clsx} from "clsx";
@@ -26,38 +22,16 @@ export const TextFormats = ({iconClassName}: {iconClassName: string}) => {
     const [isItalic, setIsItalic] = useState(false);
     const [isUnderline, setIsUnderline] = useState(false);
     const [isStrikethrough, setIsStrikethrough] = useState(false);
-    const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false);
-    const [isLink, setIsLink] = useState(false);
 
     const $updateToolbar = useCallback(() => {
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
-            // Update links
-            const node = getSelectedNode(selection);
-            const parent = node.getParent();
-            const isLink = $isLinkNode(parent) || $isLinkNode(node);
-            setIsLink(isLink);
-
-            // Update text format
             setIsBold(selection.hasFormat('bold'));
             setIsItalic(selection.hasFormat('italic'));
             setIsUnderline(selection.hasFormat('underline'));
             setIsStrikethrough(selection.hasFormat('strikethrough'));
         }
     }, []);
-
-    const insertLink = useCallback(() => {
-        if (!isLink) {
-            setIsLinkEditMode(true)
-            editor.dispatchCommand(
-                TOGGLE_LINK_COMMAND,
-                sanitizeUrl('https://'),
-            );
-        } else {
-            setIsLinkEditMode(false)
-            editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
-        }
-    }, [editor, setIsLinkEditMode, isLink]);
 
     useEffect(() => {
         return mergeRegister(
@@ -131,13 +105,6 @@ export const TextFormats = ({iconClassName}: {iconClassName: string}) => {
             >
                 <Bars3Icon className={iconClassName} />
             </Button>
-            <LinkButton
-                active={isLink}
-                onClick={insertLink}
-                iconClassName={iconClassName}
-                isLinkEditMode={isLinkEditMode}
-                setIsLinkEditMode={setIsLinkEditMode}
-            />
         </div>
     )
 }

@@ -16,8 +16,8 @@ export const StatePlugin = ({serializerRef, initialState}: Props) => {
     const [editor] = useLexicalComposerContext()
     useEffect(() => {
         if (initialState) {
-            const state = editor.parseEditorState(initialState)
-            editor.setEditorState(state)
+            queueMicrotask(() =>
+                editor.setEditorState(editor.parseEditorState(initialState)))
         }
     }, [initialState])
     serializerRef.current = {

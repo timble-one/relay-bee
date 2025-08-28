@@ -10,6 +10,8 @@ import {clsx} from "clsx";
 import {LinkPlugin} from "@lexical/react/LexicalLinkPlugin";
 import {MutableRefObject} from "react";
 import { Serializer, StatePlugin } from './plugins/StatePlugin.tsx';
+import { SharedHistoryContextProvider } from "./image/shared-history-context/SharedHistoryContextProvider.tsx";
+import {ImagesPlugin} from "./plugins/images/ImagesPlugin.tsx";
 
 type Props = {
     title: string,
@@ -25,14 +27,17 @@ export const LexicalTextEditor = ({title, initialValue, serializerRef}: Props) =
             </label>
             <div className="flex flex-col gap-2">
                 <LexicalComposer initialConfig={config}>
-                    <StatePlugin serializerRef={serializerRef} initialState={initialValue} />
-                    <ToolbarPlugin/>
-                    <RichTextPlugin
-                        contentEditable={<div><Input/></div>}
-                        ErrorBoundary={LexicalErrorBoundary}
-                    />
-                    <HistoryPlugin />
-                    <LinkPlugin />
+                    <SharedHistoryContextProvider>
+                        <StatePlugin serializerRef={serializerRef} initialState={initialValue} />
+                        <ToolbarPlugin/>
+                        <RichTextPlugin
+                            contentEditable={<div><Input/></div>}
+                            ErrorBoundary={LexicalErrorBoundary}
+                        />
+                        <HistoryPlugin />
+                        <LinkPlugin />
+                        <ImagesPlugin />
+                    </SharedHistoryContextProvider>
                 </LexicalComposer>
             </div>
         </div>

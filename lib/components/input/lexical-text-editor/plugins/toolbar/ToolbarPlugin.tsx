@@ -16,12 +16,14 @@ import {
 } from 'lexical';
 import {useEffect, useRef, useState} from 'react';
 import {
-    ArrowUturnLeftIcon, ArrowUturnRightIcon
+    ArrowUturnLeftIcon, ArrowUturnRightIcon, PhotoIcon
 } from "@heroicons/react/20/solid";
 import { Button } from './Button.tsx';
 import {clsx} from "clsx";
 import {BlockTypes} from "./block-types/BlockTypes.tsx";
 import {TextFormats} from "./TextFormats.tsx";
+import {INSERT_IMAGE_COMMAND} from "../images/INSERT_IMAGE_COMMAND.ts";
+import {LinkButton} from "./LinkButton.tsx";
 
 export default function ToolbarPlugin() {
     const [editor] = useLexicalComposerContext();
@@ -74,6 +76,16 @@ export default function ToolbarPlugin() {
             </div>
             <BlockTypes />
             <TextFormats iconClassName={iconClassName}/>
+            <LinkButton iconClassName={iconClassName}/>
+            <Button
+                onClick={() => editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+                    src: 'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg',
+                    altText: 'image'
+                })}
+                aria-label="Insert IMage"
+            >
+                <PhotoIcon className={iconClassName} />
+            </Button>
         </div>
     );
 }
