@@ -13,7 +13,7 @@ import {calculateZoomLevel} from '@lexical/utils';
 import * as React from 'react';
 import {useRef} from 'react';
 
-import './ImageResizer.css'
+import {Handle} from "./Handle.tsx";
 
 function clamp(value: number, min: number, max: number) {
     return Math.min(Math.max(value, min), max);
@@ -249,50 +249,50 @@ export default function ImageResizer({
 
     return (
         <div ref={controlWrapperRef}>
-            <div
-                className="image-resizer image-resizer-n"
+            <Handle
+                className="-top-1.5 left-[48%] cursor-n-resize"
                 onPointerDown={(event) => {
                     handlePointerDown(event, Direction.north);
                 }}
             />
-            <div
-                className="image-resizer image-resizer-ne"
+            <Handle
+                className="-top-1.5 -right-1.5 cursor-ne-resize"
                 onPointerDown={(event) => {
                     handlePointerDown(event, Direction.north | Direction.east);
                 }}
             />
-            <div
-                className="image-resizer image-resizer-e"
+            <Handle
+                className="-right-1.5 bottom-[48%] cursor-e-resize"
                 onPointerDown={(event) => {
                     handlePointerDown(event, Direction.east);
                 }}
             />
-            <div
-                className="image-resizer image-resizer-se"
+            <Handle
+                className="-right-1.5 -bottom-1.5 cursor-se-resize"
                 onPointerDown={(event) => {
                     handlePointerDown(event, Direction.south | Direction.east);
                 }}
             />
-            <div
-                className="image-resizer image-resizer-s"
+            <Handle
+                className="left-[48%] -bottom-1.5 cursor-s-resize"
                 onPointerDown={(event) => {
                     handlePointerDown(event, Direction.south);
                 }}
             />
-            <div
-                className="image-resizer image-resizer-sw"
+            <Handle
+                className="-left-1.5 -bottom-1.5 cursor-sw-resize"
                 onPointerDown={(event) => {
                     handlePointerDown(event, Direction.south | Direction.west);
                 }}
             />
-            <div
-                className="image-resizer image-resizer-w"
+            <Handle
+                className="-left-1.5 bottom-[48%] cursor-w-resize"
                 onPointerDown={(event) => {
                     handlePointerDown(event, Direction.west);
                 }}
             />
-            <div
-                className="image-resizer image-resizer-nw"
+            <Handle
+                className="-top-1.5 -left-1.5 cursor-nw-resize"
                 onPointerDown={(event) => {
                     handlePointerDown(event, Direction.north | Direction.west);
                 }}

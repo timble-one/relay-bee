@@ -13,7 +13,7 @@ import type {
 } from 'lexical';
 import type {JSX} from 'react';
 
-import './ImageNode.css';
+import '../ImageNode.css';
 
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {useLexicalEditable} from '@lexical/react/useLexicalEditable';
@@ -33,8 +33,9 @@ import {
 } from 'lexical';
 import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
 import brokenImage from './image-broken.svg';
-import ImageResizer from './ImageResizer.tsx';
+import ImageResizer from './resizer/ImageResizer.tsx';
 import {$isImageNode} from '../ImageNode.tsx';
+import {clsx} from "clsx";
 
 const imageCache = new Map<string, Promise<boolean> | boolean>();
 
@@ -153,7 +154,7 @@ function LazyImage({
 
     return (
         <img
-            className={className || undefined}
+            className={clsx(className, 'max-w-full')}
             src={src}
             alt={altText}
             ref={imageRef}
@@ -384,7 +385,10 @@ export default function ImageComponent({
                         <LazyImage
                             className={
                                 isFocused
-                                    ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
+                                    ? clsx(
+                                        'outline outline-2 outline-blue-500',
+                                        `${$isNodeSelection(selection) ? 'draggable' : ''}`
+                                    )
                                     : null
                             }
                             src={src}

@@ -1,0 +1,5 @@
+.inserted-html {
+    span.editor-image {
+        @apply inline-block relative;
+    }
+}
