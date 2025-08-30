@@ -43,7 +43,7 @@ import {
     $createImageNode,
     $isImageNode,
     ImageNode,
-} from '../../image/image-node/ImageNode.tsx'
+} from './image-node/ImageNode.tsx'
 import {INSERT_IMAGE_COMMAND} from "./INSERT_IMAGE_COMMAND.ts"
 import {InsertImagePayload} from "./InsertImageDialog.tsx";
 

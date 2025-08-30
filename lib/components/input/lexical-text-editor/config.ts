@@ -13,7 +13,7 @@ import {LinkNode} from '@lexical/link';
 import {InitialConfigType} from "@lexical/react/LexicalComposer";
 import { HeadingNode } from '@lexical/rich-text'
 import {ListItemNode, ListNode} from '@lexical/list';
-import {ImageNode} from "./image/image-node/ImageNode.tsx";
+import {ImageNode} from "./plugins/images/image-node/ImageNode.tsx";
 
 export const config: InitialConfigType = {
     html: {

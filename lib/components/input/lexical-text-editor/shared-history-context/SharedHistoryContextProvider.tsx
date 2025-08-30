@@ -1,6 +1,6 @@
 import {type JSX, ReactNode, useMemo} from "react";
 import {createEmptyHistoryState} from "@lexical/react/LexicalHistoryPlugin";
-import {SharedHistoryContext} from "./SharedHistoryContext";
+import {SharedHistoryContext} from "./SharedHistoryContext.tsx";
 
 export const SharedHistoryContextProvider = ({
     children,

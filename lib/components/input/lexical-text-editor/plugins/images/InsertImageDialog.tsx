@@ -1,4 +1,4 @@
-import {ImagePayload} from "../../image/image-node/ImageNode.tsx";
+import {ImagePayload} from "./image-node/ImageNode.tsx";
 import {LexicalEditor} from "lexical";
 import {JSX, useEffect, useRef} from "react";
 import {INSERT_IMAGE_COMMAND} from "./INSERT_IMAGE_COMMAND.ts";
