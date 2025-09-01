@@ -12,14 +12,16 @@ import {MutableRefObject} from "react";
 import { Serializer, StatePlugin } from './plugins/StatePlugin.tsx';
 import { SharedHistoryContextProvider } from "./shared-history-context/SharedHistoryContextProvider.tsx";
 import {ImagesPlugin} from "./plugins/images/ImagesPlugin.tsx";
+import {ImageSelection} from "./plugins/toolbar/_components/ImageSelection.tsx";
 
 type Props = {
     title: string,
     initialValue?: string | null,
     serializerRef: MutableRefObject<Serializer | undefined>
+    imageSelection: ImageSelection
 }
 
-export const LexicalTextEditor = ({title, initialValue, serializerRef}: Props) => {
+export const LexicalTextEditor = ({title, initialValue, serializerRef, imageSelection}: Props) => {
     return (
         <div className="col-span-full 2xl:col-span-6 flex flex-col gap-4">
             <label className="block text-sm font-medium leading-6 text-gray-900">
@@ -29,7 +31,7 @@ export const LexicalTextEditor = ({title, initialValue, serializerRef}: Props) =
                 <LexicalComposer initialConfig={config}>
                     <SharedHistoryContextProvider>
                         <StatePlugin serializerRef={serializerRef} initialState={initialValue} />
-                        <ToolbarPlugin/>
+                        <ToolbarPlugin imageSelection={imageSelection}/>
                         <RichTextPlugin
                             contentEditable={<div><Input/></div>}
                             ErrorBoundary={LexicalErrorBoundary}

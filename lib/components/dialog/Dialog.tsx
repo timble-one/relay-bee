@@ -11,7 +11,7 @@ type Props = {
     children: ReactNode,
 }
 
-export default function Dialog({title, open, onClose, actionButtons, children}: Props) {
+export function Dialog({title, open, onClose, actionButtons, children}: Props) {
     useCloseOnEscape(open)
     return (
         <HeadlessUiDialog open={open} onClose={onClose} className="relative z-10">

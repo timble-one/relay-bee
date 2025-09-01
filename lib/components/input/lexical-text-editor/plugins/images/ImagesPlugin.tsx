@@ -24,8 +24,7 @@ import {
     $createImageNode,
     ImageNode,
 } from './image-node/ImageNode.tsx'
-import {INSERT_IMAGE_COMMAND} from "./INSERT_IMAGE_COMMAND.ts"
-import {InsertImagePayload} from "./InsertImageDialog.tsx";
+import {INSERT_IMAGE_COMMAND, InsertImagePayload} from "./INSERT_IMAGE_COMMAND.ts"
 
 export function ImagesPlugin({captionsEnabled}: {captionsEnabled?: boolean}): JSX.Element | null {
     const [editor] = useLexicalComposerContext()

@@ -1,13 +1,13 @@
 import {Button} from "./Button.tsx";
 import {clsx} from "clsx";
 import {LinkIcon} from "@heroicons/react/20/solid";
-import {LinkEditorPlugin} from "../link-editor/LinkEditorPlugin.tsx";
+import {LinkEditorPlugin} from "../../link-editor/LinkEditorPlugin.tsx";
 import {autoUpdate, offset, useFloating, arrow, FloatingArrow} from "@floating-ui/react";
 import {useCallback, useEffect, useRef, useState} from "react";
 import {TOGGLE_LINK_COMMAND} from '@lexical/link';
-import {sanitizeUrl} from "../../utils/url.ts";
+import {sanitizeUrl} from "../../../utils/url.ts";
 import {$getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, SELECTION_CHANGE_COMMAND} from "lexical";
-import {getSelectedNode} from "../../utils/getSelectedNode.ts";
+import {getSelectedNode} from "../../../utils/getSelectedNode.ts";
 import {$isLinkNode} from '@lexical/link';
 import {mergeRegister} from "@lexical/utils";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";

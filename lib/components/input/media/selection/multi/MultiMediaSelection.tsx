@@ -23,7 +23,7 @@ import {
 } from "@dnd-kit/sortable";
 import TooltipIcon from "../../../../icon/TooltipIcon.tsx";
 import {nameToId, notEmpty} from "../../../../../util/util.ts";
-import Dialog from "../../../../dialog/Dialog.tsx";
+import {Dialog} from "../../../../dialog/Dialog.tsx";
 import {SortableMedia} from "./SortableMedia.tsx";
 import {SecondaryButton} from "../../../button/SecondaryButton.ts";
 import clsx from "clsx";

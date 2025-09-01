@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {OperationType} from "relay-runtime";
 import {UploadMutation} from "../MediaUploader.tsx";
-import Dialog from "../../../dialog/Dialog.tsx";
+import {Dialog} from "../../../dialog/Dialog.tsx";
 import {nameToId} from "../../../../util/util.ts";
 import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
