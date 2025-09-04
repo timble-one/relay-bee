@@ -1,4 +1,8 @@
 .inserted-html {
+    p {
+        @apply py-1.5;
+    }
+
     .editor-text-underline {
         @apply underline;
     }
