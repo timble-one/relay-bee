@@ -10,15 +10,19 @@ import {
     SELECTION_CHANGE_COMMAND
 } from "lexical";
 import {Dispatch, type JSX, useEffect, useState} from "react";
-import {getSelectedNode} from "../../../utils/getSelectedNode.ts";
+import {getSelectedNode} from "../../utils/getSelectedNode.ts";
 import {$findMatchingParent, mergeRegister} from '@lexical/utils';
 import {LinkManager} from "./link-manager/LinkManager.tsx";
 
-export const useLinkEditorToolbar = (
+type Props = {
     editor: LexicalEditor,
     isLinkEditMode: boolean,
     setIsLinkEditMode: Dispatch<boolean>,
     onChangeVisibility: Dispatch<boolean>,
+}
+
+export const LinkEditor = (
+    {editor, isLinkEditMode, setIsLinkEditMode, onChangeVisibility}: Props
 ): JSX.Element | null => {
     const [activeEditor, setActiveEditor] = useState(editor);
     const [isLink, setIsLink] = useState(false);

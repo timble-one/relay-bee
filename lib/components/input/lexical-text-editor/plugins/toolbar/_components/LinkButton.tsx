@@ -1,7 +1,7 @@
 import {Button} from "./Button.tsx";
 import {clsx} from "clsx";
 import {LinkIcon} from "@heroicons/react/20/solid";
-import {LinkEditorPlugin} from "../../link-editor/LinkEditorPlugin.tsx";
+import {LinkEditor} from "../../link-editor/LinkEditor.tsx";
 import {autoUpdate, offset, useFloating, arrow, FloatingArrow} from "@floating-ui/react";
 import {useCallback, useEffect, useRef, useState} from "react";
 import {TOGGLE_LINK_COMMAND} from '@lexical/link';
@@ -25,9 +25,9 @@ export const LinkButton = ({iconClassName}: Props) => {
 
     const {refs, floatingStyles, context} = useFloating({
         whileElementsMounted: autoUpdate,
-        placement: 'top',
+        placement: 'top-end',
         middleware: [
-            offset(10),
+            offset({mainAxis: 10, crossAxis: 50}),
             arrow({element: arrowRef}),
         ],
     })
@@ -86,7 +86,8 @@ export const LinkButton = ({iconClassName}: Props) => {
             </div>
             <div ref={refs.setFloating} style={floatingStyles}>
                 <FloatingArrow ref={arrowRef} context={context} className={clsx(editorVisible || 'hidden')}/>
-                <LinkEditorPlugin
+                <LinkEditor
+                    editor={editor}
                     isLinkEditMode={isLinkEditMode}
                     setIsLinkEditMode={setIsLinkEditMode}
                     onChangeVisibility={v => setEditorVisible(v)}

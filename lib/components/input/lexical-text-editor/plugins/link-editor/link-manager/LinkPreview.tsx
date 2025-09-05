@@ -1,4 +1,4 @@
-import {sanitizeUrl} from "../../../../utils/url.ts";
+import {sanitizeUrl} from "../../../utils/url.ts";
 import {Button} from "./Buttons.tsx";
 import {PencilIcon, TrashIcon} from "@heroicons/react/24/solid";
 import {KeyboardEvent, MouseEvent} from "react";

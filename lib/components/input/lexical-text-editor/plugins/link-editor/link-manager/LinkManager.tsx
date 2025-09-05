@@ -14,9 +14,9 @@ import {
     SELECTION_CHANGE_COMMAND
 } from "lexical";
 import {Dispatch, type JSX, useCallback, useEffect, useRef, useState} from "react";
-import {getSelectedNode} from "../../../../utils/getSelectedNode.ts";
+import {getSelectedNode} from "../../../utils/getSelectedNode.ts";
 import * as React from "react";
-import {sanitizeUrl} from "../../../../utils/url.ts";
+import {sanitizeUrl} from "../../../utils/url.ts";
 import {LinkEditor} from "./LinkEditor.tsx";
 import {LinkPreview} from "./LinkPreview.tsx";
 import {clsx} from 'clsx';
