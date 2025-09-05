@@ -33,7 +33,7 @@ export const LexicalTextEditor = ({title, initialValue, serializerRef, imageSele
                         <StatePlugin serializerRef={serializerRef} initialState={initialValue} />
                         <ToolbarPlugin imageSelection={imageSelection}/>
                         <RichTextPlugin
-                            contentEditable={<div><Input/></div>}
+                            contentEditable={<Input/>}
                             ErrorBoundary={LexicalErrorBoundary}
                         />
                         <HistoryPlugin />
@@ -50,7 +50,8 @@ const Input = () => {
     return (
         <ContentEditable
             className={clsx(
-                'inserted-html px-3 py-1.5 block w-full min-h-16',
+                'inserted-html px-3 py-1.5 block w-full',
+                'h-[600px] overflow-y-scroll',
                 'rounded-md border-0   shadow-sm',
                 'ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600',
                 'sm:text-sm sm:leading-6 text-gray-900 placeholder:text-gray-400',
