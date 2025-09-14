@@ -8,9 +8,12 @@ import tailwindcss from "tailwindcss";
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, "./lib/index.ts"),
+      entry: {
+          index: resolve(__dirname, "./lib/index.ts"),
+          'components/index': resolve(__dirname, "./lib/components/index.ts"),
+          'util/index': resolve(__dirname, "./lib/util/index.ts"),
+      },
       name: "relay-bee",
-      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       external: ["react", "react-dom", "tailwindcss"],
@@ -25,7 +28,10 @@ export default defineConfig({
     sourcemap: true,
     emptyOutDir: true,
   },
-  plugins: [react(), dts({ rollupTypes: true })],
+  plugins: [
+      react(),
+      dts({rollupTypes: true})
+  ],
   css: {
     postcss: {
       plugins: [tailwindcss],
