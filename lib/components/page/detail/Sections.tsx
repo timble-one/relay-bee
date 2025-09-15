@@ -1,33 +1,33 @@
-import {ReactNode} from "react";
 import clsx from "clsx";
+import {HTMLProps} from "react";
 
 const classes = 'grid grid-cols-12 gap-x-6 gap-y-8 p-8 shadow rounded-md border-gray-200 border'
 
-export const WideSection = ({children}: {children: ReactNode}) => {
+export const WideSection = (props: HTMLProps<HTMLDivElement>) => {
     return (
-        <section className="col-span-full">
+        <section {...props} className={clsx('col-span-full', props.className)}>
             <div className={classes}>
-                {children}
+                {props.children}
             </div>
         </section>
     )
 }
 
-export const CompactSection = ({children}: { children: ReactNode }) => {
+export const CompactSection = (props: HTMLProps<HTMLDivElement>) => {
     return (
-        <section className="col-span-full xl:col-span-6">
+        <section {...props} className={clsx('col-span-full xl:col-span-6', props.className)}>
             <div className={clsx(classes, 'xl:grid-cols-6')}>
-                {children}
+                {props.children}
             </div>
         </section>
     )
 }
 
-export const HybridSection = ({children}: {children: ReactNode}) => {
+export const HybridSection = (props: HTMLProps<HTMLDivElement>) => {
     return (
-        <section className="col-span-full 2xl:col-span-6">
+        <section {...props} className={clsx('col-span-full 2xl:col-span-6', props.className)}>
             <div className={clsx(classes, '2xl:grid-cols-6')}>
-                {children}
+                {props.children}
             </div>
         </section>
     )
