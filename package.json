@@ -1,19 +1,17 @@
 {
   "name": "relay-bee",
-  "version": "0.6.4",
+  "version": "0.7.0",
   "type": "module",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js",
+      "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./components/*": "./dist/components/*.js",
+    "./utils/*": "./dist/utils/*.js",
     "./dist/style.css": "./dist/style.css"
   },
   "scripts": {
@@ -62,7 +60,6 @@
     "@lexical/html": "^0.33.1",
     "@lexical/react": "^0.33.1",
     "lexical": "^0.33.1",
-    "quill": "^2.0.3",
     "tssentials": "^1.0.6"
   }
 }

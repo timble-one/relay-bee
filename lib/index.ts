@@ -84,8 +84,7 @@ export {SingleMediaSelection} from "./components/input/media/selection/SingleMed
 export {MultiMediaSelection} from "./components/input/media/selection/multi/MultiMediaSelection.tsx"
 // components/input/text-editor
 export {TextEditor} from "./components/input/text-editor/TextEditor.tsx"
-export {LexicalTextEditor} from "./components/input/lexical-text-editor/LexicalTextEditor.tsx"
-export type {Serializer as TextEditorSerializer} from "./components/input/lexical-text-editor/plugins/StatePlugin.tsx"
+export type {Serializer as TextEditorSerializer} from "./components/input/text-editor/plugins/StatePlugin.tsx"
 
 // components/alert
 export {AlertContextProvider} from "./components/alert/AlertContextProvider.tsx"

@@ -1,92 +1,61 @@
-import "quill/dist/quill.snow.css";
-import {useEffect, useLayoutEffect, useRef} from 'react';
-import Quill from 'quill/core';
-import Toolbar from "quill/modules/toolbar";
-import Snow from "quill/themes/snow";
-import Bold from "quill/formats/bold";
-import Italic from "quill/formats/italic";
-import Header from "quill/formats/header";
-import Link from "quill/formats/link";
-import List from "quill/formats/list";
-import Underline from "quill/formats/underline";
-import Strike from "quill/formats/strike";
-import {toolbarOptions} from "./Toolbar.ts";
-import "./text-editor.css";
-
-Quill.register({
-    'modules/toolbar': Toolbar,
-    'themes/snow': Snow,
-    'formats/bold': Bold,
-    'formats/italic': Italic,
-    'formats/header': Header,
-    'formats/link': Link,
-    'formats/underline': Underline,
-    'formats/list': List,
-    'formats/strike': Strike,
-})
+import {LexicalComposer} from '@lexical/react/LexicalComposer';
+import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
+import {ContentEditable} from '@lexical/react/LexicalContentEditable';
+import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
+import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
+import ToolbarPlugin from "./plugins/toolbar/ToolbarPlugin.tsx";
+import {config} from "./config.ts";
+import "./style.css";
+import {clsx} from "clsx";
+import {LinkPlugin} from "@lexical/react/LexicalLinkPlugin";
+import {MutableRefObject} from "react";
+import { Serializer, StatePlugin } from './plugins/StatePlugin.tsx';
+import { SharedHistoryContextProvider } from "./shared-history-context/SharedHistoryContextProvider.tsx";
+import {ImagesPlugin} from "./plugins/images/ImagesPlugin.tsx";
+import {ImageSelection} from "./plugins/toolbar/_components/ImageSelection.tsx";
 
 type Props = {
     title: string,
-    readOnly?: boolean,
-    defaultValue?: string,
-    onChange?: (value: string) => void
+    initialValue?: string | null,
+    serializerRef: MutableRefObject<Serializer | undefined>
+    imageSelection: ImageSelection
 }
 
-/**
- * @deprecated use LexicalTextEditor instead
- */
-export const TextEditor = ({title, readOnly, defaultValue, onChange}: Props) => {
-    const ref = useRef<Quill>()
-    const containerRef = useRef<HTMLDivElement>(null)
-    const defaultValueRef = useRef(defaultValue)
-    const onTextChangeRef = useRef(onChange)
-
-    useLayoutEffect(() => {
-        onTextChangeRef.current = onChange
-    })
-
-    useEffect(() => {
-        if (ref && typeof ref !== 'function') {
-            ref.current?.enable(!readOnly)
-        }
-    }, [ref, readOnly])
-
-    useEffect(() => {
-        if (ref && typeof ref !== 'function') {
-            const container = containerRef.current;
-            const editorContainer = container?.appendChild(
-                container.ownerDocument.createElement('div'),
-            );
-
-            const quill = editorContainer && new Quill(editorContainer, {
-                theme: 'snow', modules: {toolbar: toolbarOptions}
-            })
-
-            ref.current = quill
-
-            if (defaultValueRef.current) {
-                quill?.setContents(JSON.parse(defaultValueRef.current))
-            }
-
-            quill?.on(Quill.events.TEXT_CHANGE, () => {
-                onTextChangeRef.current?.(JSON.stringify(ref.current?.getContents()))
-            })
-
-            return () => {
-                ref.current = undefined;
-                if (container?.innerHTML) container.innerHTML = ''
-            }
-        }
-    }, [ref])
-
+export const TextEditor = ({title, initialValue, serializerRef, imageSelection}: Props) => {
     return (
-        <div className="col-span-full 2xl:col-span-6">
+        <div className="col-span-full 2xl:col-span-6 flex flex-col gap-4">
             <label className="block text-sm font-medium leading-6 text-gray-900">
                 {title}
             </label>
-            <div className="relative mt-2 rounded-md shadow-sm">
-                <div className="inserted-html" ref={containerRef}></div>
+            <div className="flex flex-col gap-2">
+                <LexicalComposer initialConfig={config}>
+                    <SharedHistoryContextProvider>
+                        <StatePlugin serializerRef={serializerRef} initialState={initialValue} />
+                        <ToolbarPlugin imageSelection={imageSelection}/>
+                        <RichTextPlugin
+                            contentEditable={<Input/>}
+                            ErrorBoundary={LexicalErrorBoundary}
+                        />
+                        <HistoryPlugin />
+                        <LinkPlugin />
+                        <ImagesPlugin />
+                    </SharedHistoryContextProvider>
+                </LexicalComposer>
             </div>
         </div>
+    )
+}
+
+const Input = () => {
+    return (
+        <ContentEditable
+            className={clsx(
+                'inserted-html px-3 py-1.5 block w-full',
+                'h-[600px] overflow-y-scroll',
+                'rounded-md border-0   shadow-sm',
+                'ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600',
+                'sm:text-sm sm:leading-6 text-gray-900 placeholder:text-gray-400',
+            )}
+        />
     )
 }
