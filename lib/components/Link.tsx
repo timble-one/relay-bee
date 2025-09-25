@@ -1,14 +1,28 @@
-import {useRoute} from "../util/router/util.ts";
-import {Link as FoundLink, LocationDescriptor} from "found"
+import {Link as FoundLink, LocationDescriptor} from "found";
 import {ReactNode} from "react";
+import {clsx} from "clsx";
+import {useRoute} from "../util/router/util.ts";
 
-type Props = {children: ReactNode, to: LocationDescriptor, className?: string}
-
-export const Link = ({children, to, className}: Props) => {
+export const Link = (props: {
+    to: LocationDescriptor,
+    children: ReactNode,
+    target?: string,
+    className?: string
+}) => {
     const route = useRoute()
-    return (
-        <FoundLink to={route(to)} className={className}>
-            {children}
-        </FoundLink>
-    )
+    const className = clsx('underline', props.className)
+    const url = route(props.to)
+    return props.target === '_blank'
+        ?
+            <a
+                className={className}
+                href={url.toString()}
+                target="_blank"
+            >
+                {props.children}
+            </a>
+        :
+            <FoundLink to={url} className={className}>
+                {props.children}
+            </FoundLink>
 }
