@@ -1,6 +1,5 @@
 import {Link as FoundLink, LocationDescriptor} from "found";
 import {ReactNode} from "react";
-import {clsx} from "clsx";
 import {useRoute} from "../util/router/util.ts";
 
 export const Link = (props: {
@@ -9,8 +8,8 @@ export const Link = (props: {
     target?: string,
     className?: string
 }) => {
+    const {className, children} = props
     const route = useRoute()
-    const className = clsx('underline', props.className)
     const url = route(props.to)
     return props.target === '_blank'
         ?
@@ -19,10 +18,10 @@ export const Link = (props: {
                 href={url.toString()}
                 target="_blank"
             >
-                {props.children}
+                {children}
             </a>
         :
             <FoundLink to={url} className={className}>
-                {props.children}
+                {children}
             </FoundLink>
 }
