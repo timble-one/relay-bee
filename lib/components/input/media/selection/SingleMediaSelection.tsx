@@ -11,6 +11,7 @@ import {
     MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog
 } from "./insertion-dialog/MediaInsertionDialog.tsx";
 import {useImagePath} from "../../../../util/usePath.ts";
+import {Link} from "../../../Link.tsx";
 
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     title: string,
@@ -63,12 +64,14 @@ export function SingleMediaSelection<
                      onClick={() => setOpen(true)}
                 >
                     {value?.contentUrl &&
-                      <div className="flex flex-col justify-center">
-                        <img
-                          src={imagePath(value.contentUrl, 200)} alt="image of act"
-                          className="max-h-32 max-w-32"
-                        />
-                      </div>
+                        <div className="flex flex-col justify-center">
+                            <Link to={imagePath(value.contentUrl)} target="_blank">
+                                <img
+                                  src={imagePath(value.contentUrl, 200)} alt="image of act"
+                                  className="max-h-32 max-w-32"
+                                />
+                            </Link>
+                        </div>
                     }
                     <button id={inputId} type="button"
                         className="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"

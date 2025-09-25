@@ -6,6 +6,7 @@ import {CircularButton} from "../../../button/CircularButton.ts";
 import clsx from "clsx";
 import {DragIcon} from "../../../../icon/DragIcon.tsx";
 import {useImagePath} from "../../../../../util/usePath.ts";
+import {Link} from "../../../../Link.tsx";
 
 type Props = {
     mediaObject: MediaObject
@@ -49,10 +50,12 @@ export function SortableMedia({mediaObject, onRemove}: Props) {
                     >
                         <XMarkIcon aria-hidden="true" className="size-5"/>
                     </button>
-                    <img
-                        src={imagePath(contentUrl, 200)} alt=""
-                        className="w-48 m-4 aspect-[3/2] rounded-2xl object-cover"
-                    />
+                    <Link to={imagePath(contentUrl)} target="_blank">
+                        <img
+                            src={imagePath(contentUrl, 200)} alt=""
+                            className="w-48 m-4 aspect-[3/2] rounded-2xl object-cover"
+                        />
+                    </Link>
               </div>
             }
         </div>
