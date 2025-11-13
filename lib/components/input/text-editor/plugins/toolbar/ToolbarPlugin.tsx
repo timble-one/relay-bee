@@ -5,7 +5,7 @@ import {LinkButton} from "./_components/LinkButton.tsx"
 import {ImageSelection} from "./_components/ImageSelection.tsx";
 import {HistoryButtons} from "./_components/HistoryButtons.tsx";
 
-export default function ToolbarPlugin({imageSelection}: {imageSelection: ImageSelection}) {
+export default function ToolbarPlugin({imageSelection}: {imageSelection?: ImageSelection}) {
     const toolbarRef = useRef(null)
     const iconClassName = 'size-5'
     return (
@@ -14,7 +14,7 @@ export default function ToolbarPlugin({imageSelection}: {imageSelection: ImageSe
             <BlockTypes />
             <TextFormats iconClassName={iconClassName}/>
             <LinkButton iconClassName={iconClassName}/>
-            <ImageSelection iconClassName={iconClassName} imageSelection={imageSelection}/>
+            {imageSelection && <ImageSelection iconClassName={iconClassName} imageSelection={imageSelection}/>}
         </div>
     )
 }

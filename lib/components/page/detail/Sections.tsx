@@ -1,7 +1,13 @@
 import clsx from "clsx";
-import {HTMLProps} from "react";
+import {HTMLProps, ReactNode} from "react";
 
 const classes = 'grid grid-cols-12 gap-x-6 gap-y-8 p-8 shadow rounded-md border-gray-200 border'
+
+export const SectionTitle = ({children}: {children: ReactNode}) => {
+    return (
+        <h3 className="text-base font-semibold text-gray-900 col-span-full">{children}</h3>
+    )
+}
 
 export const WideSection = (props: HTMLProps<HTMLDivElement>) => {
     return (

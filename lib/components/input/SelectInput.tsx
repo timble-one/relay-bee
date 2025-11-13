@@ -6,7 +6,7 @@ type Option<T> = {value: T, name: string}
 type Props<T> = {
     title: string,
     options: Option<T>[],
-    value?: string,
+    value?: string | null,
     onChange?: (newValue: T) => void,
     description?: string
     required?: boolean

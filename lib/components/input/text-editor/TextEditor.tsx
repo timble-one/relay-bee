@@ -18,7 +18,7 @@ type Props = {
     title: string,
     initialValue?: string | null,
     serializerRef: MutableRefObject<Serializer | undefined>
-    imageSelection: ImageSelection
+    imageSelection?: ImageSelection
 }
 
 export const TextEditor = ({title, initialValue, serializerRef, imageSelection}: Props) => {

@@ -1,5 +1,5 @@
 import {QuestionMarkCircleIcon} from "@heroicons/react/24/solid";
-import {arrow, FloatingArrow, offset, useFloating, useHover, useInteractions} from "@floating-ui/react";
+import {arrow, autoPlacement, FloatingArrow, offset, useFloating, useHover, useInteractions} from "@floating-ui/react";
 import {ReactNode, useRef, useState} from "react";
 
 type Props = {children: ReactNode, iconClasses?: string};
@@ -11,6 +11,7 @@ export default function TooltipIcon({children: text, iconClasses}: Props) {
         open: isOpen,
         onOpenChange: setIsOpen,
         middleware: [
+            autoPlacement(),
             offset(12),
             arrow({
                 element: arrowRef,

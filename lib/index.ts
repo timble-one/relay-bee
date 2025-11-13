@@ -38,6 +38,9 @@ export {Spinner} from "./components/icon/Spinner.tsx"
 // components/button
 export {CircularButton} from "./components/input/button/CircularButton.ts"
 export {SecondaryButton} from "./components/input/button/SecondaryButton.ts"
+// components/button/actions
+export {AddButton} from "./components/input/button/actions/AddButton.tsx"
+export {DeleteButton} from "./components/input/button/actions/DeleteButton.tsx"
 
 // components/util
 export {EndlessScrollContainer} from "./components/util/endless-scroll/EndlessScrollContainer.tsx"
@@ -68,7 +71,7 @@ export {useEntitySaver} from "./components/page/detail/useEntitySaver.ts"
 export {useNewEntityHandler} from "./components/page/detail/useNewEntityHandler.ts"
 export {useEntityState} from "./components/page/detail/useEntityState.ts"
 export {DetailPage} from "./components/page/detail/DetailPage.tsx"
-export {CompactSection, WideSection, HybridSection} from "./components/page/detail/Sections.tsx"
+export {CompactSection, WideSection, HybridSection, SectionTitle} from "./components/page/detail/Sections.tsx"
 
 // components/input
 export {DateTimeInput, DateInput} from "./components/input/DateTimeInput.tsx"
