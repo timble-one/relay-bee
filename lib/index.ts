@@ -4,7 +4,7 @@ export {HttpError} from "found"
 export type {EntityDescription} from "./EntityDescription.tsx"
 
 // -- util
-export {validateJSON, notEmpty} from "./util/util.ts"
+export {validateJSON, notEmpty, nameToId} from "./util/util.ts"
 export {useAuth} from "./util/useAuth.ts"
 export {typeGQL, untypeGQL} from "./util/typeGQL.ts"
 export {useBackendPath, useImagePath} from "./util/usePath.ts"
@@ -76,9 +76,9 @@ export {CompactSection, WideSection, HybridSection, SectionTitle} from "./compon
 // components/input
 export {DateTimeInput, DateInput} from "./components/input/DateTimeInput.tsx"
 export {NumberInput} from "./components/input/NumberInput.tsx"
-export {SelectInput} from "./components/input/SelectInput.tsx"
 export {TextInput} from "./components/input/TextInput.tsx"
 export {Toggle} from "./components/input/Toggle.tsx"
+export {InputLabel} from "./components/input/InputLabel.tsx"
 // components/input/media
 export type {SortedMediaObjectCursorConnection} from "./components/input/media/selection/multi/MultiMediaSelection.tsx"
 export type {MediaObject} from "./components/input/media/selection/insertion-dialog/MediaInsertionDialog.tsx"
@@ -88,6 +88,10 @@ export {MultiMediaSelection} from "./components/input/media/selection/multi/Mult
 // components/input/text-editor
 export {TextEditor} from "./components/input/text-editor/TextEditor.tsx"
 export type {Serializer as TextEditorSerializer} from "./components/input/text-editor/plugins/StatePlugin.tsx"
+// components/input/select
+export {SelectInput} from "./components/input/select/SelectInput.tsx"
+export {SelectField} from "./components/input/select/SelectField.tsx"
+export {SelectFieldInput} from "./components/input/select/SelectFieldInput.tsx"
 
 // components/alert
 export {AlertContextProvider} from "./components/alert/AlertContextProvider.tsx"

@@ -60,6 +60,7 @@
     "@lexical/html": "^0.33.1",
     "@lexical/react": "^0.33.1",
     "lexical": "^0.33.1",
+    "tailwind-merge": "^3.4.0",
     "tssentials": "^1.0.6"
   }
 }

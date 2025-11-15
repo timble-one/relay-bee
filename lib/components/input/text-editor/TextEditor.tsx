@@ -13,6 +13,7 @@ import { Serializer, StatePlugin } from './plugins/StatePlugin.tsx';
 import { SharedHistoryContextProvider } from "./shared-history-context/SharedHistoryContextProvider.tsx";
 import {ImagesPlugin} from "./plugins/images/ImagesPlugin.tsx";
 import {ImageSelection} from "./plugins/toolbar/_components/ImageSelection.tsx";
+import {InputLabel} from "../InputLabel.tsx";
 
 type Props = {
     title: string,
@@ -24,9 +25,7 @@ type Props = {
 export const TextEditor = ({title, initialValue, serializerRef, imageSelection}: Props) => {
     return (
         <div className="col-span-full 2xl:col-span-6 flex flex-col gap-4">
-            <label className="block text-sm font-medium leading-6 text-gray-900">
-                {title}
-            </label>
+            <InputLabel>{title}</InputLabel>
             <div className="flex flex-col gap-2">
                 <LexicalComposer initialConfig={config}>
                     <SharedHistoryContextProvider>

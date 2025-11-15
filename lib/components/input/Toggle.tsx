@@ -1,6 +1,7 @@
 import {Switch} from "@headlessui/react";
 import TooltipIcon from "../icon/TooltipIcon.tsx";
 import {nameToId} from "../../util/util.ts";
+import {InputLabel} from "./InputLabel.tsx";
 
 type Props = {
     title: string,
@@ -13,9 +14,7 @@ export function Toggle({title, value, onChange: onChange = () => undefined, desc
     const inputId = nameToId(title);
     return (
         <div className="col-span-4 xl:col-span-3 2xl:col-span-2 max-w-xs">
-            <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
-                {title}
-            </label>
+            <InputLabel inputId={inputId}>{title}</InputLabel>
             <div className="mt-2 flex flex-row gap-4 items-center h-9">
                 <Switch
                     checked={value ?? false}

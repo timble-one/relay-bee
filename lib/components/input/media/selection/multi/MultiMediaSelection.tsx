@@ -21,12 +21,12 @@ import {
     SortableContext,
     sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import TooltipIcon from "../../../../icon/TooltipIcon.tsx";
 import {nameToId, notEmpty} from "../../../../../util/util.ts";
 import {Dialog} from "../../../../dialog/Dialog.tsx";
 import {SortableMedia} from "./SortableMedia.tsx";
 import {SecondaryButton} from "../../../button/SecondaryButton.ts";
 import clsx from "clsx";
+import {InputLabel} from "../../../InputLabel.tsx";
 
 export type SortedMediaObjectCursorConnection = {
     edges: ReadonlyArray<{
@@ -117,16 +117,7 @@ export function MultiMediaSelection<
     return (
         <>
             <div className="col-span-full 2xl:col-span-6">
-                <div className="flex flex-row gap-2">
-                    <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
-                        {title}
-                    </label>
-                    {description &&
-                      <TooltipIcon>
-                          {description}
-                      </TooltipIcon>
-                    }
-                </div>
+                <InputLabel inputId={inputId} description={description}>{title}</InputLabel>
                 <div className="flex flex-col gap-2 items-start">
                     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                         <div className="flex flex-wrap">

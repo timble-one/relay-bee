@@ -5,13 +5,13 @@ import {Dialog} from "../../../dialog/Dialog.tsx";
 import {nameToId} from "../../../../util/util.ts";
 import {useAlerts} from "../../../alert/useAlerts.ts";
 import {useForm} from "../../form/useForm.ts";
-import TooltipIcon from "../../../icon/TooltipIcon.tsx";
 import {TypedGQL} from "../../../../util/typeGQL.ts";
 import {
     MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog
 } from "./insertion-dialog/MediaInsertionDialog.tsx";
 import {useImagePath} from "../../../../util/usePath.ts";
 import {Link} from "../../../Link.tsx";
+import {InputLabel} from "../../InputLabel.tsx";
 
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {
     title: string,
@@ -52,14 +52,7 @@ export function SingleMediaSelection<
     return (
         <>
             <div className="col-span-6 2xl:col-span-3 row-span-4">
-                <div className="flex flex-row gap-2">
-                    <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
-                        {title}
-                    </label>
-                    {description &&
-                        <TooltipIcon>{description}</TooltipIcon>
-                    }
-                </div>
+                <InputLabel inputId={inputId} description={description}>{title}</InputLabel>
                 <div className="flex flex-col gap-2 items-start"
                      onClick={() => setOpen(true)}
                 >

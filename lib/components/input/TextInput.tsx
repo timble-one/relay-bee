@@ -1,6 +1,7 @@
 import TooltipIcon from "../icon/TooltipIcon.tsx";
 import {nameToId} from "../../util/util.ts";
 import {HTMLInputTypeAttribute} from "react";
+import {InputLabel} from "./InputLabel.tsx";
 
 type Props = {
     title: string,
@@ -15,9 +16,7 @@ export function TextInput({title, value, onChange = () => undefined, description
     const inputId = nameToId(title);
     return (
         <div className="col-span-6 2xl:col-span-3">
-            <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
-                {title}
-            </label>
+            <InputLabel inputId={inputId}>{title}</InputLabel>
             <div className="relative mt-2 rounded-md shadow-sm">
                 <input
                     id={inputId}

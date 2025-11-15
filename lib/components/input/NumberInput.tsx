@@ -2,6 +2,7 @@ import React from "react";
 import TooltipIcon from "../icon/TooltipIcon.tsx";
 import {nameToId} from "../../util/util.ts";
 import clsx from "clsx";
+import {InputLabel} from "./InputLabel.tsx";
 
 type Props = {
     title: string,
@@ -23,9 +24,7 @@ export function NumberInput(
     const inputId = nameToId(title);
     return (
         <div className="flex flex-col gap-2 col-span-6 xl:col-span-3 2xl:col-span-2">
-            <label htmlFor={inputId} className="block text-sm font-medium leading-6 text-gray-900">
-                {title}
-            </label>
+            <InputLabel inputId={inputId} description={description}>{title}</InputLabel>
             <div className="flex gap-2 items-center">
                 <div className="relative rounded-md shadow-sm grow">
                     <input
