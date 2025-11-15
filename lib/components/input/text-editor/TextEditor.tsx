@@ -16,7 +16,7 @@ import {ImageSelection} from "./plugins/toolbar/_components/ImageSelection.tsx";
 import {InputLabel} from "../InputLabel.tsx";
 
 type Props = {
-    title: string,
+    title?: string,
     initialValue?: string | null,
     serializerRef: MutableRefObject<Serializer | undefined>
     imageSelection?: ImageSelection
@@ -25,7 +25,7 @@ type Props = {
 export const TextEditor = ({title, initialValue, serializerRef, imageSelection}: Props) => {
     return (
         <div className="col-span-full 2xl:col-span-6 flex flex-col gap-4">
-            <InputLabel>{title}</InputLabel>
+            {title && <InputLabel>{title}</InputLabel>}
             <div className="flex flex-col gap-2">
                 <LexicalComposer initialConfig={config}>
                     <SharedHistoryContextProvider>

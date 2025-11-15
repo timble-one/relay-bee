@@ -9,7 +9,7 @@ export default function ToolbarPlugin({imageSelection}: {imageSelection?: ImageS
     const toolbarRef = useRef(null)
     const iconClassName = 'size-5'
     return (
-        <div className="flex gap-4" ref={toolbarRef}>
+        <div className="flex flex-wrap gap-4" ref={toolbarRef}>
             <HistoryButtons iconClassName={iconClassName} />
             <BlockTypes />
             <TextFormats iconClassName={iconClassName}/>
