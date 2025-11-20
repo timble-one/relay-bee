@@ -3,12 +3,15 @@ import {Badge} from "./Badge.tsx";
 import {InputLabel} from "../../InputLabel.tsx";
 import {SelectFieldInput} from "../SelectFieldInput.tsx";
 import {nameToId} from "../../../../util/util.ts";
+import {Link} from "../../../Link.tsx";
+import {LocationDescriptor} from "found";
 
 type SelectProps<T extends string> = ComponentProps<typeof SelectFieldInput<T>>
+type Option<T extends string> = SelectProps<T>['options'][number] & {link: LocationDescriptor}
 
 type Props<T extends string> = {
     title: string
-    options: SelectProps<T>['options']
+    options: Option<T>[]
     selected: string[]
     onChange: (value: string[]) => void
 }
@@ -32,7 +35,9 @@ export const BadgeSelection = <T extends string>(props: Props<T>) => {
                         key={i}
                         onClickCross={() => onChange(selected.filter(r => o.value !== r))}
                     >
-                        {o.name}
+                        <Link to={o.link}>
+                            {o.name}
+                        </Link>
                     </Badge>
                 )}
             </div>
