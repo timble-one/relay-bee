@@ -31,7 +31,9 @@ export function AutoLoadTable<SORTING_ORDER extends GenericSortingCombination>(p
                     ({sort: f, sortingCombination: c})
             ))}>
                 <DeleteContext.Provider value={{deleteConfirmationId, setDeleteConfirmationId}}>
-                    <table className="min-w-full divide-y divide-gray-300">{props.children}</table>
+                    <table className="table-fixed w-full min-w-full divide-y divide-gray-300">
+                        {props.children}
+                    </table>
                 </DeleteContext.Provider>
             </SortingContext.Provider>
             <ScrollVisibilityTrigger
