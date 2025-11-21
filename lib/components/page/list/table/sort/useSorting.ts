@@ -6,7 +6,7 @@ import {OperationType} from "relay-runtime";
 import {KeyType} from "react-relay/relay-hooks/helpers";
 import {useSortingCombination} from "./useSortingCombination.ts";
 import {useRouter} from "../../../../../util/router/util.ts";
-import qs from 'qs';
+import {queryString} from "./queryString.ts";
 
 export type GenericSortingCombination = Record<string, string | null>
 export type SortFunction<T = GenericSortingCombination> = (column: keyof T) => (order: SortKey | undefined) => void
@@ -24,9 +24,13 @@ export function useSorting<T>(refetch: RefetchFnDynamic<OperationType, KeyType>)
         } else {
             delete newOrderCombination[column]
         }
-        const path = `/${window.location.pathname.split('/').pop() ?? ''}`
-        const query = `?${qs.stringify({order: newOrderCombination}, {encode: false})}`
-        router.replace(query ? `${path}?${query}` : path)
+        const path = window.location.pathname.split('/').pop() ?? ''
+        const query = queryString({order: newOrderCombination})
+        router.replace('/' + (
+            query
+                ? `${path}?${query}`
+                : path
+        ))
     }
 
     // The previous pathname must be compared because otherwise a refetch can be triggered on the previous pathname with
