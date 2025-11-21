@@ -4,12 +4,6 @@ export function notEmpty<TValue>(value: TValue | null | undefined): value is TVa
     return value !== null && value !== undefined;
 }
 
-export const transformObjectMap = <INPUT extends {[key: string]: INPUT[KEY]}, OUTPUT, KEY extends keyof INPUT>(
-    mapping: INPUT, transformer: (input: [string, INPUT[KEY]]) => [string, OUTPUT]
-): { [key: string]: OUTPUT } =>
-    Object.fromEntries(Object.entries(mapping).map(transformer))
-;
-
 export const nameToId = (name: string): string => name.toLowerCase()
     .replace(' ', '-')
     .replace('ä', 'ae')
