@@ -6,5 +6,7 @@ export const getDefaultListRoute = (entityDescription: EntityDescription) => {
     const path = entityDescription.handle
     const query = ifPresent(entityDescription.defaultSorting, order =>
         '?' + queryString({order}))
-    return '/' + path + query
+    return query
+        ? '/' + path + query
+        : '/' + path
 }
