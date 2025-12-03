@@ -30,7 +30,9 @@ export {useRouter, useRoute} from "./util/router/util.ts"
 export {LoadingIndicator} from "./components/LoadingIndicator.tsx"
 export {PromptLayout} from "./components/PromptLayout.tsx"
 export {LoginForm} from "./components/LoginForm.tsx"
-export {Link} from "./components/Link.tsx"
+// components/link
+export {Link} from "./components/link/Link.tsx"
+export {TextLink} from "./components/link/TextLink.tsx"
 
 // components/icon
 export {Spinner} from "./components/icon/Spinner.tsx"

@@ -12,7 +12,7 @@ import {MutationParameters} from "relay-runtime";
 import {useMutation} from "react-relay";
 import {getDefaultListRoute} from "../list/getDefaultListRoute.ts";
 import {useRouter} from "../../../util/router/util.ts";
-import {Link} from "../../Link.tsx";
+import {Link} from "../../link/Link.tsx";
 
 type Props<DELETE_MUTATION> = {
     children: ReactNode,

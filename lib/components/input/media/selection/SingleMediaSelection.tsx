@@ -10,7 +10,7 @@ import {
     MediaObject, MediaSelection_RefetchableFragment, MediaInsertionDialog
 } from "./insertion-dialog/MediaInsertionDialog.tsx";
 import {useImagePath} from "../../../../util/usePath.ts";
-import {Link} from "../../../Link.tsx";
+import {Link} from "../../../link/Link.tsx";
 import {InputLabel} from "../../InputLabel.tsx";
 
 type Props<QUERY, REFETCH_FRAGMENT, UPLOAD_MUTATION> = {

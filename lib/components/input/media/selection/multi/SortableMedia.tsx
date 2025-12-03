@@ -6,7 +6,7 @@ import {CircularButton} from "../../../button/CircularButton.ts";
 import clsx from "clsx";
 import {DragIcon} from "../../../../icon/DragIcon.tsx";
 import {useImagePath} from "../../../../../util/usePath.ts";
-import {Link} from "../../../../Link.tsx";
+import {Link} from "../../../../link/Link.tsx";
 
 type Props = {
     mediaObject: MediaObject

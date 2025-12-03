@@ -1,6 +1,6 @@
 import {Link as FoundLink, LocationDescriptor} from "found";
 import {ReactNode} from "react";
-import {useRoute} from "../util/router/util.ts";
+import {useRoute} from "../../util/router/util.ts";
 import {apply} from "tssentials";
 
 export const Link = (props: {

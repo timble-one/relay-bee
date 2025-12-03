@@ -3,7 +3,7 @@ import {Badge} from "./Badge.tsx";
 import {InputLabel} from "../../InputLabel.tsx";
 import {SelectFieldInput} from "../SelectFieldInput.tsx";
 import {nameToId} from "../../../../util/util.ts";
-import {Link} from "../../../Link.tsx";
+import {Link} from "../../../link/Link.tsx";
 import {LocationDescriptor} from "found";
 
 type SelectProps<T extends string> = ComponentProps<typeof SelectFieldInput<T>>
