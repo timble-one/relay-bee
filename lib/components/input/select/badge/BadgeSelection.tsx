@@ -7,7 +7,7 @@ import {Link} from "../../../link/Link.tsx";
 import {LocationDescriptor} from "found";
 
 type SelectProps<T extends string> = ComponentProps<typeof SelectFieldInput<T>>
-type Option<T extends string> = SelectProps<T>['options'][number] & {link: LocationDescriptor}
+type Option<T extends string> = SelectProps<T>['options'][number] & {link?: LocationDescriptor}
 
 type Props<T extends string> = {
     title: string
@@ -35,9 +35,10 @@ export const BadgeSelection = <T extends string>(props: Props<T>) => {
                         key={i}
                         onClickCross={() => onChange(selected.filter(r => o.value !== r))}
                     >
-                        <Link to={o.link}>
-                            {o.name}
-                        </Link>
+                        {o.link
+                            ? <Link to={o.link}>{o.name}</Link>
+                            : o.name
+                        }
                     </Badge>
                 )}
             </div>
