@@ -3,7 +3,7 @@ import {twMerge} from "tailwind-merge";
 
 type Props = {
     children: ReactNode
-    onClickCross: () => void
+    onClickCross?: () => void
 }
 
 export const Badge = (props: Props) => {

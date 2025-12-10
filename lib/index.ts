@@ -95,6 +95,7 @@ export {SelectInput} from "./components/input/select/SelectInput.tsx"
 export {SelectField} from "./components/input/select/SelectField.tsx"
 export {SelectFieldInput} from "./components/input/select/SelectFieldInput.tsx"
 export {BadgeSelection} from "./components/input/select/badge/BadgeSelection.tsx"
+export {Badge} from "./components/input/select/badge/Badge.tsx"
 
 // components/alert
 export {AlertContextProvider} from "./components/alert/AlertContextProvider.tsx"
