@@ -1,4 +1,4 @@
-import {removePropsRecursive, type RecursiveOmit} from "../../../../util/props.ts";
+import {RecursiveOmit, removePropsRecursive} from "../../../../../util/props"
 
 const relayProps = ['__id', '__fragmentOwner', '__fragments', ' $fragmentType'] as const
 
