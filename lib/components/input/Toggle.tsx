@@ -1,5 +1,5 @@
 import {Switch} from "@headlessui/react";
-import TooltipIcon from "../icon/TooltipIcon.tsx";
+import TooltipIcon from "../icon/tooltip-icon/TooltipIcon.tsx";
 import {nameToId} from "../../util/util.ts";
 import {InputLabel} from "./InputLabel.tsx";
 

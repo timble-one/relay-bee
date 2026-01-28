@@ -1,5 +1,5 @@
 import {ifPresent} from "tssentials";
-import TooltipIcon from "../icon/TooltipIcon.tsx";
+import TooltipIcon from "../icon/tooltip-icon/TooltipIcon.tsx";
 
 type Props = {
     children: string

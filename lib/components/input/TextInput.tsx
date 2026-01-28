@@ -1,4 +1,4 @@
-import TooltipIcon from "../icon/TooltipIcon.tsx";
+import TooltipIcon from "../icon/tooltip-icon/TooltipIcon.tsx";
 import {nameToId} from "../../util/util.ts";
 import {HTMLInputTypeAttribute} from "react";
 import {InputLabel} from "./InputLabel.tsx";

@@ -1,6 +1,6 @@
 import {nameToId} from "../../util/util.ts";
 import clsx from "clsx";
-import TooltipIcon from "../icon/TooltipIcon.tsx";
+import TooltipIcon from "../icon/tooltip-icon/TooltipIcon.tsx";
 import {InputLabel} from "./InputLabel.tsx";
 
 type Type = 'date' | 'datetime-local'
