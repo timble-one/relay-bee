@@ -4,7 +4,7 @@ import Spinner from "../../../icon/Spinner.tsx";
 import DeleteConfirmation from "../../../dialog/delete/DeleteConfirmation.tsx";
 import useDeleter, {DeleteListener} from "../../../util/useDeleter.ts";
 import {DeleteContext} from "../../../dialog/delete/DeleteContext.ts";
-import {GenericSortingCombination, SortFunction} from "./sort/useSorting.ts";
+import {GenericSortingCombination, SortFunction} from "./sort/useSorting/useSorting.ts";
 import {SortingContext} from "./sort/SortingContext.ts";
 import {SortingCombination} from "./sort/useSortingCombination.ts";
 import {ifPresent} from "tssentials";

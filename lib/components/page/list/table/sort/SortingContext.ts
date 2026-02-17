@@ -1,5 +1,5 @@
 import {createContext} from "react";
-import {SortFunction} from "./useSorting.ts";
+import {SortFunction} from "./useSorting/useSorting.ts";
 import {SortingCombination} from "./useSortingCombination.ts";
 
 type SortingContext = {

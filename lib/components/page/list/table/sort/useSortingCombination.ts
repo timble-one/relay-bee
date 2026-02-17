@@ -1,5 +1,5 @@
 import {SortKey, sortKeys} from "./SortKey.ts";
-import {GenericSortingCombination} from "./useSorting.ts";
+import {GenericSortingCombination} from "./useSorting/useSorting.ts";
 import {useRouter} from "../../../../../util/router/util.ts";
 import qs from "qs";
 
