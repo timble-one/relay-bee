@@ -1,6 +1,6 @@
 {
   "name": "relay-bee",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "type": "module",
   "files": [
     "dist"
@@ -12,7 +12,7 @@
     },
     "./components/*": "./dist/components/*.js",
     "./utils/*": "./dist/utils/*.js",
-    "./dist/style.css": "./dist/style.css"
+    "./dist/relay-bee.css": "./dist/relay-bee.css"
   },
   "scripts": {
     "dev": "vite",
