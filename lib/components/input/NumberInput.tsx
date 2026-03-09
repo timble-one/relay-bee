@@ -51,7 +51,7 @@ export function NumberInput(props: Props) {
                     }
                 </div>
                 {ifPresent(props.unit, u =>
-                    <label className="text-sm">{u}</label>)}
+                    <span className="text-sm">{u}</span>)}
             </div>
         </div>
     )
