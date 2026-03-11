@@ -13,6 +13,7 @@ type Props = {
     description?: string,
     required?: boolean,
     min?: number,
+    max?: number,
     step?: number,
     unit?: string,
 }
@@ -32,6 +33,7 @@ export function NumberInput(props: Props) {
                         id={inputId}
                         type="number"
                         min={props.min}
+                        max={props.max}
                         step={props.step}
                         value={props.value ?? ''}
                         onChange={onStringChange}
