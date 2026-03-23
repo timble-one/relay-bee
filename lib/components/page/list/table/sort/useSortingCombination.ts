@@ -7,9 +7,20 @@ export type SortingCombination<T = GenericSortingCombination> = Partial<Record<k
 
 export const useSortingCombination = <T>(): SortingCombination<T> => {
     const {match} = useRouter()
-    const orderParams = Array.from(Object.entries(qs.parse(match.location.query)['order'] ?? {}))
+
+    // Found parses location.query with query-string, which flattens nested keys like
+    // order[state]=ASC into { 'order[state]': 'ASC' } and can reorder them. Parsing the
+    // raw search string with qs preserves the original criterion order from the URL.
+    const orderParams =
+        Array.from(Object.entries(
+            qs.parse(
+                match.location.search,
+                {ignoreQueryPrefix: true}
+            )['order'] ?? {}
+        ))
         .filter(([, v]) => sortKeys.includes(v as SortKey))
         .map(([c, o]) => [c, o])
+
     return orderParams.length
         ? Object.fromEntries(orderParams)
         : {}
