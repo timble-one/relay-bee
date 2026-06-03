@@ -6,22 +6,26 @@ import {Link} from "../../link/Link.tsx";
 
 type Props = {
     entityDescription: EntityDescription<unknown>,
-    children: ReactNode
+    children: ReactNode,
+    actions?: ReactNode
 }
 
-export function ListPage({entityDescription, children}: Props) {
+export function ListPage({entityDescription, children, actions}: Props) {
     return (
         <>
             <div className="flex justify-between items-center">
                 <Breadcrumbs
                     pages={[{name: entityDescription.title.plural, href: getDefaultListRoute(entityDescription)}]}
                 />
-                <Link
-                    className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    to={`/${entityDescription.handle}/new`}
-                >
-                    {entityDescription.title.singular} hinzufügen
-                </Link>
+                <div className="flex items-center gap-2">
+                    <Link
+                        className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        to={`/${entityDescription.handle}/new`}
+                    >
+                        {entityDescription.title.singular} hinzufügen
+                    </Link>
+                    {actions}
+                </div>
             </div>
             <div className="mt-8 flow-root">
                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
