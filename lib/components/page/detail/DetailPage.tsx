@@ -16,6 +16,7 @@ import {Link} from "../../link/Link.tsx";
 
 type Props<DELETE_MUTATION> = {
     children: ReactNode,
+    actions?: ReactNode,
     entityDescription: EntityDescription<unknown>,
     objectName?: string,
     state: {id?: string},
@@ -24,7 +25,7 @@ type Props<DELETE_MUTATION> = {
 }
 
 export function DetailPage<DELETE_MUTATION extends MutationParameters & {variables: {id: string}}>(
-    {children, entityDescription, objectName, state, onSubmit, deleteMutation}: Props<DELETE_MUTATION>
+    {children, actions, entityDescription, objectName, state, onSubmit, deleteMutation}: Props<DELETE_MUTATION>
 ) {
     const [commitDelete] = useMutation<DELETE_MUTATION>(untypeGQL(deleteMutation))
     const {getDeleter} = useDeleter(entityDescription.title.singular, commitDelete)
@@ -51,6 +52,7 @@ export function DetailPage<DELETE_MUTATION extends MutationParameters & {variabl
                         </div>
                     </div>
                     <div className="flex items-center justify-end gap-x-6">
+                        {actions}
                         <button type="button" onClick={() => setDeleteConfirmationOpen(true)}>
                             <TrashIcon className="h-6 w-6"/>
                         </button>
